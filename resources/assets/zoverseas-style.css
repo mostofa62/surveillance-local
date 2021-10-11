@@ -1,0 +1,39 @@
+.breadcrumb li {
+    display: inline;
+    color: #ff7676 ;
+}
+.breadcrumb ul {
+    list-style-type: none;
+}
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    background: #ff7676;
+    border-color: #ff7676;
+}
+.list-group-item h5, .list-group-item h4 {
+    display: inline;
+}
+/* ----search field----- */
+.search-field .form-control, .print-btn .form-control{
+    display: inline;  
+    height: 32px;
+}
+.search-field .form-group{
+    margin: 0px;
+}
+.search-field .date_col {
+    display: none;
+}
+/* -----end search field------ */
+.panel-inverse .update-link {
+    transition: all 100ms ease-in-out;
+}
+.panel-inverse .update-link:hover {
+    text-decoration: underline ;
+    color: #2cabe3 !important;
+}
+input[type=checkbox]:focus, input[type=radio]:focus,.form-control:focus {
+    border-color: #ed0000;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(16, 37, 136, 0), 0 0 8px #ed0000;
+    box-shadow: inset 0 1px 1px rgba(16, 37, 136, 0), 0 0 8px #ed0000;
+}
