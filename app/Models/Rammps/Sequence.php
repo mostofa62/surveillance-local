@@ -38,8 +38,12 @@ trait Sequence {
             ],
             's_4_vac_possible'=>['s_4_vac_taken'],
             's_4_vac_taken'=>[
-                1=>['s_4_vac_which']              
+                1=>['s_4_vac_number'],
+                3=>['s_4_vac_number']
             ],
+            's_4_vac_number'=>['s_4_vac_which'],
+            's_4_vac_which'=>['s_4_vac_suggested'],
+            's_4_vac_suggested'=>['s_4_vac_ignorance_reason'],
 
 
         ];

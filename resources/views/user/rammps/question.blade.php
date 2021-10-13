@@ -22,6 +22,11 @@
     margin-left: 20%;
     margin-top: 0%;
 }
+
+.death_var{
+    border:2px solid #FF5733;
+    margin: auto 10px;
+}
 </style>
 
 
@@ -66,6 +71,7 @@
 <div class="wizard-content">
 <!--section 1-->
 <div class="wizard-pane active" role="tabpanel">
+<input type="hidden" name="rammps_id" value="{{ $rammps->id }}">
 
 <p>
 	<br/>
@@ -399,23 +405,119 @@
         <td>
             <div class="row">
                 <div class="col-md-6" >
+                    {{ @App\Models\Rammps::placeHolderText()['death_name']}}
+                    <br/>
                     {!! Form::text('cdeath[name][]',null,array(
                     'class' => 'form-control',
                     'data-name-format'=>"cdeath[name][%d]"
-                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['death_name']
+                   
 
                     )) !!}
                 </div>
                 <div class="col-md-3">
+                    {{ @App\Models\Rammps::placeHolderText()['relation_with']}}
+                    <br/>
                     {!! Form::select('cdeath[r_with_death][]',
                     [''=>'---Select an option---']+\App\Models\Rammps::getMainRelation(1),
                     null, array(
                     'class' => 'form-control select2',
                     'data-name-format'=>"cdeath[r_with_death][%d]"
-                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['relation_with']
+                    
+
+                    )) !!}
+
+                    {!! Form::text('cdeath[r_with_death_e][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[r_with_death_e][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
 
                     )) !!}
                     
+                </div>
+
+                <div class="col-md-3">
+                    {{ @App\Models\Rammps::placeHolderText()['death_gender']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'cdeath[g_of_covid][]',0,null, false,'data-name-format="cdeath[g_of_covid][%d]"') !!}
+
+
+                    
+                    
+                </div>
+
+                
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+        {{ @App\Models\Rammps::placeHolderText()['death_time']}}
+                </div>
+                <div class="col-md-3">
+
+                    {!! Form::text('cdeath[dyear][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[dyear][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['dyear']
+
+                    )) !!}
+
+                </div>
+
+                <div class="col-md-3">
+
+                    {!! Form::text('cdeath[dmonth][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[dmonth][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['dmonth']
+
+                    )) !!}
+
+                </div>
+
+                <div class="col-md-3">
+
+                    {!! Form::text('cdeath[dday][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[dday][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['dday']
+
+                    )) !!}
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_married']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'cdeath[death_married][]',0,null, false,'data-name-format="cdeath[death_married][%d]"') !!}
+
+
+                </div>
+
+                <div class="col-md-4">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_pregnant']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'cdeath[death_pregnant][]',0,null, false,'data-name-format="cdeath[death_pregnant][%d]"') !!}
+
+
+                </div>
+
+                <div class="col-md-4">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_on_birth']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'cdeath[death_on_birth][]',0,null, false,'data-name-format="cdeath[death_on_birth][%d]"') !!}
+
+
                 </div>
 
             </div> 
@@ -464,7 +566,7 @@
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_vac_taken']}}</label>
     <div class="col-xs-4">
     
-    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 's_4_vac_taken',0,$question->s_4_vac_taken, true) !!}
+    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 's_4_vac_taken',0,$question->s_4_vac_taken, true) !!}
     </div>
     <div class="col-md-4">
 
@@ -475,7 +577,7 @@
 <div class="form-group">
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_vac_number']}}</label>
     <div class="col-xs-4">
-    {!! Form::text('s_4_vac_number', Input::old('s_4_vac_number',isset($question->s_4_vac_number)?$question->s_4_vac_number:''),array('min'=>0,'id'=>'s_4_vac_number','class' => 'form-control','placeholder'=>@App\Models\Rammps::questionText()['s_4_vac_number'])) !!}
+    {!! Form::text('s_4_vac_number', Input::old('s_4_vac_number',isset($question->s_4_vac_number)?$question->s_4_vac_number:''),array('id'=>'s_4_vac_number','class' => 'form-control','placeholder'=>@App\Models\Rammps::questionText()['s_4_vac_number'])) !!}
 
     </div>
     <div class="col-md-4">
@@ -490,6 +592,38 @@
     <div class="col-xs-4">
     
     {!! Form::select('s_4_vac_which',[''=>'---select an options---']+\App\Models\Rammps::whichVaccine(),Input::old('s_4_vac_which',isset($question->s_4_vac_which)?$question->s_4_vac_which:''), array('id' => 's_4_vac_which', 'class' => 'form-control select2')) !!}
+    </div>
+    <div class="col-md-4">
+    
+
+
+    </div>
+</div>
+
+
+<div class="form-group">
+    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_vac_suggested']}}</label>
+    <div class="col-xs-4">
+    
+    {!! Form::select('s_4_vac_suggested',[''=>'---select an options---']+\App\Models\Rammps::whoSuggested(),Input::old('s_4_vac_suggested',isset($question->s_4_vac_suggested)?$question->s_4_vac_suggested:''), array('id' => 's_4_vac_suggested', 'class' => 'form-control select2')) !!}
+
+    {!! Form::text('s_4_vac_suggested_e', Input::old('s_4_vac_suggested_e',isset($question->s_4_vac_suggested_e)?$question->s_4_vac_suggested_e:''),array('id'=>'s_4_vac_suggested_e','class' => 'form-control','placeholder'=>@App\Models\Rammps::placeHolderText()['any_others'])) !!}
+    </div>
+    <div class="col-md-4">
+    
+
+
+    </div>
+</div>
+
+
+<div class="form-group">
+    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_vac_ignorance_reason']}}</label>
+    <div class="col-xs-4">
+    
+    {!! Form::select('s_4_vac_ignorance_reason',[''=>'---select an options---']+\App\Models\Rammps::ignoreReason(),Input::old('s_4_vac_ignorance_reason',isset($question->s_4_vac_ignorance_reason)?$question->s_4_vac_ignorance_reason:''), array('id' => 's_4_vac_ignorance_reason', 'class' => 'form-control select2')) !!}
+
+    {!! Form::text('s_4_vac_ignorance_reason_e', Input::old('s_4_vac_ignorance_reason_e',isset($question->s_4_vac_ignorance_reason_e)?$question->s_4_vac_ignorance_reason_e:''),array('id'=>'s_4_vac_ignorance_reason_e','class' => 'form-control','placeholder'=>@App\Models\Rammps::placeHolderText()['any_others'])) !!}
     </div>
     <div class="col-md-4">
     

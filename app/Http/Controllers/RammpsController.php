@@ -67,7 +67,7 @@ class RammpsController extends Controller{
 			if(!isset($question))
                 $question = new Question();
 
-            $death_data = $this->death_covid($request->input('cdeath'));
+            //$death_data = $this->death_covid($request->input('cdeath'));
             /*foreach ($request->input('cdeath') as $value) {
 
             	$death_data[]=array(
@@ -97,8 +97,8 @@ class RammpsController extends Controller{
             return array(
                 'success'=>true,
                 'message'=>'সফলভাবে সংরক্ষিত',
-                'death_data'=>$death_data,
-                //'request_data'=>$request->input('cdeath')
+                //'death_data'=>$death_data,
+                'request_data'=>$request->input('cdeath')
             );   
 
 

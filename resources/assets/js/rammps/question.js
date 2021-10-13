@@ -42,6 +42,8 @@
 })();
 
 
+
+
 function stepWizardInit(){
     //initiate form validation
     $('#validation').formValidation({
@@ -151,8 +153,12 @@ function checkChange(){
             data_submit(2);
            
     });*/
+
+    $('#exampleValidator').wizard('goTo', 2);
     
     var api = $('#exampleValidator').data('wizard');
+
+
 
     $('#exampleValidator').on('wizard::next', function (e) {
         //checkStepWiseActive(e);
@@ -188,8 +194,37 @@ function data_submit(submitted=0){
     });
 
     data['_token']=token;
+    saveOnLocalAndloadFromLocal(data['rammps_id'],JSON.stringify(data));
+    //storage = JSON.parse(getLocalItem(data['rammps_id']));
+    //console.log(storage);
 
-    /*console.log(data);*/
+
+
+    /*$.ajax({
+        cache: false,
+        method: "POST",
+        url: url,
+        data: data,
+    }).done(function( msg ) {
+        console.log(msg);*/
+
+        /*if(submitted){
+
+                    if(msg.success==true)
+                    window.location.href =  redirect;
+
+        }else{
+
+        }*/
+    /*});*/
+}
+
+ setInterval(postDataOnTime, 5000);
+
+function postDataOnTime(){
+    
+    id = $("[name='rammps_id']").val();
+    data = JSON.parse(getLocalItem(id));
 
     $.ajax({
         cache: false,
@@ -208,7 +243,22 @@ function data_submit(submitted=0){
 
         }*/
     });
-}   
+}
+
+function saveOnLocalAndloadFromLocal(id,data){
+
+
+
+    window.localStorage.setItem('data_'+id, data);
+
+} 
+
+function getLocalItem(id){
+
+    return window.localStorage.getItem('data_'+id);
+
+
+}  
 
 
 function initAllDomDisabled(last_input=null){
@@ -240,8 +290,13 @@ function initAllDomDisabled(last_input=null){
     e.removeAttr('disabled');
     e.parents('.form-group').removeAttr('style');
 
+    e = $("[name='s_3_khana_m']");
+    e.removeAttr('disabled');
+    e.parents('.form-group').removeAttr('style');
 
 
+     e = $("[name='rammps_id']");
+     e.removeAttr('disabled');
 
 }
 
@@ -258,6 +313,9 @@ function wizardIndexWiseChange(index, type){
     }else if(index == 3){
         removeBlockAndFollow('s_4_vac_possible');
         focusOnElement('s_4_vac_possible');
+
+        removeBlockAndFollow('s_3_add_death');
+        focusOnElement('s_3_add_death');
     } 
 
 }

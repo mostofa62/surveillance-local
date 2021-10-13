@@ -1,5 +1,4 @@
 function checkSkipLogicMVersion(el,type){
-    
 
     keyVal = SequenceArray[el.attr('name')];
     if( keyVal === undefined ) return;
@@ -78,8 +77,9 @@ function checkSkipLogicMVersion(el,type){
         }
 
     }else{
-        console.log("First Single Checks");
+        
         followNodes=keyVal[0];
+        console.log("First Single Checks"+followNodes);
         removeBlockAndFollow(followNodes);
         
     }
@@ -88,6 +88,8 @@ function checkSkipLogicMVersion(el,type){
 
 
 function removeBlockAndFollow(name){
+
+
     
     var e = $("[name='"+name+"']");
     e.removeAttr('disabled');    
@@ -142,4 +144,30 @@ function focusOnElement(name){
 }
 function ScrollToTop(el, callback) { 
     $('html, body').animate({ scrollTop: $(el).offset().top - 65 }, 'slow', callback);
+}
+
+
+function checkHasData(name, last_active_dropdown){
+    el=$("[name='"+name+"'");
+    
+    
+    if(el.is(":checked") && el.attr('type')=="radio" ){
+        //console.log(name+el.val());
+        removeBlockAndFollow(name);
+    }else if(el.attr('type')== undefined && el.val()!=""){
+        removeBlockAndFollow(name);
+        //name=e.attr('name');
+        //name=name;
+        //console.log("name:"+name+":"+$("[name^='"+name+"']").length);
+        
+        last_active_dropdown = name;
+        len = $("[name^='"+name+"']").length;
+        if(len > 1 && el.val() == 666){
+            removeBlockAndFollow(name+"_e");
+        }
+
+    }
+
+    return last_active_dropdown;
+
 }

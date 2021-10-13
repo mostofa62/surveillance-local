@@ -162,12 +162,7 @@ function initiateGeoInformation(){
         });
     });
 
-    $.getJSON( jar_url, function( data ) {
-        //upaziladata = JSON.parse(data);
-        $.each( data, function( key, val ) {
-            jar_data.push(val);
-        });
-    });
+    
     
 
     
