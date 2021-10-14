@@ -65,7 +65,7 @@ function tabularInput(){
         after_add: function () {
             //e = $("[name^='s_1_3_']");
             //e.removeAttr('disabled');
-            $("[name^='cdeath']").each(function (i, el) {
+            $("[name^='cdeath\[name']").each(function (i, el) {
                 //console.log(el);
                 $(this).removeAttr('disabled');
             });
@@ -73,11 +73,15 @@ function tabularInput(){
             $('.death_del').removeAttr('disabled');
         }
 
+    }).on('change', 'input',function(){
+        console.log($(this).attr('name'));
+        checkSkipLogicForTabuler($(this));
     });
 
 }
 
 function checkChange(){
+
 
 
     $('#validation  input').on('click', function(){ // on change of state
@@ -87,7 +91,7 @@ function checkChange(){
             //name = marialstatusWiseSkipLogic($(this));
             
             //if(name == ""){ 
-                console.log("name:"+name);           
+                //console.log("name:"+name);           
                 checkSkipLogicMVersion($(this));
                 //31-8-2020
                 //checkAgeJarLimit($(this));
@@ -105,7 +109,7 @@ function checkChange(){
         //name = checkAgeJarLimit($(this));
             
         //if(name == ""){   
-            console.log("name:"+name);          
+            //console.log("name:"+name);          
             checkSkipLogicMVersion($(this),1);
         //}
     });
@@ -121,7 +125,7 @@ function checkChange(){
             //name = marialstatusWiseSkipLogic($(this));
             //name = checkAgeJarLimit($(this));
             //if(name == ""){   
-                console.log("name:"+name);          
+                //console.log("name:"+name);          
                 checkSkipLogicMVersion($(this),1);
             //}
 
@@ -137,7 +141,7 @@ function checkChange(){
             //name = checkAgeJarLimit($(this));
             
             //if(name == ""){ 
-                console.log("name:"+name);           
+                //console.log("name:"+name);           
                 checkSkipLogicMVersion($(this));
             //}
     });
@@ -219,7 +223,7 @@ function data_submit(submitted=0){
     /*});*/
 }
 
- setInterval(postDataOnTime, 5000);
+//setInterval(postDataOnTime, 5000);
 
 function postDataOnTime(){
     

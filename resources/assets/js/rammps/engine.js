@@ -1,3 +1,7 @@
+function checkSkipLogicForTabuler(el, type){
+    console.log(el);
+}
+
 function checkSkipLogicMVersion(el,type){
 
     keyVal = SequenceArray[el.attr('name')];

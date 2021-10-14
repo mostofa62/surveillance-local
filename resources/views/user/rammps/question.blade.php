@@ -27,6 +27,11 @@
     border:2px solid #FF5733;
     margin: auto 10px;
 }
+
+.spacer{
+    margin:10px auto;
+    border: 1px solid #999666;
+}
 </style>
 
 
@@ -403,7 +408,7 @@
     </tr>
     <tr class="death_var">
         <td>
-            <div class="row">
+            <div class="row spacer">
                 <div class="col-md-6" >
                     {{ @App\Models\Rammps::placeHolderText()['death_name']}}
                     <br/>
@@ -450,7 +455,7 @@
 
             </div>
 
-            <div class="row">
+            <div class="row spacer">
                 <div class="col-md-3">
         {{ @App\Models\Rammps::placeHolderText()['death_time']}}
                 </div>
@@ -489,8 +494,8 @@
 
             </div>
 
-            <div class="row">
-                <div class="col-md-4">
+            <div class="row spacer">
+                <div class="col-md-3">
 
                     {{ @App\Models\Rammps::placeHolderText()['death_married']}}
                     <br/>
@@ -500,7 +505,7 @@
 
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
 
                     {{ @App\Models\Rammps::placeHolderText()['death_pregnant']}}
                     <br/>
@@ -510,7 +515,7 @@
 
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
 
                     {{ @App\Models\Rammps::placeHolderText()['death_on_birth']}}
                     <br/>
@@ -520,7 +525,26 @@
 
                 </div>
 
-            </div> 
+                <div class="col-md-3">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_2m_birth']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'cdeath[death_2m_birth][]',0,null, false,'data-name-format="cdeath[death_2m_birth][%d]"') !!}
+
+                </div>
+
+            </div>
+
+            <div class="row spacer">
+                <div class="col-md-3">
+                  {{ @App\Models\Rammps::placeHolderText()['death_symptoms']}}  
+                </div>
+                
+            </div>
+
+
+            
             
         
 
