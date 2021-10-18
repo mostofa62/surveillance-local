@@ -73,8 +73,15 @@ function tabularInput(){
             $('.death_del').removeAttr('disabled');
         }
 
-    }).on('change', 'input',function(){
-        console.log($(this).attr('name'));
+    }).on('click', 'input',function(){
+        //console.log($(this).attr('name'));
+        checkSkipLogicForTabuler($(this));
+    })
+    .on('change', 'input',function(){
+        //console.log($(this).attr('name'));
+        checkSkipLogicForTabuler($(this));
+    }).on('change', 'select',function(){
+        //console.log($(this).attr('name'));
         checkSkipLogicForTabuler($(this));
     });
 
@@ -294,7 +301,7 @@ function initAllDomDisabled(last_input=null){
     e.removeAttr('disabled');
     e.parents('.form-group').removeAttr('style');
 
-    e = $("[name='s_3_khana_m']");
+    e = $("[name='s_3_until_2018']");
     e.removeAttr('disabled');
     e.parents('.form-group').removeAttr('style');
 

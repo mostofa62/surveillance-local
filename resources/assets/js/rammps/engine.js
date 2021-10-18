@@ -1,5 +1,162 @@
 function checkSkipLogicForTabuler(el, type){
-    console.log(el);
+
+    /* logic for internal issue */
+    //console.log(el);
+     root = el.attr('name');
+     index = root.match(/\d/);
+     nameblock = root.match(/(\w)+(\[)(\w)+\]/);
+
+    if(index == null || nameblock == null) return;
+     //console.log(parseInt(index[0]));
+     
+
+    value = null;
+    if(type > 0){
+        value = el.val();
+    }else{
+        value = el.filter(':checked').val();
+    }
+
+    //we will do some major boxign here 
+
+    skipVal = DecesionBasedForward[nameblock[0]];
+    if(skipVal !== undefined){
+        indexI  = value.toString();
+        //console.log("n "+  skipVal['1']);
+        if(skipVal[indexI] !== undefined){
+
+            previousCheckerArr = skipVal[indexI][0];
+            openOnPreAndCurrent = skipVal[indexI][1];
+
+            //console.log("n "+  previousCheckerArr);
+
+            openOn = false;
+
+            $.each( previousCheckerArr, function( key, val ) {
+                //console.log('key'+key+'val'+val);
+                //console.log("[name='"+key+'['+index[0]+']'+"']");
+                elm = $("[name='"+key+'['+index[0]+']'+"']");
+                v = elm.val();
+                if(elm.attr('type') == "radio" || elm.attr('type') == "checkbox"){
+                    v = elm.filter(':checked').val();
+                }
+                //v = parseInt(v);
+                ///val = parseInt(val);
+                //console.log('checked'+v);
+                //console.log($("[name='"+key+'['+index[0]+']'+"']").val());
+                openOn = v == val ? true:false;
+                //console.log(openOn);
+            });
+
+            if(openOn){
+                //console.log(openOn);
+                $.each( openOnPreAndCurrent, function( key, val ) {
+                    //console.log('key'+key+'val'+val);
+                    removeBlockAndFollow(val+'['+index[0]+']');
+                })
+            }
+        }
+        
+        return;
+    }
+    /*skipValLen = Object.keys(skipVal).length;
+    if(skipValLen > 1){
+        skipValueNode = skipVal[el.val()];
+
+        console.log("Node Values:"+skipValueNode);
+
+    }*/
+
+    //end we will do some major boxing here
+    /* end logic for internal issues */
+    
+
+    keyVal = TabluerSequenceArray[nameblock[0]];
+    len = Object.keys(keyVal).length;
+    console.log("Length:"+len+"Value:"+keyVal);
+
+    followNodes = null;
+    if( len > 1 ){
+
+        value = null;
+        if(type > 0){
+            value = el.val();
+        }else{
+            value = el.filter(':checked').val();
+        }
+
+        console.log("selected values:"+value);
+        valueNode = keyVal[value];
+        console.log("Checking for specific[node]"+valueNode+"[mainkeyval]"+keyVal);
+
+        if(valueNode === undefined){
+
+            if(keyVal[1001]!=null){
+                
+                if( Array.isArray(keyVal[1001]) ){
+                    
+                    for(i=0;i< keyVal[1001].length;i++){                
+                        removeBlockAndFollow(keyVal[1001][i]);
+                    }
+                }else{
+                    
+                    removeBlockAndFollow(keyVal[1001]);
+                }
+
+            }
+
+            
+            for(i=0;i< keyVal.length;i++){
+                console.log(keyVal[i]);
+                removeBlockAndFollow(keyVal[i]+'['+index[0]+']');
+            }
+
+        }else{  
+            if( !Array.isArray(valueNode) && !Array.isArray(keyVal) ){
+                console.log("single not Array:"+valueNode);                
+                removeBlockAndFollow(valueNode);
+                
+
+            }else if(!Array.isArray(valueNode) && Array.isArray(keyVal)){
+                //console.log("node:"+valueNode+"|array:"+keyVal);
+                
+                for(i=0;i< keyVal.length;i++){
+                    
+                    removeBlockAndFollow(keyVal[i]);
+                }
+            }
+            else{
+                console.log("array node or json:"+valueNode);
+                followNodes=valueNode[0];
+                step = parseInt(valueNode[1]);
+                console.log("Nodes "+followNodes+"step:"+step);
+                if(!isNaN(step)){
+                    removeBlockAndFollowChangeStep(followNodes, step);
+                    focusOnElement(followNodes);
+                    
+                }else{
+                    console.log("many array:"+valueNode);
+                    
+                    for(i=0;i< valueNode.length;i++){
+                        //console.log(keyVal[i]);
+                        removeBlockAndFollow(valueNode[i]+'['+index[0]+']');
+                    }
+
+                }
+            }
+           
+        }
+
+
+    }else{
+        
+        followNodes=keyVal[0];
+        console.log("First Single Checks"+followNodes);
+        removeBlockAndFollow(followNodes+'['+index[0]+']');
+        
+    }    
+
+
 }
 
 function checkSkipLogicMVersion(el,type){

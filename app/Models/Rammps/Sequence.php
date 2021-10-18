@@ -4,6 +4,50 @@ namespace App\Models\Rammps;
 
 trait Sequence {
 
+
+    public static function gateTabulerSeq(){
+        return [
+            'cdeath[name]'=>['cdeath[r_with_death]'],
+            'cdeath[r_with_death]'=>['cdeath[g_of_covid]'],
+            'cdeath[g_of_covid]'=>[
+                1=>['cdeath[dyear]','cdeath[dmonth]','cdeath[dday]'],
+                3=>['cdeath[dyear]','cdeath[dmonth]','cdeath[dday]'],
+            ],
+
+            'cdeath[dyear]'=>['cdeath[death_married]'],
+            'cdeath[dmonth]'=>['cdeath[death_married]'],
+            'cdeath[dday]'=>['cdeath[death_married]'],
+
+
+            'cdeath[death_pregnant]'=>[
+                1=>['cdeath[death_on_birth]'],
+                3=>['cdeath[death_on_birth]'],
+            ],
+
+            'cdeath[death_on_birth]'=>[
+                1=>['cdeath[death_2m_birth]'],
+                3=>['cdeath[death_2m_birth]'],
+            ]
+
+            
+        ];
+    }
+
+
+    public static function decesion_based_forward(){
+
+        return[
+
+            'cdeath[death_married]'=>[
+                1=>[
+                    ['cdeath[g_of_covid]'=>3],
+                    ['cdeath[death_pregnant]'],
+                ]
+            ]
+
+        ];
+    }
+
 	public static function gateSequence(){
         return
         [

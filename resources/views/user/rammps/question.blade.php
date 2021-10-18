@@ -444,7 +444,7 @@
                     {{ @App\Models\Rammps::placeHolderText()['death_gender']}}
                     <br/>
 
-                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'cdeath[g_of_covid][]',0,null, false,'data-name-format="cdeath[g_of_covid][%d]"') !!}
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getGender(), 'cdeath[g_of_covid][]',0,null, false,'data-name-format="cdeath[g_of_covid][%d]"') !!}
 
 
                     
@@ -715,6 +715,21 @@
         	@php
 
                 echo json_encode(\App\Models\Rammps::gateSequence())
+            @endphp
+            ;
+
+
+        var TabluerSequenceArray =
+            @php
+
+                echo json_encode(\App\Models\Rammps::gateTabulerSeq())
+            @endphp
+            ;
+
+        var DecesionBasedForward = 
+        @php
+
+                echo json_encode(\App\Models\Rammps::decesion_based_forward())
             @endphp
             ;
 
