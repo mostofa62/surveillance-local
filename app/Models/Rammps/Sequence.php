@@ -42,8 +42,19 @@ trait Sequence {
                 1=>[
                     ['cdeath[g_of_covid]'=>3],
                     ['cdeath[death_pregnant]'],
-                ]
-            ]
+                ],
+                3=>[
+                    ['cdeath[g_of_covid]'=>[1,3]],
+                    [
+                        'cdeath[death_symptoms_1]',
+                        'cdeath[death_symptoms_2]',
+                        'cdeath[death_symptoms_3]', 
+                        'cdeath[death_symptoms_4]'
+                    ],
+                ],
+            ],
+
+
 
         ];
     }

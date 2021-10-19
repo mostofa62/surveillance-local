@@ -537,8 +537,197 @@
             </div>
 
             <div class="row spacer">
-                <div class="col-md-3">
+                <div class="col-md-12">
                   {{ @App\Models\Rammps::placeHolderText()['death_symptoms']}}  
+                </div>
+
+                <div class="col-md-3">
+                    
+                    {!! Form::select('cdeath[death_symptoms_1][]',
+                    [''=>'---Select an option---']+\App\Models\Rammps::death_symptoms(),
+                    null, array(
+                    'class' => 'form-control select2',
+                    'data-name-format'=>"cdeath[death_symptoms_1][%d]"                    
+
+                    )) !!}
+
+                    {!! Form::text('cdeath[death_symptoms_1_e][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[death_symptoms_1_e][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+                    )) !!}                    
+                    
+                </div>
+
+                <div class="col-md-3">
+                    
+                    {!! Form::select('cdeath[death_symptoms_2][]',
+                    [''=>'---Select an option---']+\App\Models\Rammps::death_symptoms(),
+                    null, array(
+                    'class' => 'form-control select2',
+                    'data-name-format'=>"cdeath[death_symptoms_2][%d]"                    
+
+                    )) !!}
+
+                    {!! Form::text('cdeath[death_symptoms_2_e][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[death_symptoms_2_e][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+                    )) !!}                    
+                    
+                </div>
+
+                <div class="col-md-3">
+                    
+                    {!! Form::select('cdeath[death_symptoms_3][]',
+                    [''=>'---Select an option---']+\App\Models\Rammps::death_symptoms(),
+                    null, array(
+                    'class' => 'form-control select2',
+                    'data-name-format'=>"cdeath[death_symptoms_3][%d]"                    
+
+                    )) !!}
+
+                    {!! Form::text('cdeath[death_symptoms_3_e][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[death_symptoms_3_e][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+                    )) !!}                    
+                    
+                </div>
+
+                <div class="col-md-3">
+                    
+                    {!! Form::select('cdeath[death_symptoms_4][]',
+                    [''=>'---Select an option---']+\App\Models\Rammps::death_symptoms(),
+                    null, array(
+                    'class' => 'form-control select2',
+                    'data-name-format'=>"cdeath[death_symptoms_4][%d]"                    
+
+                    )) !!}
+
+                    {!! Form::text('cdeath[death_symptoms_4_e][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[death_symptoms_4_e][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+                    )) !!}                    
+                    
+                </div>
+                
+            </div>
+
+
+            <div class="row spacer">
+                <div class="col-md-12">
+                  {{ @App\Models\Rammps::placeHolderText()['death_location']}}  
+                </div>
+
+                <div class="col-md-6">
+                    
+                    {!! Form::select('cdeath[death_location][]',
+                    [''=>'---Select an option---']+\App\Models\Rammps::death_where(),
+                    null, array(
+                    'class' => 'form-control select2',
+                    'data-name-format'=>"cdeath[death_location][%d]"                    
+
+                    )) !!}
+
+                    {!! Form::text('cdeath[death_location_e][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[death_location_e][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+                    )) !!}                    
+                    
+                </div>
+
+            </div>
+
+
+
+
+            <div class="row spacer">
+                <div class="col-md-12">
+                  {{ @App\Models\Rammps::placeHolderText()['death_reason']}}  
+                </div>
+
+                <div class="col-md-3">
+                    
+                    {!! Form::select('cdeath[death_reason_1][]',
+                    [''=>'---Select an option---']+\App\Models\Rammps::death_reason(),
+                    null, array(
+                    'class' => 'form-control select2',
+                    'data-name-format'=>"cdeath[death_reason_1][%d]"                    
+
+                    )) !!}
+
+                    {!! Form::text('cdeath[death_reason_1_e][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[death_reason_1_e][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+                    )) !!}                    
+                    
+                </div>
+
+                <div class="col-md-3">
+                    
+                    {!! Form::select('cdeath[death_reason_2][]',
+                    [''=>'---Select an option---']+\App\Models\Rammps::death_reason(),
+                    null, array(
+                    'class' => 'form-control select2',
+                    'data-name-format'=>"cdeath[death_reason_2][%d]"                    
+
+                    )) !!}
+
+                    {!! Form::text('cdeath[death_reason_2_e][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[death_reason_2_e][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+                    )) !!}                    
+                    
+                </div>
+
+                <div class="col-md-3">
+                    
+                    {!! Form::select('cdeath[death_reason_3][]',
+                    [''=>'---Select an option---']+\App\Models\Rammps::death_reason(),
+                    null, array(
+                    'class' => 'form-control select2',
+                    'data-name-format'=>"cdeath[death_reason_3][%d]"                    
+
+                    )) !!}
+
+                    {!! Form::text('cdeath[death_reason_3_e][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[death_reason_3_e][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+                    )) !!}                    
+                    
+                </div>
+
+                <div class="col-md-3">
+                    
+                    {!! Form::select('cdeath[death_reason_4][]',
+                    [''=>'---Select an option---']+\App\Models\Rammps::death_reason(),
+                    null, array(
+                    'class' => 'form-control select2',
+                    'data-name-format'=>"cdeath[death_reason_4][%d]"                    
+
+                    )) !!}
+
+                    {!! Form::text('cdeath[death_reason_4_e][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[death_reason_4_e][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+                    )) !!}                    
+                    
                 </div>
                 
             </div>

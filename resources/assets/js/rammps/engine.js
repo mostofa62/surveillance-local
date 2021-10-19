@@ -40,11 +40,17 @@ function checkSkipLogicForTabuler(el, type){
                 if(elm.attr('type') == "radio" || elm.attr('type') == "checkbox"){
                     v = elm.filter(':checked').val();
                 }
+
+                if(Object.keys(val).length > 1 && $.inArray(v,val)){
+                    openOn = true;
+                }
                 //v = parseInt(v);
                 ///val = parseInt(val);
                 //console.log('checked'+v);
                 //console.log($("[name='"+key+'['+index[0]+']'+"']").val());
-                openOn = v == val ? true:false;
+                else{
+                    openOn = v == val ? true:false;
+                }
                 //console.log(openOn);
             });
 
