@@ -3,11 +3,11 @@ function checkSkipLogicForTabuler(el, type){
     /* logic for internal issue */
     //console.log(el);
      root = el.attr('name');
-     index = root.match(/\d/);
+     index = root.match(/(\d+)(?!.*\d)/);
      nameblock = root.match(/(\w)+(\[)(\w)+\]/);
 
     if(index == null || nameblock == null) return;
-     //console.log(parseInt(index[0]));
+     console.log("index root"+parseInt(index[0]));
      
 
     value = null;
@@ -26,11 +26,36 @@ function checkSkipLogicForTabuler(el, type){
         if(skipVal[indexI] !== undefined){
 
             previousCheckerArr = skipVal[indexI][0];
-            openOnPreAndCurrent = skipVal[indexI][1];
+            //openOnPreAndCurrent = skipVal[indexI][1];
 
-            //console.log("n "+  previousCheckerArr);
+            //console.log("n "+  JSON.stringify(previousCheckerArr));
 
-            openOn = false;
+
+
+            $.each( previousCheckerArr, function( key, val ) {
+
+                elm = $("[name='"+key+'['+index[0]+']'+"']");
+                v = elm.val();
+                if(elm.attr('type') == "radio" || elm.attr('type') == "checkbox"){
+                    v = elm.filter(':checked').val();
+                }
+
+                openOnPreAndCurrent = val.hasOwnProperty(v)?val[v]:val[1001];
+
+                
+
+                if(openOnPreAndCurrent != null){
+                    $.each( openOnPreAndCurrent, function( key, val ) {
+                    //console.log('key'+key+'val'+val);
+                        removeBlockAndFollow(val+'['+index[0]+']');
+                    });
+                }
+
+            });
+
+
+            /*openOn = false;
+            
 
             $.each( previousCheckerArr, function( key, val ) {
                 //console.log('key'+key+'val'+val);
@@ -60,7 +85,7 @@ function checkSkipLogicForTabuler(el, type){
                     //console.log('key'+key+'val'+val);
                     removeBlockAndFollow(val+'['+index[0]+']');
                 })
-            }
+            }*/
         }
         
         return;
@@ -79,7 +104,9 @@ function checkSkipLogicForTabuler(el, type){
 
     keyVal = TabluerSequenceArray[nameblock[0]];
     len = Object.keys(keyVal).length;
-    console.log("Length:"+len+"Value:"+keyVal);
+    console.log("Length:"+len+"Value:"+JSON.stringify(keyVal));
+
+    console.log("index here"+index);
 
     followNodes = null;
     if( len > 1 ){
@@ -102,11 +129,11 @@ function checkSkipLogicForTabuler(el, type){
                 if( Array.isArray(keyVal[1001]) ){
                     
                     for(i=0;i< keyVal[1001].length;i++){                
-                        removeBlockAndFollow(keyVal[1001][i]);
+                        removeBlockAndFollow(keyVal[1001][i]+'['+index[0]+']');
                     }
                 }else{
                     
-                    removeBlockAndFollow(keyVal[1001]);
+                    removeBlockAndFollow(keyVal[1001]+'['+index[0]+']');
                 }
 
             }
@@ -119,8 +146,8 @@ function checkSkipLogicForTabuler(el, type){
 
         }else{  
             if( !Array.isArray(valueNode) && !Array.isArray(keyVal) ){
-                console.log("single not Array:"+valueNode);                
-                removeBlockAndFollow(valueNode);
+                console.log("single not Array:"+valueNode+'['+index[0]+']');                
+                removeBlockAndFollow(valueNode+'['+index[0]+']');
                 
 
             }else if(!Array.isArray(valueNode) && Array.isArray(keyVal)){
@@ -128,7 +155,7 @@ function checkSkipLogicForTabuler(el, type){
                 
                 for(i=0;i< keyVal.length;i++){
                     
-                    removeBlockAndFollow(keyVal[i]);
+                    removeBlockAndFollow(keyVal[i]+'['+index[0]+']');
                 }
             }
             else{
@@ -137,8 +164,8 @@ function checkSkipLogicForTabuler(el, type){
                 step = parseInt(valueNode[1]);
                 console.log("Nodes "+followNodes+"step:"+step);
                 if(!isNaN(step)){
-                    removeBlockAndFollowChangeStep(followNodes, step);
-                    focusOnElement(followNodes);
+                    removeBlockAndFollowChangeStep(followNodes+'['+index[0]+']', step);
+                    focusOnElement(followNodes+'['+index[0]+']');
                     
                 }else{
                     console.log("many array:"+valueNode);

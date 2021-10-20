@@ -12,12 +12,15 @@ trait Sequence {
             'cdeath[g_of_covid]'=>[
                 1=>['cdeath[dyear]','cdeath[dmonth]','cdeath[dday]'],
                 3=>['cdeath[dyear]','cdeath[dmonth]','cdeath[dday]'],
+                5=>['cdeath[dyear]','cdeath[dmonth]','cdeath[dday]'],
+                7=>['cdeath[dyear]','cdeath[dmonth]','cdeath[dday]'],
             ],
 
             'cdeath[dyear]'=>['cdeath[death_married]'],
             'cdeath[dmonth]'=>['cdeath[death_married]'],
             'cdeath[dday]'=>['cdeath[death_married]'],
 
+            //pregnent part comes from women gender
 
             'cdeath[death_pregnant]'=>[
                 1=>['cdeath[death_on_birth]'],
@@ -27,7 +30,25 @@ trait Sequence {
             'cdeath[death_on_birth]'=>[
                 1=>['cdeath[death_2m_birth]'],
                 3=>['cdeath[death_2m_birth]'],
-            ]
+            ],
+            'cdeath[death_2m_birth]'=>[
+                1=>'cdeath[death_symptoms_1]',
+                3=>'cdeath[death_symptoms_1]'
+            ],
+
+            //symptoms
+            'cdeath[death_symptoms_1]'=>['cdeath[death_location]'],
+            'cdeath[death_symptoms_2]'=>['cdeath[death_location]'],
+            'cdeath[death_symptoms_3]'=>['cdeath[death_location]'],
+            'cdeath[death_symptoms_4]'=>['cdeath[death_location]'],
+
+            'cdeath[death_location]'=>[
+                'cdeath[death_reason_1]',
+                'cdeath[death_reason_2]',
+                'cdeath[death_reason_3]',
+                'cdeath[death_reason_4]'
+            ],
+
 
             
         ];
@@ -40,17 +61,33 @@ trait Sequence {
 
             'cdeath[death_married]'=>[
                 1=>[
-                    ['cdeath[g_of_covid]'=>3],
-                    ['cdeath[death_pregnant]'],
+                    [
+                        'cdeath[g_of_covid]'=>[
+                            3=>['cdeath[death_pregnant]'],
+                            1001=>[
+                            'cdeath[death_symptoms_1]',
+                            'cdeath[death_symptoms_2]',
+                            'cdeath[death_symptoms_3]',
+                            'cdeath[death_symptoms_4]'
+                            ]
+                        ],
+
+                    ],
+                    
                 ],
                 3=>[
-                    ['cdeath[g_of_covid]'=>[1,3]],
                     [
-                        'cdeath[death_symptoms_1]',
-                        'cdeath[death_symptoms_2]',
-                        'cdeath[death_symptoms_3]', 
-                        'cdeath[death_symptoms_4]'
+                        'cdeath[g_of_covid]'=>[
+                            1001=>[
+                                'cdeath[death_symptoms_1]',
+                                'cdeath[death_symptoms_2]',
+                                'cdeath[death_symptoms_3]',
+                                'cdeath[death_symptoms_4]'
+                            ]
+                        ]
+
                     ],
+                    
                 ],
             ],
 
