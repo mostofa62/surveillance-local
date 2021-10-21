@@ -49,9 +49,57 @@ trait Sequence {
                 'cdeath[death_reason_4]'
             ],
 
+            'cdeath[death_reason_1]'=>['cdeath[death_detect_by]'],
+            'cdeath[death_reason_2]'=>['cdeath[death_detect_by]'],
+            'cdeath[death_reason_3]'=>['cdeath[death_detect_by]'],
+            'cdeath[death_reason_4]'=>['cdeath[death_detect_by]'],
+
+
+            'cdeath[death_detect_by]'=>['cdeath[death_covid_tested]'],
+
+            'cdeath[death_covid_tested]'=>[
+                1=>'cdeath[death_covid_result]',
+                3=>'cdeath[death_has_fever]',
+                88=>'cdeath[death_has_fever]'
+            ],
+            'cdeath[death_covid_result]'=>['cdeath[death_has_fever]'],
+
+            'cdeath[death_has_fever]'=>[
+                1=>'cdeath[death_fever_duration]',
+                3=>'cdeath[death_covid_sickness]',
+                88=>'cdeath[death_covid_sickness]'
+            ],
+
+            'cdeath[death_fever_duration]'=>['cdeath[death_covid_sickness]'],
+
+
+            'cdeath[death_covid_sickness]'=>['cdeath[death_has_cough]'],
+
+            'cdeath[death_has_cough]'=>['cdeath[death_has_taste]'],
+
+            'cdeath[death_has_taste]'=>['cdeath[death_has_breating]'],
+
+            'cdeath[death_has_breating]'=>['cdeath[death_has_contact]'],
+
+            'cdeath[death_has_contact]'=>['cdeath[death_was_covidarea]'],
+
 
             
         ];
+    }
+
+    public static function gateTabulerRevSeq(){
+
+        return [
+
+            'cdeath[death_covid_tested]'=>[               
+                3=>['cdeath[death_covid_result]'],
+                88=>['cdeath[death_covid_result]']
+            ],
+
+
+        ];
+
     }
 
 
@@ -144,6 +192,15 @@ trait Sequence {
 
     }
 
+    public static function gateReverseSequence(){
+        return [
+            's_3_until_2018'=>[
+                3=>['s_3_add_death']
+            ]
+        ];
+
+    }
+
 
     public static function stepWiseNode($index = null)
     {
@@ -206,6 +263,9 @@ trait Sequence {
 	    return $all;
 
   	}
+
+
+
 
 
 

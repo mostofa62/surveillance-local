@@ -7,7 +7,7 @@ function checkSkipLogicForTabuler(el, type){
      nameblock = root.match(/(\w)+(\[)(\w)+\]/);
 
     if(index == null || nameblock == null) return;
-     console.log("index root"+parseInt(index[0]));
+    console.log("index root"+parseInt(index[0]));
      
 
     value = null;
@@ -129,11 +129,11 @@ function checkSkipLogicForTabuler(el, type){
                 if( Array.isArray(keyVal[1001]) ){
                     
                     for(i=0;i< keyVal[1001].length;i++){                
-                        removeBlockAndFollow(keyVal[1001][i]+'['+index[0]+']');
+                        removeBlockAndFollow(keyVal[1001][i]+'['+index[0]+']',1);
                     }
                 }else{
                     
-                    removeBlockAndFollow(keyVal[1001]+'['+index[0]+']');
+                    removeBlockAndFollow(keyVal[1001]+'['+index[0]+']',1);
                 }
 
             }
@@ -141,13 +141,13 @@ function checkSkipLogicForTabuler(el, type){
             
             for(i=0;i< keyVal.length;i++){
                 console.log(keyVal[i]);
-                removeBlockAndFollow(keyVal[i]+'['+index[0]+']');
+                removeBlockAndFollow(keyVal[i]+'['+index[0]+']',1);
             }
 
         }else{  
             if( !Array.isArray(valueNode) && !Array.isArray(keyVal) ){
                 console.log("single not Array:"+valueNode+'['+index[0]+']');                
-                removeBlockAndFollow(valueNode+'['+index[0]+']');
+                removeBlockAndFollow(valueNode+'['+index[0]+']',1);
                 
 
             }else if(!Array.isArray(valueNode) && Array.isArray(keyVal)){
@@ -155,7 +155,7 @@ function checkSkipLogicForTabuler(el, type){
                 
                 for(i=0;i< keyVal.length;i++){
                     
-                    removeBlockAndFollow(keyVal[i]+'['+index[0]+']');
+                    removeBlockAndFollow(keyVal[i]+'['+index[0]+']',1);
                 }
             }
             else{
@@ -172,7 +172,7 @@ function checkSkipLogicForTabuler(el, type){
                     
                     for(i=0;i< valueNode.length;i++){
                         //console.log(keyVal[i]);
-                        removeBlockAndFollow(valueNode[i]+'['+index[0]+']');
+                        removeBlockAndFollow(valueNode[i]+'['+index[0]+']',1);
                     }
 
                 }
@@ -185,12 +185,72 @@ function checkSkipLogicForTabuler(el, type){
         
         followNodes=keyVal[0];
         console.log("First Single Checks"+followNodes);
-        removeBlockAndFollow(followNodes+'['+index[0]+']');
+        removeBlockAndFollow(followNodes+'['+index[0]+']',1);
         
     }    
 
 
 }
+
+//reverse for tabuler
+
+function reverseCheckSequenceTabuler(el,type=0){
+
+    root = el.attr('name');
+    index = root.match(/(\d+)(?!.*\d)/);
+    nameblock = root.match(/(\w)+(\[)(\w)+\]/);
+
+    if(index == null || nameblock == null) return;
+
+    console.log("index root"+parseInt(index[0]));
+     
+
+    value = null;
+    if(type > 0){
+        value = el.val();
+    }else{
+        value = el.filter(':checked').val();
+    }
+
+
+    console.log("--Reverse Checek--");
+    keyVal = RevTabluerSequenceArray[nameblock[0]];
+    if( keyVal === undefined ) return;
+
+    len = Object.keys(keyVal).length;
+    console.log("Length:"+len+"Value:"+JSON.stringify(keyVal));
+
+    if( len >= 1 ){
+        
+        valueNode = keyVal[value];
+        console.log('reverse node:'+valueNode);
+        if( valueNode === undefined ){
+
+            if(keyVal[1001]!=null){
+                for(i=0;i< keyVal[1001].length;i++){                
+                    e = $("[name^='"+keyVal[1001][i]+"']");
+                    console.log(keyVal[1001][i]);
+                    disableReverseSection(e,type);
+                }
+            }
+
+            return;
+        }else{            
+
+                for(i=0;i< valueNode.length;i++){                
+                    e = $("[name^='"+valueNode[i]+'['+index[0]+']'+"']");
+                    console.log(valueNode[i]);
+                    disableReverseSection(e,type,1);
+                }
+
+            
+        }
+    }
+
+    
+
+}
+
 
 function checkSkipLogicMVersion(el,type){
 
@@ -281,13 +341,18 @@ function checkSkipLogicMVersion(el,type){
 }
 
 
-function removeBlockAndFollow(name){
+function removeBlockAndFollow(name,t){
 
 
     
     var e = $("[name='"+name+"']");
     e.removeAttr('disabled');    
-    e.parent().parent().removeAttr('style');
+    if(t>0){
+        e.parent().removeAttr('style');
+    }else{
+        e.parent().parent().removeAttr('style');
+    }
+    
     e.parents('.form-group').removeAttr('style');
     
 }
@@ -364,4 +429,60 @@ function checkHasData(name, last_active_dropdown){
 
     return last_active_dropdown;
 
+}
+
+
+///reverse engine
+function reverseCheckSequence(el,type=0){
+    console.log("--Reverse Checek--");
+    keyVal = RevSequenceArray[el.attr('name')];
+    if( keyVal === undefined ) return;
+
+    len = Object.keys(keyVal).length;
+    console.log("Length:"+len+"Value:"+keyVal);
+
+    if( len >= 1 ){
+        value = el.val();
+        valueNode = keyVal[value];
+        console.log(valueNode);
+        if( valueNode === undefined ){
+
+            if(keyVal[1001]!=null){
+                for(i=0;i< keyVal[1001].length;i++){                
+                    e = $("[name^='"+keyVal[1001][i]+"']");
+                    console.log(keyVal[1001][i]);
+                    disableReverseSection(e,type);
+                }
+            }
+
+            return;
+        }else{
+
+            for(i=0;i< valueNode.length;i++){                
+                e = $("[name^='"+valueNode[i]+"']");
+                console.log(valueNode[i]);
+                disableReverseSection(e,type);
+            }
+        }
+    }
+
+    
+
+}
+
+
+function disableReverseSection(e,type, t){
+    
+    if(e.attr("type") == "radio"){
+        e.prop("checked", false);
+    }else{
+        //e.val(null).trigger('change');
+        e.find('option').removeAttr("selected");
+    }
+    e.attr('disabled', 'disabled');
+    if(t > 0){
+        e.parent().attr('style', 'color:#a6a6a6');
+    }else{
+        e.parent().parent().attr('style', 'color:#a6a6a6');
+    }
 }

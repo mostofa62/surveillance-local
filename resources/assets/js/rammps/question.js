@@ -76,13 +76,16 @@ function tabularInput(){
     }).on('click', 'input',function(){
         //console.log($(this).attr('name'));
         checkSkipLogicForTabuler($(this));
+        reverseCheckSequenceTabuler($(this));
     })
     .on('change', 'input',function(){
         //console.log($(this).attr('name'));
         checkSkipLogicForTabuler($(this));
+        reverseCheckSequenceTabuler($(this));
     }).on('change', 'select',function(){
         //console.log($(this).attr('name'));
         checkSkipLogicForTabuler($(this));
+        reverseCheckSequenceTabuler($(this),1);
     });
 
 }
@@ -93,7 +96,7 @@ function checkChange(){
 
     $('#validation  input').on('click', function(){ // on change of state
             
-            //reverseCheckSequence($(this));
+            reverseCheckSequence($(this));
             //data_submit();
             //name = marialstatusWiseSkipLogic($(this));
             
@@ -108,7 +111,7 @@ function checkChange(){
 
     $('#validation .select2').on('select2:open', function (e) {
         
-        //reverseCheckSequence($(this),1);
+        reverseCheckSequence($(this),1);
         //enabledAndDisabledAgain($(this));
         //data_submit();            
         //name = marialstatusWiseSkipLogic($(this));
@@ -126,7 +129,7 @@ function checkChange(){
 
     $('#validation  select').on('change', function(){
             //disableMultipleDropdown($(this));            
-            //reverseCheckSequence($(this),1);
+            reverseCheckSequence($(this),1);
             //enabledAndDisabledAgain($(this));
             data_submit();            
             //name = marialstatusWiseSkipLogic($(this));
@@ -142,7 +145,7 @@ function checkChange(){
 
     $('#validation  input').on('change', function(){ // on change of state
             
-            //reverseCheckSequence($(this));
+            reverseCheckSequence($(this));
             data_submit();
             //name = marialstatusWiseSkipLogic($(this));
             //name = checkAgeJarLimit($(this));

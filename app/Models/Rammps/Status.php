@@ -24,6 +24,16 @@ trait Status{
     	];
     }
 
+    public static function getCovidResult(){
+    	return [
+    		1 => '1- পজিটিভ',
+            3 => '3- নেগেটিভ',
+            88=>'88 - জানি না'
+    	];
+    }
+
+
+
     public static function covidTakenWilling(){
     	return [
 			1 => '1 হ্যাঁ, অবশ্যই পুরোপুরি',

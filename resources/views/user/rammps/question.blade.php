@@ -732,7 +732,143 @@
                 
             </div>
 
+            <hr/>
 
+            <div class="row spacer">
+                <div class="col-md-12">
+                    <strong>{{ @App\Models\Rammps::initialText()['covid_19_question'] }}</strong>
+                </div>
+            </div>
+
+
+            <div class="row spacer">
+                <div class="col-md-3">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_detect_by']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'cdeath[death_detect_by][]',0,null, false,'data-name-format="cdeath[death_detect_by][%d]"') !!}
+
+
+                </div>
+
+                <div class="col-md-3">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_covid_tested']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'cdeath[death_covid_tested][]',0,null, false,'data-name-format="cdeath[death_covid_tested][%d]"') !!}
+
+
+                </div>
+
+                <div class="col-md-3">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_covid_result']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getCovidResult(), 'cdeath[death_covid_result][]',0,null, false,'data-name-format="cdeath[death_covid_result][%d]"') !!}
+
+
+                </div>
+
+                <div class="col-md-3">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_has_fever']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'cdeath[death_has_fever][]',0,null, false,'data-name-format="cdeath[death_has_fever][%d]"') !!}
+
+                </div>
+
+            </div>
+
+
+
+            <div class="row spacer">
+                <div class="col-md-3" >
+                    {{ @App\Models\Rammps::placeHolderText()['death_fever_duration']}}
+                    <br/>
+                    {!! Form::text('cdeath[death_fever_duration][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"cdeath[death_fever_duration][%d]"
+                   
+
+                    )) !!}
+                </div>
+                <div class="col-md-3">
+                    {{ @App\Models\Rammps::placeHolderText()['death_covid_sickness']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'cdeath[death_covid_sickness][]',0,null, false,'data-name-format="cdeath[death_covid_sickness][%d]"') !!}
+
+
+                    
+                    
+                </div>
+
+                <div class="col-md-3">
+                    {{ @App\Models\Rammps::placeHolderText()['death_has_cough']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'cdeath[death_has_cough][]',0,null, false,'data-name-format="cdeath[death_has_cough][%d]"') !!}
+
+
+                    
+                    
+                </div>
+
+                <div class="col-md-3">
+                    {{ @App\Models\Rammps::placeHolderText()['death_has_taste']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'cdeath[death_has_taste][]',0,null, false,'data-name-format="cdeath[death_has_taste][%d]"') !!}
+
+
+                    
+                    
+                </div>
+
+                
+
+            </div>
+
+
+
+            <div class="row spacer">
+                <div class="col-md-4">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_has_breating']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'cdeath[death_has_breating][]',0,null, false,'data-name-format="cdeath[death_has_breating][%d]"') !!}
+
+
+                </div>
+
+                <div class="col-md-4">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_has_contact']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'cdeath[death_has_contact][]',0,null, false,'data-name-format="cdeath[death_has_contact][%d]"') !!}
+
+
+                </div>
+
+                <div class="col-md-3">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_was_covidarea']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'cdeath[death_was_covidarea][]',0,null, false,'data-name-format="cdeath[death_was_covidarea][%d]"') !!}
+
+
+                </div>
+
+                
+
+            </div>
             
             
         
@@ -908,12 +1044,31 @@
             ;
 
 
+        var RevSequenceArray=
+            @php
+
+                echo json_encode(\App\Models\Rammps::gateReverseSequence())
+            @endphp
+            ;
+
+
         var TabluerSequenceArray =
             @php
 
                 echo json_encode(\App\Models\Rammps::gateTabulerSeq())
             @endphp
             ;
+
+
+        var RevTabluerSequenceArray =
+            @php
+
+                echo json_encode(\App\Models\Rammps::gateTabulerRevSeq())
+            @endphp
+            ;
+
+
+
 
         var DecesionBasedForward = 
         @php
