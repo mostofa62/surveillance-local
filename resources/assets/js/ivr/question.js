@@ -1,5 +1,7 @@
 (function () {
 
+    
+
 	$('#exampleValidator').wizard({
 
      onInit: stepWizardInit(),

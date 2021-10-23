@@ -47,7 +47,7 @@ function checkSkipLogicForTabuler(el, type){
                 if(openOnPreAndCurrent != null){
                     $.each( openOnPreAndCurrent, function( key, val ) {
                     //console.log('key'+key+'val'+val);
-                        removeBlockAndFollow(val+'['+index[0]+']');
+                        removeBlockAndFollow(val+'['+index[0]+']',1);
                     });
                 }
 
@@ -230,7 +230,7 @@ function reverseCheckSequenceTabuler(el,type=0){
                 for(i=0;i< keyVal[1001].length;i++){                
                     e = $("[name^='"+keyVal[1001][i]+"']");
                     console.log(keyVal[1001][i]);
-                    disableReverseSection(e,type);
+                    disableReverseSection(e,type,1);
                 }
             }
 

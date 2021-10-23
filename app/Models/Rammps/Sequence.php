@@ -97,6 +97,14 @@ trait Sequence {
                 88=>['cdeath[death_covid_result]']
             ],
 
+            'cdeath[death_married]'=>[
+                3=>[
+                    'cdeath[death_pregnant]',
+                    'cdeath[death_on_birth]',
+                    'cdeath[death_2m_birth]'
+                ]
+            ],
+
 
         ];
 
