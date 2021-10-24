@@ -159,11 +159,20 @@ trait Sequence {
 
         		1=>['s_1_gender'],
 
-        		3=>['end_point',1],
+        		//3=>['end_point',1],
+                3=>['s_1_consent_n']
         	],
 
+            's_1_consent_n'=>[
+                1001=>['end_point',1]
+            ],
+
             's_1_gender'=>['s_1_18up'],
-            's_1_18up'=>['s_1_age'],
+            's_1_18up'=>[
+                1=>['s_1_age'],
+                3=>['end_point',3],
+                99=>['end_point',3]
+            ],
             's_1_age'=>['s_1_dd'],
             's_1_dd'=>['s_1_v_or_c'],
             's_1_v_or_c'=>[
@@ -181,7 +190,7 @@ trait Sequence {
             's_3_relation_w_main'=>['s_3_khana_u_5'],
             's_3_khana_u_5'=>['s_3_until_2018'],
             's_3_until_2018'=>[
-                1=>['s_3_add_death'],
+                1=>['s_3_add_death','cdeath[name][0]'],
                 3=>['s_4_vac_possible']
             ],
             's_4_vac_possible'=>['s_4_vac_taken'],
@@ -202,9 +211,15 @@ trait Sequence {
 
     public static function gateReverseSequence(){
         return [
+            's_1_consent'=>[
+                1=>['s_1_consent_n'],  
+
+            ],              
+    
             's_3_until_2018'=>[
-                3=>['s_3_add_death']
-            ]
+                3=>['s_3_add_death','cdeath']
+            ],
+
         ];
 
     }

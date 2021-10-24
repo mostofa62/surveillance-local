@@ -486,3 +486,46 @@ function disableReverseSection(e,type, t){
         e.parent().parent().attr('style', 'color:#a6a6a6');
     }
 }
+
+
+function otherOptionOpen(e,t){
+    name = e.attr('name');
+    val = e.val();
+    if(e.attr("type") == "radio"){
+        val = e.filter(':checked').val();
+    }
+
+    if(val == 66){
+        removeBlockAndFollow(name+'_e');
+    }else{
+        //disableReverseSection($('#'+name+'_e'));
+        $('#'+name+'_e').attr('disabled', 'disabled');
+    }
+}
+
+function otherOptionOpenTab(e){
+    root = e.attr('name');
+    index = root.match(/(\d+)(?!.*\d)/);
+    nameblock = root.match(/(\w)+(\[)(\w)+\]/);
+
+    if(index == null || nameblock == null) return;
+
+
+
+    val = e.val();
+    if(e.attr("type") == "radio"){
+        val = e.filter(':checked').val();
+    }
+    //console.log(nameblock[0]);
+    name = nameblock[0].replace(/]$/,"_e]");
+    console.log(name);
+    if(val == 66){
+        removeBlockAndFollow(name+'['+index[0]+']',1);
+    }else{
+        e = $("[name='"+name+'['+index[0]+']'+"']");
+        e.attr('disabled', 'disabled');
+        //e.parent().attr('style', 'color:#a6a6a6');
+        //console.log("test="+name+'['+index[0]+']');
+        //disableReverseSection(e,1);
+    }
+}

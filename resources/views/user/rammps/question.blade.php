@@ -97,6 +97,25 @@
 	</div>
 </div>
 
+
+<div class="form-group">
+    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_1_consent_n']}}</label>
+    <div class="col-xs-4">
+    
+    {!! Form::select('s_1_consent_n',[''=>'---select an option---']+\App\Models\Rammps::getWhyNo(),Input::old('s_1_consent_n',isset($question->s_1_consent_n)?$question->s_1_consent_n:''), array('id' => 's_1_consent_n', 'class' => 'form-control select2')) !!}
+
+     {!! Form::text('s_1_consent_n_e', Input::old('s_1_consent_n_e',isset($question->s_1_consent_n_e)?$question->s_1_consent_n_e:''),array('id'=>'s_1_consent_n_e','class' => 'form-control','placeholder'=>@App\Models\Rammps::placeHolderText()['any_others'])) !!}
+    </div>
+    <div class="col-md-4">
+    
+
+
+    </div>
+</div>
+
+
+
+
 <div class="form-group">
 	<label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_1_gender']}}</label>
 	<div class="col-xs-4">
@@ -129,7 +148,7 @@
     <div class="col-xs-4">
     
     {!! Form::select('s_1_age',
-            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(),
+            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(120,18),
             null, array(
             'class' => 'form-control select2'            
 
