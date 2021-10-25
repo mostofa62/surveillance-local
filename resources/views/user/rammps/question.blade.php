@@ -514,6 +514,22 @@
             </div>
 
             <div class="row spacer">
+                <div class="col-md-12">
+                  {{ @App\Models\Rammps::placeHolderText()['death_year']}}  
+                </div>
+
+                <div class="col-md-6">
+                    
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYearOfDeath(), 'cdeath[death_year][]',0,null, false,'data-name-format="cdeath[death_year][%d]"') !!}      
+                    
+                </div>
+
+            </div>
+
+
+
+
+            <div class="row spacer">
                 <div class="col-md-3">
 
                     {{ @App\Models\Rammps::placeHolderText()['death_married']}}

@@ -16,6 +16,14 @@ trait Status{
          ];
     }
 
+    public static function getYearOfDeath(){
+    	return [
+    		2019=>'2019',
+    		2020=>'2020',
+    		2021=>'2021'
+    	];
+    }
+
     public static function getWhyNo(){
 
     	return [

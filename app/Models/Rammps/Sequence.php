@@ -16,9 +16,12 @@ trait Sequence {
                 7=>['cdeath[dyear]','cdeath[dmonth]','cdeath[dday]'],
             ],
 
-            'cdeath[dyear]'=>['cdeath[death_married]'],
-            'cdeath[dmonth]'=>['cdeath[death_married]'],
-            'cdeath[dday]'=>['cdeath[death_married]'],
+            'cdeath[dyear]'=>['cdeath[death_year]'],
+            'cdeath[dmonth]'=>['cdeath[death_year]'],
+            'cdeath[dday]'=>['cdeath[death_year]'],
+
+            'cdeath[death_year]'=>['cdeath[death_married]'],
+            
 
             //pregnent part comes from women gender
 
@@ -49,10 +52,10 @@ trait Sequence {
                 'cdeath[death_reason_4]'
             ],
 
-            'cdeath[death_reason_1]'=>['cdeath[death_detect_by]'],
+            /*'cdeath[death_reason_1]'=>['cdeath[death_detect_by]'],
             'cdeath[death_reason_2]'=>['cdeath[death_detect_by]'],
             'cdeath[death_reason_3]'=>['cdeath[death_detect_by]'],
-            'cdeath[death_reason_4]'=>['cdeath[death_detect_by]'],
+            'cdeath[death_reason_4]'=>['cdeath[death_detect_by]'],*/
 
 
             'cdeath[death_detect_by]'=>['cdeath[death_covid_tested]'],
@@ -146,6 +149,26 @@ trait Sequence {
                     
                 ],
             ],
+
+
+            'cdeath[death_reason_1]'=>[
+
+                1001=>[
+                    [
+
+                        'cdeath[death_year]'=>[
+                            2020=>['cdeath[death_detect_by]'],
+                            2021=>['cdeath[death_detect_by]'],
+                                
+                        ],
+
+                    ],
+
+                ],
+            ],
+
+
+
 
 
 

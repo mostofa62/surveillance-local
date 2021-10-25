@@ -7,13 +7,12 @@ function checkSkipLogicForTabuler(el, type){
      nameblock = root.match(/(\w)+(\[)(\w)+\]/);
 
     if(index == null || nameblock == null) return;
-    console.log("index root"+parseInt(index[0]));
+    //console.log("index root"+parseInt(index[0]));
      
 
-    value = null;
-    if(type > 0){
-        value = el.val();
-    }else{
+    value = el.val();
+    if(value == undefined || value == null){
+            
         value = el.filter(':checked').val();
     }
 
@@ -21,9 +20,19 @@ function checkSkipLogicForTabuler(el, type){
 
     skipVal = DecesionBasedForward[nameblock[0]];
     if(skipVal !== undefined){
+        //console.log('skip val:'+skipVal);
+        //console.log('value:'+value);
         indexI  = value.toString();
         //console.log("n "+  skipVal['1']);
-        if(skipVal[indexI] !== undefined){
+        console.log("n "+  JSON.stringify(skipVal['1001']));       
+
+        if(skipVal[indexI] !== undefined 
+            || 
+            skipVal['1001'] !== undefined){
+            //for any other options
+            if(skipVal['1001'] !== undefined){
+                indexI = '1001';
+            }
 
             previousCheckerArr = skipVal[indexI][0];
             //openOnPreAndCurrent = skipVal[indexI][1];
@@ -103,6 +112,8 @@ function checkSkipLogicForTabuler(el, type){
     
 
     keyVal = TabluerSequenceArray[nameblock[0]];
+    if(keyVal == undefined ) return;
+    //console.log('tabluer keyVal'+keyVal);
     len = Object.keys(keyVal).length;
     console.log("Length:"+len+"Value:"+JSON.stringify(keyVal));
 
