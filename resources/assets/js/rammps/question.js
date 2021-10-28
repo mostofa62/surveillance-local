@@ -174,7 +174,7 @@ function checkChange(){
            
     });*/
 
-    $('#exampleValidator').wizard('goTo', 2);
+    $('#exampleValidator').wizard('goTo', 3);
     
     var api = $('#exampleValidator').data('wizard');
 

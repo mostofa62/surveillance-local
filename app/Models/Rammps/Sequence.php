@@ -58,34 +58,14 @@ trait Sequence {
             'cdeath[death_reason_4]'=>['cdeath[death_detect_by]'],*/
 
 
-            'cdeath[death_detect_by]'=>['cdeath[death_covid_tested]'],
+            'cdeath[death_detect_by]'=>['cdeath[death_covid_symptoms]'],
 
-            'cdeath[death_covid_tested]'=>[
-                1=>'cdeath[death_covid_result]',
-                3=>'cdeath[death_has_fever]',
-                88=>'cdeath[death_has_fever]'
-            ],
-            'cdeath[death_covid_result]'=>['cdeath[death_has_fever]'],
+            'cdeath[death_covid_symptoms]'=>['cdeath[death_covid_hospital]'],
+            'cdeath[death_covid_hospital]'=>['cdeath[death_covid_hospital_a]'],
 
-            'cdeath[death_has_fever]'=>[
-                1=>'cdeath[death_fever_duration]',
-                3=>'cdeath[death_covid_sickness]',
-                88=>'cdeath[death_covid_sickness]'
-            ],
+            'cdeath[death_covid_hospital_a]'=>['cdeath[death_covid_death_where]'],
 
-            'cdeath[death_fever_duration]'=>['cdeath[death_covid_sickness]'],
-
-
-            'cdeath[death_covid_sickness]'=>['cdeath[death_has_cough]'],
-
-            'cdeath[death_has_cough]'=>['cdeath[death_has_taste]'],
-
-            'cdeath[death_has_taste]'=>['cdeath[death_has_breating]'],
-
-            'cdeath[death_has_breating]'=>['cdeath[death_has_contact]'],
-
-            'cdeath[death_has_contact]'=>['cdeath[death_was_covidarea]'],
-
+            'cdeath[death_covid_death_where]'=>['cdeath[death_covid_grave]']           
 
             
         ];
@@ -214,16 +194,16 @@ trait Sequence {
             's_3_khana_u_5'=>['s_3_until_2018'],
             's_3_until_2018'=>[
                 1=>['s_3_add_death','cdeath[name][0]'],
-                3=>['s_4_vac_possible']
+                3=>['s_6_vac_possible']
             ],
-            's_4_vac_possible'=>['s_4_vac_taken'],
-            's_4_vac_taken'=>[
-                1=>['s_4_vac_number'],
-                3=>['s_4_vac_number']
+            's_6_vac_possible'=>['s_6_vac_taken'],
+            's_6_vac_taken'=>[
+                1=>['s_6_vac_number'],
+                3=>['s_6_vac_number']
             ],
-            's_4_vac_number'=>['s_4_vac_which'],
-            's_4_vac_which'=>['s_4_vac_suggested'],
-            's_4_vac_suggested'=>['s_4_vac_ignorance_reason'],
+            's_6_vac_number'=>['s_6_vac_which'],
+            's_6_vac_which'=>['s_6_vac_suggested'],
+            's_6_vac_suggested'=>['s_6_vac_ignorance_reason'],
 
 
         ];
