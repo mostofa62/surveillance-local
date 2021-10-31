@@ -269,16 +269,18 @@ function checkSkipLogicMVersion(el,type){
     if( keyVal === undefined ) return;
 
     len = Object.keys(keyVal).length;
-    console.log("Length:"+len+"Value:"+keyVal);
+    //console.log("Length:"+len+"Value:"+keyVal);
+
+
+    value = el.val();
+    //}else{
+    if(value == undefined || value == null){
+        value = el.filter(':checked').val();
+    }
 
     followNodes = null;
     if( len > 1 ){
-        value = null;
-        if(type > 0){
-            value = el.val();
-        }else{
-            value = el.filter(':checked').val();
-        }
+        
 
         console.log("selected values:"+value);
         valueNode = keyVal[value];
@@ -341,6 +343,10 @@ function checkSkipLogicMVersion(el,type){
            
         }
 
+
+
+
+
     }else{
         
         followNodes=keyVal[0];
@@ -348,6 +354,51 @@ function checkSkipLogicMVersion(el,type){
         removeBlockAndFollow(followNodes);
         
     }
+
+
+
+    //combine forward logic modified here
+
+    cblogic =  CombineForwardLogic[el.attr('name')];
+    if( cblogic === undefined ) return;
+    console.log(el.attr('name'));
+    if(Object.keys(cblogic).length > 1){
+            console.log(value);
+            //console.log(JSON.stringify( cblogic[0]));
+            //console.log($.inArray(parseInt(value), cblogic[0]));
+            value = parseInt(value);
+        if( $.inArray(value, cblogic[0]) > -1 ){
+
+            depend_logic = cblogic[1];
+            open_issue = cblogic[2];
+            console.log("flogic"+JSON.stringify(depend_logic));
+            console.log("blogic"+JSON.stringify(open_issue));
+
+            $.each( depend_logic, function( key, val ) {
+
+                console.log(key);
+                e = $("[name='"+key+"']");
+                v = e.val();
+                if(v == undefined || v == null){
+                    v = e.filter(':checked').val();
+                }
+                v = parseInt(v);
+                console.log("value"+v);
+
+                if( $.inArray(v, val) > -1 ){
+
+                    $.each( open_issue, function( valo ) {
+                        removeBlockAndFollow(valo);
+                    });
+
+                }
+            });
+
+
+        }
+    }
+
+        //end combine logic
 
 }
 

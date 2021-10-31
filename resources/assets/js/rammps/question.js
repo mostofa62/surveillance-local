@@ -315,6 +315,11 @@ function initAllDomDisabled(last_input=null){
     e.parents('.form-group').removeAttr('style');
 
 
+    e = $("[name='s_4_mother_a_or_d']");
+    e.removeAttr('disabled');
+    e.parents('.form-group').removeAttr('style');
+
+
      e = $("[name='rammps_id']");
      e.removeAttr('disabled');
 
@@ -331,11 +336,21 @@ function wizardIndexWiseChange(index, type){
         removeBlockAndFollow('s_3_khana_f');
         focusOnElement('s_3_khana_f');
     }else if(index == 3){
-        removeBlockAndFollow('s_4_vac_possible');
-        focusOnElement('s_4_vac_possible');
+        console.log('you are here');
+        removeBlockAndFollow('s_4_mother_a_or_d');
+        focusOnElement('s_4_mother_a_or_d');
+    }
+    else if(index == 4){
 
-        removeBlockAndFollow('s_3_add_death');
-        focusOnElement('s_3_add_death');
+        //console.log('you are here');
+        removeBlockAndFollow('s_6_vac_possible');
+        focusOnElement('s_6_vac_possible');
+        
+
+        
+
+        
+        
     } 
 
 }

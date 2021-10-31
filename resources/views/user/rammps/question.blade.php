@@ -986,11 +986,17 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_mother_d_year']}}</label>
-    <div class="col-xs-4">
-    {!! Form::text('s_4_mother_d_year', Input::old('s_4_mother_d_year',isset($question->s_4_mother_d_year)?$question->s_4_mother_d_year:''),array('id'=>'s_4_mother_d_year','class' => 'form-control','placeholder'=>@App\Models\Rammps::questionText()['s_4_mother_d_year'])) !!}
 
+<div class="form-group">
+    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_mother_d_age']}}</label>
+    <div class="col-xs-4">
+    
+    {!! Form::select('s_4_mother_d_age',
+            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(120,18),
+            null, array(
+            'class' => 'form-control select2'            
+
+            )) !!}
     </div>
     <div class="col-md-4">
     
@@ -1000,6 +1006,9 @@
 </div>
 
 
+
+
+
 <div class="form-group">
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_mother_db_location']}}</label>
     <div class="col-xs-4">
@@ -1007,6 +1016,19 @@
     {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getWhereMorDLived(), 's_4_mother_db_location',0,$question->s_4_mother_db_location, true) !!}
     </div>
     <div class="col-md-4">
+
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_mother_d_year']}}</label>
+    <div class="col-xs-4">
+    {!! Form::text('s_4_mother_d_year', Input::old('s_4_mother_d_year',isset($question->s_4_mother_d_year)?$question->s_4_mother_d_year:''),array('id'=>'s_4_mother_d_year','class' => 'form-control','placeholder'=>@App\Models\Rammps::questionText()['s_4_mother_d_year'])) !!}
+
+    </div>
+    <div class="col-md-4">
+    
+
 
     </div>
 </div>
@@ -1072,11 +1094,17 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_father_d_year']}}</label>
-    <div class="col-xs-4">
-    {!! Form::text('s_4_father_d_year', Input::old('s_4_father_d_year',isset($question->s_4_father_d_year)?$question->s_4_father_d_year:''),array('id'=>'s_4_father_d_year','class' => 'form-control','placeholder'=>@App\Models\Rammps::questionText()['s_4_father_d_year'])) !!}
 
+<div class="form-group">
+    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_father_d_age']}}</label>
+    <div class="col-xs-4">
+    
+    {!! Form::select('s_4_father_d_age',
+            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(120,18),
+            null, array(
+            'class' => 'form-control select2'            
+
+            )) !!}
     </div>
     <div class="col-md-4">
     
@@ -1086,6 +1114,8 @@
 </div>
 
 
+
+
 <div class="form-group">
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_father_db_location']}}</label>
     <div class="col-xs-4">
@@ -1093,6 +1123,20 @@
     {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getWhereMorDLived(), 's_4_father_db_location',0,$question->s_4_father_db_location, true) !!}
     </div>
     <div class="col-md-4">
+
+    </div>
+</div>
+
+
+<div class="form-group">
+    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_father_d_year']}}</label>
+    <div class="col-xs-4">
+    {!! Form::text('s_4_father_d_year', Input::old('s_4_father_d_year',isset($question->s_4_father_d_year)?$question->s_4_father_d_year:''),array('id'=>'s_4_father_d_year','class' => 'form-control','placeholder'=>@App\Models\Rammps::questionText()['s_4_father_d_year'])) !!}
+
+    </div>
+    <div class="col-md-4">
+    
+
 
     </div>
 </div>
@@ -1481,6 +1525,12 @@
             @php
 
                 echo json_encode(\App\Models\Rammps::gateReverseSequence())
+            @endphp
+            ;
+
+        var CombineForwardLogic = @php
+
+                echo json_encode(\App\Models\Rammps::combine_forward_logic())
             @endphp
             ;
 
