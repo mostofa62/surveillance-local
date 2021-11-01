@@ -226,6 +226,8 @@ trait Sequence {
             's_4_father_db_location'=>['s_4_father_d_year'],
 
 
+            's_4_father_d_year'=>['s_6_vac_possible'],
+
             's_6_vac_possible'=>['s_6_vac_taken'],
             's_6_vac_taken'=>[
                 1=>['s_6_vac_number'],
@@ -234,6 +236,22 @@ trait Sequence {
             's_6_vac_number'=>['s_6_vac_which'],
             's_6_vac_which'=>['s_6_vac_suggested'],
             's_6_vac_suggested'=>['s_6_vac_ignorance_reason'],
+
+
+            //mother father covid
+            'mother_death_detect_by'=>['mother_death_covid_symptoms'],
+            'mother_death_covid_symptoms'=>['mother_death_covid_hospital'],
+            'mother_death_covid_hospital'=>['mother_death_covid_hospital_a'],
+            'mother_death_covid_hospital_a'=>['mother_death_covid_death_where'],
+            'mother_death_covid_death_where'=>['mother_death_covid_grave'],
+
+
+            //father covid
+            'father_death_detect_by'=>['father_death_covid_symptoms'],
+            'father_death_covid_symptoms'=>['father_death_covid_hospital'],
+            'father_death_covid_hospital'=>['father_death_covid_hospital_a'],
+            'father_death_covid_hospital_a'=>['father_death_covid_death_where'],
+            'father_death_covid_death_where'=>['father_death_covid_grave'],
 
 
         ];
@@ -258,13 +276,18 @@ trait Sequence {
                 88=>['s_4_mother_age','s_4_mother_location']
             ],
 
+            's_4_father_a_or_d'=>[                
+                3=>['s_4_father_age','s_4_father_location'],
+                88=>['s_4_father_age','s_4_father_location']
+            ],
+
         ];
 
     }
 
     public static function combine_forward_logic(){
         return [
-            
+            //mother
             's_4_mother_a_or_d'=>[
                 [3,88], // which value
                 [
@@ -290,6 +313,35 @@ trait Sequence {
                     's_4_mother_db_location'=>[2,3,4]
                 ], //dependent souls
                 ['mother_death_detect_by'] //what will loose
+            ],
+
+
+            //father
+            's_4_father_a_or_d'=>[
+                [3,88], // which value
+                [
+                    's_4_father_db_location'=>[2,3,4],
+                    's_4_father_d_year'=>[2020,2021]
+                ], //dependent souls
+                ['father_death_detect_by'] //what will loose
+            ],
+
+            's_4_father_db_location'=>[
+                [2,3,4], // which value
+                [
+                    's_4_father_a_or_d'=>[3,88],
+                    's_4_father_d_year'=>[2020,2021]
+                ], //dependent souls
+                ['father_death_detect_by'] //what will loose
+            ],
+
+            's_4_father_d_year'=>[
+                [2020,2021], // which value
+                [
+                    's_4_father_a_or_d'=>[3,88],
+                    's_4_father_db_location'=>[2,3,4]
+                ], //dependent souls
+                ['father_death_detect_by'] //what will loose
             ],
             
         ];

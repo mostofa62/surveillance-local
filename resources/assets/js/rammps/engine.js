@@ -10,10 +10,10 @@ function checkSkipLogicForTabuler(el, type){
     //console.log("index root"+parseInt(index[0]));
      
 
-    value = el.val();
-    if(value == undefined || value == null){
-            
-        value = el.filter(':checked').val();
+    
+    value = el.filter(':checked').val();
+    if(value == undefined || value == null){            
+        value = el.val();
     }
 
     //we will do some major boxign here 
@@ -122,11 +122,16 @@ function checkSkipLogicForTabuler(el, type){
     followNodes = null;
     if( len > 1 ){
 
-        value = null;
+        /*value = null;
         if(type > 0){
             value = el.val();
         }else{
             value = el.filter(':checked').val();
+        }*/
+
+        value = el.filter(':checked').val();            
+        if(value == undefined || value == null){
+            value = el.val();
         }
 
         console.log("selected values:"+value);
@@ -216,11 +221,16 @@ function reverseCheckSequenceTabuler(el,type=0){
     console.log("index root"+parseInt(index[0]));
      
 
-    value = null;
+    /*value = null;
     if(type > 0){
         value = el.val();
     }else{
         value = el.filter(':checked').val();
+    }*/
+
+    value = el.filter(':checked').val();    
+    if(value == undefined || value == null){
+        value = el.val();
     }
 
 
@@ -271,11 +281,9 @@ function checkSkipLogicMVersion(el,type){
     len = Object.keys(keyVal).length;
     //console.log("Length:"+len+"Value:"+keyVal);
 
-
-    value = el.val();
-    //}else{
+    value = el.filter(':checked').val();    
     if(value == undefined || value == null){
-        value = el.filter(':checked').val();
+        value = el.val();
     }
 
     followNodes = null;
@@ -367,32 +375,45 @@ function checkSkipLogicMVersion(el,type){
             //console.log(JSON.stringify( cblogic[0]));
             //console.log($.inArray(parseInt(value), cblogic[0]));
             value = parseInt(value);
+
+
+        open_issue_length = 0;
+        depend_logic_length = Object.keys(cblogic[1]).length;
         if( $.inArray(value, cblogic[0]) > -1 ){
 
             depend_logic = cblogic[1];
             open_issue = cblogic[2];
-            console.log("flogic"+JSON.stringify(depend_logic));
-            console.log("blogic"+JSON.stringify(open_issue));
+            //console.log("flogic"+JSON.stringify(depend_logic));
+            //console.log("blogic"+JSON.stringify(open_issue));
 
             $.each( depend_logic, function( key, val ) {
 
-                console.log(key);
-                e = $("[name='"+key+"']");
-                v = e.val();
+                //console.log(key);
+                n = "[name='"+key+"']";
+                e = $(n);
+                v = e.filter(':checked').val();                
                 if(v == undefined || v == null){
-                    v = e.filter(':checked').val();
+                    v = e.val();
                 }
                 v = parseInt(v);
-                console.log("value"+v);
+                //console.log("name:"+n+"|value:"+JSON.stringify(val));
 
                 if( $.inArray(v, val) > -1 ){
-
-                    $.each( open_issue, function( valo ) {
-                        removeBlockAndFollow(valo);
-                    });
-
+                    console.log("|value:"+JSON.stringify(val));                    
+                    open_issue_length++;
                 }
             });
+
+            console.log('open_issue_length:'
+                +open_issue_length
+                +'depend_logic_length'+depend_logic_length);
+
+            if(open_issue_length > 0 && open_issue_length == depend_logic_length){
+                $.each( open_issue, function( key,val ) {
+                    console.log('open_issue:'+val);
+                    removeBlockAndFollow(val);
+                });
+            }
 
 
         }
@@ -504,7 +525,11 @@ function reverseCheckSequence(el,type=0){
     console.log("Length:"+len+"Value:"+keyVal);
 
     if( len >= 1 ){
-        value = el.val();
+        
+        value = e.filter(':checked').val();
+        if(value == undefined || value == null){
+            value = e.val();
+        }
         valueNode = keyVal[value];
         console.log(valueNode);
         if( valueNode === undefined ){
@@ -552,16 +577,23 @@ function disableReverseSection(e,type, t){
 
 function otherOptionOpen(e,t){
     name = e.attr('name');
-    val = e.val();
-    if(e.attr("type") == "radio"){
-        val = e.filter(':checked').val();
+    //val = e.val();
+    //if(e.attr("type") == "radio"){
+    //    val = e.filter(':checked').val();
+    //}
+    val = e.filter(':checked').val();
+    if(val == undefined || val == null){
+        val = e.val();
     }
+
+    console.log('value on other: '+val);
 
     if(val == 66){
         removeBlockAndFollow(name+'_e');
     }else{
         //disableReverseSection($('#'+name+'_e'));
-        $('#'+name+'_e').attr('disabled', 'disabled');
+        e = $("[name='"+name+"_e']");
+        e.attr('disabled', 'disabled');
     }
 }
 
@@ -574,9 +606,14 @@ function otherOptionOpenTab(e){
 
 
 
-    val = e.val();
+    /*val = e.val();
     if(e.attr("type") == "radio"){
         val = e.filter(':checked').val();
+    }*/
+
+    val = e.filter(':checked').val();
+    if(val == undefined || val == null){
+        val = e.val();
     }
     //console.log(nameblock[0]);
     name = nameblock[0].replace(/]$/,"_e]");

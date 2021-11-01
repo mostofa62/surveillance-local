@@ -103,7 +103,7 @@ function checkChange(){
             reverseCheckSequence($(this));
             //data_submit();
             //name = marialstatusWiseSkipLogic($(this));
-            
+            //console.log($(this));
             //if(name == ""){ 
                 //console.log("name:"+name);           
                 checkSkipLogicMVersion($(this));
