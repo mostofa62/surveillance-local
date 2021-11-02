@@ -69,6 +69,11 @@
     </li>
     <li role="tab">
         <h4><span><i class="ti-credit-card"></i></span>         
+        {{ @App\Models\Rammps::initialText()['s_5'] }}  
+        </h4>
+    </li>
+    <li role="tab">
+        <h4><span><i class="ti-credit-card"></i></span>         
         {{ @App\Models\Rammps::initialText()['s_6'] }}  
         </h4>
     </li>    
@@ -1365,6 +1370,111 @@
 
 </div>
 <!--end section 4-->
+
+<!--section 5-->
+<div class="wizard-pane" role="tabpanel">
+
+<p>
+<br>
+<strong> 
+    {{ @App\Models\Rammps::initialText()['s_5'] }}
+</strong>
+</p>
+
+
+<div class="form-group">
+    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_5_sibiling_alive']}}</label>
+    <div class="col-xs-4">
+    {!! Form::text('s_5_sibiling_alive', Input::old('s_5_sibiling_alive',isset($question->s_5_sibiling_alive)?$question->s_5_sibiling_alive:''),array('id'=>'s_5_sibiling_alive','class' => 'form-control')) !!}
+
+    </div>
+    <div class="col-md-4">
+    
+
+
+    </div>
+</div>
+
+
+<div class="form-group">
+    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_5_sibiling_dead_in_alive']}}</label>
+    <div class="col-xs-4">
+    {!! Form::text('s_5_sibiling_dead_in_alive', Input::old('s_5_sibiling_dead_in_alive',isset($question->s_5_sibiling_dead_in_alive)?$question->s_5_sibiling_dead_in_alive:''),array('id'=>'s_5_sibiling_dead_in_alive','class' => 'form-control')) !!}
+
+    </div>
+    <div class="col-md-4">
+    
+
+
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_5_sibiling_dead_2019']}}</label>
+    <div class="col-xs-4">
+    {!! Form::text('s_5_sibiling_dead_2019', Input::old('s_5_sibiling_dead_2019',isset($question->s_5_sibiling_dead_2019)?$question->s_5_sibiling_dead_2019:''),array('id'=>'s_5_sibiling_dead_2019','class' => 'form-control')) !!}
+
+    </div>
+    <div class="col-md-4">
+    
+
+
+    </div>
+</div>
+
+
+<div class="form-group table-responsive">
+
+    <table class="table" id="death_sibiling">
+
+        <tr>
+            <th colspan="2">
+                <input type="button" name="s_5_add_death_sibiling" value="Add" class="death_add">
+            </th>
+        </tr>
+
+        <tr class="death_sibiling_var">
+            <td>
+
+                <div class="row spacer">
+                    <div class="col-md-3">
+                    {{ @App\Models\Rammps::placeHolderText()['sibiling_death_gender']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getGender(), 'sibiling[g_of_death][]',0,null, false,'data-name-format="sibiling[g_of_death][%d]"') !!}                    
+                    
+                    </div>
+
+                    <div class="col-md-3">
+                        {{ @App\Models\Rammps::placeHolderText()['sibiling_death_age']}}
+                        <br/>
+                        
+
+                        {!! Form::select('sibiling[age_of_death][]',
+                                        [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(120,1),
+                                        null, array(
+                                        'class' => 'form-control select2',
+                                        'data-name-format'=>"sibiling[age_of_death][%d]"
+                                        
+
+                                        )) !!}                 
+
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+
+    </table>
+
+
+</div>
+
+
+
+
+</div>
+<!--end section 5-->
 
 <!--section 6-->
 <div class="wizard-pane" role="tabpanel">

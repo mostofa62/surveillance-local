@@ -196,7 +196,7 @@ trait Sequence {
             's_3_khana_u_5'=>['s_3_until_2018'],
             's_3_until_2018'=>[
                 1=>['s_3_add_death','cdeath[name][0]'],
-                3=>['s_6_vac_possible']
+                3=>['s_4_mother_a_or_d']
             ],
 
             's_4_mother_a_or_d'=>[
@@ -226,16 +226,7 @@ trait Sequence {
             's_4_father_db_location'=>['s_4_father_d_year'],
 
 
-            's_4_father_d_year'=>['s_6_vac_possible'],
-
-            's_6_vac_possible'=>['s_6_vac_taken'],
-            's_6_vac_taken'=>[
-                1=>['s_6_vac_number'],
-                3=>['s_6_vac_number']
-            ],
-            's_6_vac_number'=>['s_6_vac_which'],
-            's_6_vac_which'=>['s_6_vac_suggested'],
-            's_6_vac_suggested'=>['s_6_vac_ignorance_reason'],
+            
 
 
             //mother father covid
@@ -252,6 +243,25 @@ trait Sequence {
             'father_death_covid_hospital'=>['father_death_covid_hospital_a'],
             'father_death_covid_hospital_a'=>['father_death_covid_death_where'],
             'father_death_covid_death_where'=>['father_death_covid_grave'],
+
+
+            'father_death_covid_grave'=>['s_5_sibiling_alive'],
+
+            's_5_sibiling_alive'=>['s_5_sibiling_dead_in_alive'],
+
+            's_5_sibiling_dead_in_alive'=>['s_5_sibiling_dead_2019'],
+
+            's_6_vac_possible'=>['s_6_vac_taken'],
+            's_6_vac_taken'=>[
+                1=>['s_6_vac_number'],
+                3=>['s_6_vac_number']
+            ],
+            's_6_vac_number'=>['s_6_vac_which'],
+            's_6_vac_which'=>['s_6_vac_suggested'],
+            's_6_vac_suggested'=>['s_6_vac_ignorance_reason'],
+
+
+
 
 
         ];

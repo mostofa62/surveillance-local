@@ -174,7 +174,7 @@ function checkChange(){
            
     });*/
 
-    $('#exampleValidator').wizard('goTo', 3);
+    $('#exampleValidator').wizard('goTo', 4);
     
     var api = $('#exampleValidator').data('wizard');
 
@@ -335,16 +335,15 @@ function wizardIndexWiseChange(index, type){
         focusOnElement('s_3_khana_m');
         removeBlockAndFollow('s_3_khana_f');
         focusOnElement('s_3_khana_f');
-    }else if(index == 3){
-        console.log('you are here');
+    }else if(index == 3){       
         removeBlockAndFollow('s_4_mother_a_or_d');
         focusOnElement('s_4_mother_a_or_d');
     }
     else if(index == 4){
 
         //console.log('you are here');
-        removeBlockAndFollow('s_6_vac_possible');
-        focusOnElement('s_6_vac_possible');
+        removeBlockAndFollow('s_5_sibiling_alive');
+        focusOnElement('s_5_sibiling_alive');
         
 
         
