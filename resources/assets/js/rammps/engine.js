@@ -6,8 +6,11 @@ function checkSkipLogicForTabuler(el, type){
      index = root.match(/(\d+)(?!.*\d)/);
      nameblock = root.match(/(\w)+(\[)(\w)+\]/);
 
+    //console.log("index root"+nameblock[0]);
+
     if(index == null || nameblock == null) return;
-    //console.log("index root"+parseInt(index[0]));
+    
+
      
 
     
@@ -15,6 +18,8 @@ function checkSkipLogicForTabuler(el, type){
     if(value == undefined || value == null){            
         value = el.val();
     }
+
+    console.log("index root"+value);
 
     //we will do some major boxign here 
 
@@ -43,11 +48,12 @@ function checkSkipLogicForTabuler(el, type){
 
             $.each( previousCheckerArr, function( key, val ) {
 
-                elm = $("[name='"+key+'['+index[0]+']'+"']");
-                v = elm.val();
-                if(elm.attr('type') == "radio" || elm.attr('type') == "checkbox"){
-                    v = elm.filter(':checked').val();
-                }
+                elm = $("[name='"+key+'['+index[0]+']'+"']");                
+                
+                v = elm.filter(':checked').val();
+                if(v == undefined || v == null){            
+                    v = elm.val();
+                }                
 
                 openOnPreAndCurrent = val.hasOwnProperty(v)?val[v]:val[1001];
 
@@ -109,11 +115,67 @@ function checkSkipLogicForTabuler(el, type){
 
     //end we will do some major boxing here
     /* end logic for internal issues */
+
+    cblogic =  CombineForwardLogic[nameblock[0]];
+    if( cblogic !== undefined ) {
+        console.log('Combination logic tabuler'+JSON.stringify(cblogic));
+        if(Object.keys(cblogic).length > 1){
+                console.log(value);
+                //console.log(JSON.stringify( cblogic[0]));
+                //console.log($.inArray(parseInt(value), cblogic[0]));
+                value = parseInt(value);
+
+
+            open_issue_length = 0;
+            depend_logic_length = Object.keys(cblogic[1]).length;
+            if( $.inArray(value, cblogic[0]) > -1 ){
+
+                depend_logic = cblogic[1];
+                open_issue = cblogic[2];
+                //console.log("flogic"+JSON.stringify(depend_logic));
+                //console.log("blogic"+JSON.stringify(open_issue));
+
+                $.each( depend_logic, function( key, val ) {
+
+                    //console.log(key);
+                    n = "[name='"+key+'['+index[0]+']'+"']";
+                    e = $(n);
+                    v = e.filter(':checked').val();                
+                    if(v == undefined || v == null){
+                        v = e.val();
+                    }
+                    v = parseInt(v);
+                    console.log("name:"+n+"|value:"+JSON.stringify(val));
+
+                    if( $.inArray(v, val) > -1 ){
+                        console.log("|value:"+JSON.stringify(val));                    
+                        open_issue_length++;
+                    }
+                });
+
+                console.log('open_issue_length:'
+                    +open_issue_length
+                    +'depend_logic_length'+depend_logic_length);
+
+                if(open_issue_length > 0 && open_issue_length == depend_logic_length){
+                    $.each( open_issue, function( key,val ) {
+                        console.log('open_issue:'+val+'['+index[0]+']');
+                        removeBlockAndFollow(val+'['+index[0]+']');
+                    });
+                }
+
+
+            }
+        }
+
+    }
+
+        //end combine logic  
     
 
     keyVal = TabluerSequenceArray[nameblock[0]];
     if(keyVal == undefined ) return;
-    //console.log('tabluer keyVal'+keyVal);
+    console.log('tabluer keyVal'+keyVal);
     len = Object.keys(keyVal).length;
     console.log("Length:"+len+"Value:"+JSON.stringify(keyVal));
 
@@ -203,7 +265,13 @@ function checkSkipLogicForTabuler(el, type){
         console.log("First Single Checks"+followNodes);
         removeBlockAndFollow(followNodes+'['+index[0]+']',1);
         
-    }    
+    }
+
+
+    //combine forward logic modified here
+    //console.log('name block in here'+nameblock[0]);
+
+      
 
 
 }

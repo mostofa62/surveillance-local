@@ -65,7 +65,26 @@ trait Sequence {
 
             'cdeath[death_covid_hospital_a]'=>['cdeath[death_covid_death_where]'],
 
-            'cdeath[death_covid_death_where]'=>['cdeath[death_covid_grave]'],          
+            'cdeath[death_covid_death_where]'=>['cdeath[death_covid_grave]'],
+
+
+
+            'sibiling[g_of_death]'=>['sibiling[age_of_death]'],
+            'sibiling[age_of_death]'=>['sibiling[year_of_death]'],
+            'sibiling[year_of_death]'=>['sibiling[db_location_death]'],
+
+
+            'sibiling[death_detect_by]'=>['sibiling[death_covid_symptoms]'],
+            'sibiling[death_covid_symptoms]'=>['sibiling[death_covid_hospital]'],
+
+            'sibiling[death_covid_hospital]'=>['sibiling[death_covid_hospital_a]'],
+
+            'sibiling[death_covid_hospital_a]'=>['sibiling[death_covid_death_where]'],
+
+
+            'sibiling[death_covid_death_where]'=>['sibiling[death_covid_grave]'],
+
+
 
 
 
@@ -251,6 +270,10 @@ trait Sequence {
 
             's_5_sibiling_dead_in_alive'=>['s_5_sibiling_dead_2019'],
 
+
+            's_5_sibiling_dead_2019'=>['s_5_add_death_sibiling','sibiling[g_of_death][0]'],
+
+
             's_6_vac_possible'=>['s_6_vac_taken'],
             's_6_vac_taken'=>[
                 1=>['s_6_vac_number'],
@@ -259,6 +282,9 @@ trait Sequence {
             's_6_vac_number'=>['s_6_vac_which'],
             's_6_vac_which'=>['s_6_vac_suggested'],
             's_6_vac_suggested'=>['s_6_vac_ignorance_reason'],
+
+
+
 
 
 
@@ -353,6 +379,22 @@ trait Sequence {
                 ], //dependent souls
                 ['father_death_detect_by'] //what will loose
             ],
+
+            //siblings
+            'sibiling[year_of_death]'=>[
+                [2020,2021],
+                [
+                    'sibiling[db_location_death]'=>[2,3,4]
+                ],
+                ['sibiling[death_detect_by]']
+            ],
+            'sibiling[db_location_death]'=>[
+                [2,3,4],
+                [
+                    'sibiling[year_of_death]'=>[2020,2021]
+                ],
+                ['sibiling[death_detect_by]']
+            ]
             
         ];
     }

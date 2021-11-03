@@ -1429,7 +1429,7 @@
 
         <tr>
             <th colspan="2">
-                <input type="button" name="s_5_add_death_sibiling" value="Add" class="death_add">
+                <input type="button" name="s_5_add_death_sibiling" value="Add" class="death_sibiling_add">
             </th>
         </tr>
 
@@ -1460,8 +1460,159 @@
                                         )) !!}                 
 
                     </div>
+
+
+                    
+
+                    <div class="col-md-3">
+                    {{ @App\Models\Rammps::placeHolderText()['sibiling_death_year']}}
+                    <br/>
+
+                    {!! Form::text('sibiling[year_of_death][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"sibiling[year_of_death][%d]"                    
+
+                    )) !!}                  
+                    
+                    </div>
+
+                    <div class="col-md-3">
+                        {{ @App\Models\Rammps::placeHolderText()['sibiling_death_db_location']}}
+                        <br/>
+                        
+
+                       {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getWhereMorDLived(), 'sibiling[db_location_death][]',0,null, false,'data-name-format="sibiling[db_location_death][%d]"') !!}              
+
+                    </div>
+
+                </div>
+                
+
+                <div class="row spacer">
+                    <div class="col-md-12">
+                        <strong>
+                {!! @App\Models\Rammps::initialText()['sibiling_death_intial'] !!}
+                        </strong>
+                    </div>
+
                 </div>
 
+                <div class="row spacer">
+                <div class="col-md-3">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_detect_by']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'sibiling[death_detect_by][]',0,null, false,'data-name-format="sibiling[death_detect_by][%d]"') !!}
+
+
+                </div>
+
+                <div class="col-md-3">
+
+                    {!! @App\Models\Rammps::placeHolderText()['death_covid_symptoms'] !!}
+                    <br/>        
+
+                    {!! Form::select('sibiling[death_covid_symptoms][]',
+                    [''=>'---Select an option---']+\App\Models\Rammps::death_reason(),
+                    null, array(
+                    'class' => 'form-control select2',
+                    'data-name-format'=>"sibiling[death_covid_symptoms][%d]"                    
+
+                    )) !!}
+
+                    {!! Form::text('sibiling[death_covid_symptoms_e][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"sibiling[death_covid_symptoms_e][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+                    )) !!}
+
+
+                </div>
+
+                <div class="col-md-3">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_covid_hospital']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'sibiling[death_covid_hospital][]',0,null, false,'data-name-format="sibiling[death_covid_hospital][%d]"') !!}
+
+
+                </div>
+
+                <div class="col-md-3">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_covid_hospital_a']}}
+                    <br/>
+
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'sibiling[death_covid_hospital_a][]',0,null, false,'data-name-format="sibiling[death_covid_hospital_a][%d]"') !!}
+
+                </div>
+
+            </div>
+
+            <div class="row spacer">
+    
+
+                <div class="col-md-6">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_covid_death_where']}}
+                    <br/>        
+
+                    {!! Form::select('sibiling[death_covid_death_where][]',
+                    [''=>'---Select an option---']+\App\Models\Rammps::death_where(),
+                    null, array(
+                    'class' => 'form-control select2',
+                    'data-name-format'=>"sibiling[death_covid_death_where][%d]"                    
+
+                    )) !!}
+
+                    {!! Form::text('sibiling[death_covid_death_where_e][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"sibiling[death_covid_death_where_e][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+                    )) !!}
+
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    {{ @App\Models\Rammps::placeHolderText()['death_covid_grave']}}
+                    <br/>        
+
+                    {!! Form::select('sibiling[death_covid_grave][]',
+                    [''=>'---Select an option---']+\App\Models\Rammps::get_grave_where(),
+                    null, array(
+                    'class' => 'form-control select2',
+                    'data-name-format'=>"sibiling[death_covid_grave][%d]"                    
+
+                    )) !!}
+
+                    {!! Form::text('sibiling[death_covid_grave_e][]',null,array(
+                    'class' => 'form-control',
+                    'data-name-format'=>"sibiling[death_covid_grave_e][%d]"
+                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+                    )) !!}
+
+
+                </div>
+
+                
+
+            </div>
+
+
+
+
+            </td>
+
+            <td>
+                <button class="death_sibiling_del">Delete</button>
             </td>
         </tr>
 

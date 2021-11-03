@@ -91,6 +91,38 @@ function tabularInput(){
         reverseCheckSequenceTabuler($(this),1);
     });
 
+
+    $('#death_sibiling').addInputArea({
+
+        after_add: function () {
+            //e = $("[name^='s_1_3_']");
+            //e.removeAttr('disabled');
+            $("[name^='sibiling\[g_of_death']").each(function (i, el) {
+                //console.log(el);
+                $(this).removeAttr('disabled');
+            });
+
+            $('.death_sibiling_del').removeAttr('disabled');
+        }
+
+    }).on('click', 'input',function(){
+        //console.log($(this).attr('name'));
+        otherOptionOpenTab($(this));
+        checkSkipLogicForTabuler($(this));
+        reverseCheckSequenceTabuler($(this));
+    })
+    .on('change', 'input',function(){
+        //console.log($(this).attr('name'));
+        otherOptionOpenTab($(this));
+        checkSkipLogicForTabuler($(this));
+        reverseCheckSequenceTabuler($(this));
+    }).on('change', 'select',function(){
+        //console.log($(this).attr('name'));
+        otherOptionOpenTab($(this));
+        checkSkipLogicForTabuler($(this));
+        reverseCheckSequenceTabuler($(this),1);
+    });
+
 }
 
 function checkChange(){
@@ -316,6 +348,11 @@ function initAllDomDisabled(last_input=null){
 
 
     e = $("[name='s_4_mother_a_or_d']");
+    e.removeAttr('disabled');
+    e.parents('.form-group').removeAttr('style');
+
+
+    e = $("[name='s_5_sibiling_alive']");
     e.removeAttr('disabled');
     e.parents('.form-group').removeAttr('style');
 
