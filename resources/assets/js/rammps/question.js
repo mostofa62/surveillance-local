@@ -92,7 +92,7 @@ function tabularInput(){
     });
 
 
-    $('#death_sibiling').addInputArea({
+    $('#death_sibiling').mostoInputArea({
 
         after_add: function () {
             //e = $("[name^='s_1_3_']");
@@ -184,13 +184,14 @@ function checkChange(){
     $('#validation  input').on('change', function(){ // on change of state
             otherOptionOpen($(this));
             reverseCheckSequence($(this));
+            checkSkipLogicMVersion($(this));
             data_submit();
             //name = marialstatusWiseSkipLogic($(this));
             //name = checkAgeJarLimit($(this));
             
             //if(name == ""){ 
                 //console.log("name:"+name);           
-                checkSkipLogicMVersion($(this));
+                
             //}
     });
 
