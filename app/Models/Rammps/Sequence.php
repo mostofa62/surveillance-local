@@ -268,10 +268,10 @@ trait Sequence {
 
             's_5_sibiling_alive'=>['s_5_sibiling_dead_in_alive'],
 
-            's_5_sibiling_dead_in_alive'=>['s_5_sibiling_dead_2019'],
+            's_5_sibiling_dead_in_alive'=>['s_5_sibiling_dead_2019','sibiling[g_of_death][0]'],
 
 
-            's_5_sibiling_dead_2019'=>['s_5_add_death_sibiling','sibiling[g_of_death][0]'],
+            //'s_5_sibiling_dead_2019'=>['s_5_add_death_sibiling','sibiling[g_of_death][0]'],
 
 
             's_6_vac_possible'=>['s_6_vac_taken'],

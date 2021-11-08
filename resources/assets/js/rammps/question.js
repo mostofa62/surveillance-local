@@ -92,7 +92,7 @@ function tabularInput(){
     });
 
 
-    $('#death_sibiling').mostoInputArea({
+    $('#death_sibiling').addInputArea({
 
         after_add: function () {
             //e = $("[name^='s_1_3_']");

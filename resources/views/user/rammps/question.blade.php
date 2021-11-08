@@ -426,15 +426,17 @@
 </div>
 </div>
 
-<table class="table" id="death">
+<table class="table col-xs-12" id="death">
     <tr>
         <th colspan="2">{{ @App\Models\Rammps::initialText()['covid_death_intial']}}</th>
     </tr>
+    {{--
     <tr>
         <th colspan="2">
             <input type="button" name="s_3_add_death" value="Add" class="death_add">
         </th>
     </tr>
+    --}}
     <tr class="death_var">
         <td>
             <div class="row spacer">
@@ -915,6 +917,12 @@
         </td>
     </tr>
 </table>
+
+<div class="col-xs-12 text-center">
+    
+    <input type="button" name="s_3_add_death" value="Add" class="death_add">
+</div>
+
 </div>
 <!--end covid death -->
 
@@ -1425,7 +1433,17 @@
 
 <div class="form-group table-responsive">
 
-    <table class="table" id="death_sibiling">
+<div class="form-group">
+    <label class="col-xs-4 control-label">
+    {{ @App\Models\Rammps::questionText()['s_5_sibiling_dead_2019']}}
+    </label>
+    <div class="col-md-4">
+        {{ @App\Models\Rammps::placeHolderText()['add_more']}}
+    </div>
+</div>
+
+    <table class="table col-xs-12" id="death_sibiling">
+        {{--
         <tr>
             <th>
               {{ @App\Models\Rammps::questionText()['s_5_sibiling_dead_2019']}}  
@@ -1434,6 +1452,9 @@
                 <input type="number" name="s_5_sibiling_dead_2019" value="Add" class="death_sibiling_add" min="0">
             </td>
         </tr>
+        --}}
+
+        
 
         <!-- <tr>
             <th colspan="2">
@@ -1443,6 +1464,7 @@
 
         <tr class="death_sibiling_var">
             <td>
+                
 
                 <div class="row spacer">
                     <div class="col-md-3">
@@ -1615,16 +1637,29 @@
             </div>
 
 
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button class="death_sibiling_del btn-danger">Delete</button>
+                </div>
+                    
+            </div>
+
 
 
             </td>
 
-            <td>
-                <button class="death_sibiling_del">Delete</button>
-            </td>
+            
+                
+            
         </tr>
 
     </table>
+
+    <div class="col-xs-12 text-center">
+        <input type="button" name="s_5_sibiling_dead_2019" value="Add" class="death_sibiling_add btn-success">
+    </div>
+
+    
 
 
 </div>
@@ -1756,7 +1791,10 @@
     <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/jquery-wizard-master/libs/formvalidation/bootstrap.min.js')}}"></script>
     <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/typeahead.js-master/dist/typeahead.bundle.min.js')}}"></script>
 
-    <script src="https://sutara79.github.io/jquery.add-input-area/dist/jquery.add-input-area.min.js"></script>
+    {{--
+        <script src="https://sutara79.github.io/jquery.add-input-area/dist/jquery.add-input-area.min.js"></script>
+
+    --}}
 
  	<script src="{{URL::to('resources/assets/js/rammps/mosto-add-input-area.js')}}"></script>
 

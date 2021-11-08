@@ -57,14 +57,24 @@
                 clone_event: !0,
                 maximum: 0,
                 dont_clone: null,
-                validate: null
+                validate: null,
+                previous_data:[]
             }, t)).area_del || (t.area_del = t.btn_del), t
         },
         _setDelBtnVisibility: function() {
-            1 == $(this.elem).find(this.option.area_var).length && $(this.elem).find(this.option.area_del).hide()
+            1 == $(this.elem).find(this.option.area_var).length 
+            && $(this.elem).find(this.option.area_del).hide()
         },
         _ehAddBtn: function() {
-            this.option.validate && !this.option.validate() || (this._addNewArea(), $(this.elem).find(this.option.area_del).show(), this.option.maximum > 0 && $(this.elem).find(this.option.area_var).length >= this.option.maximum && $(this.option.btn_add).hide(), "function" == typeof this.option.after_add && this.option.after_add())
+            this.option.validate 
+            && !this.option.validate() 
+            || (this._addNewArea(), 
+            $(this.elem).find(this.option.area_del).show(), 
+            this.option.maximum > 0 && 
+            $(this.elem).find(this.option.area_var).length >= this.option.maximum 
+            && $(this.option.btn_add).hide(), 
+            "function" == typeof this.option.after_add 
+            && this.option.after_add())
         },
         _addNewArea: function() {
             var t = $(this.elem).find(this.option.area_var).length,
@@ -76,7 +86,14 @@
             }).end().appendTo(this.elem)
         },
         _initFieldVal: function(t) {
-            return "false" != $(t).attr("empty_val") && "false" != $(t).attr("data-empty-val") && ("checkbox" == $(t).attr("type") || "radio" == $(t).attr("type") ? t.checked = !1 : "SELECT" != $(t).prop("tagName") && "submit" != $(t).attr("type") && "reset" != $(t).attr("type") && "image" != $(t).attr("type") && "button" != $(t).attr("type") && $(t).val(""), !0)
+            return "false" != $(t).attr("empty_val") 
+            && "false" != $(t).attr("data-empty-val") 
+            && ("checkbox" == $(t).attr("type") || "radio" == $(t).attr("type") ? t.checked = !1 : "SELECT" != $(t).prop("tagName") 
+            && "submit" != $(t).attr("type") 
+            && "reset" != $(t).attr("type") 
+            && "image" != $(t).attr("type") 
+            && "button" != $(t).attr("type") 
+            && $(t).val(""), !0)
         },
         _ehDelBtn: function(t) {
             t.preventDefault();
@@ -103,53 +120,20 @@
             return a
         }
     };
-    $.fn.mostoInputArea = function(t) {
+    $.fn.addInputArea = function(t) {
         return this.each(function() {
-            new $.mostoInputArea(this, t)
+            new $.addInputArea(this, t)
         })
-    }, $.mostoInputArea = function(t, e) {
-        this.elem = t, this.option = this._setOption(e, $(this.elem).attr("id")), this._setDelBtnVisibility();
+    }, $.addInputArea = function(t, e) {
+        this.elem = t, 
+        this.option = this._setOption(e, $(this.elem).attr("id")), 
+        this._setDelBtnVisibility();
         var n = this;
-
-        //console.log(n.option);
-        var elem_val = parseInt($(''+n.option.btn_add+'').val());
-
-        //console.log('val'+ elem_val);
-
-        var al_n_of_area = parseInt($(''+n.option.area_var+'').length);
-
-        //console.log('counted'+ al_n_of_area);
-
-        if(isNaN(elem_val) && al_n_of_area == 1){
-            $(''+n.option.area_var+'').hide();
-        }
-
-
-        $(document).on("change", this.option.btn_add, function(e) {
-            //console.log('test'+this.option.btn_add)
-            //console.log();
-
-
-            var n_of_add = parseInt(e.target.value);
-
-
-
-            if(n_of_add == 1 && al_n_of_area){
-                $(''+n.option.area_var+'').show();
-            }
-
-            else if(n_of_add>1){
-
-                $(''+n.option.area_var+'').show();
-
-                for(var i=0;i<n_of_add;i++){
-                    n._ehAddBtn.call(n)
-                }
-            }
-            
-
+        $(document).on("click", this.option.btn_add, function() {
+            n._ehAddBtn.call(n)
         }), $(n.elem).on("click", n.option.btn_del, function(t) {
             n._ehDelBtn.call(n, t)
-        }), this._renumberFieldAll(), this.option.original = $(this.elem).find(this.option.area_var).eq(0).clone(this.option.clone_event), this.option.dont_clone && $(this.option.original).find(this.option.dont_clone).detach()
-    }, $.extend($.mostoInputArea.prototype, i)
+        }), this._renumberFieldAll(), this.option.original = $(this.elem).find(this.option.area_var).eq(0).clone(this.option.clone_event), this.option.dont_clone 
+        && $(this.option.original).find(this.option.dont_clone).detach()
+    }, $.extend($.addInputArea.prototype, i)
 }]);
