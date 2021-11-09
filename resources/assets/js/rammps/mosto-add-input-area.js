@@ -138,13 +138,20 @@
             
             if(n.option.populated_data.length > 0){
                 $(n.option.btn_add).removeAttr('disabled','disabled');
-                for(var i=0;i<n.option.populated_data.length;i++){
+                //console.log($(this.elem).find(this.option.area_var));
+                for(var i=1;i<(n.option.populated_data.length)-1;++i){
                     //n._ehAddBtn.call(n);
                     //this._addNewArea();
                     //this._ehAddBtn.call(this);
                     //this._renumberFieldAll();
-                    console.log(i);
+                    //console.log(i);
                     //$(n.option.btn_add).trigger('click');
+                    var c = $(this.elem).find(this.option.area_var).clone();
+                    c.appendTo(this.elem);
+                    var d = $(this.elem).find(this.option.area_del);
+                    d.show();
+                    d.removeAttr('disabled','disabled');
+
                 }
             }
         }

@@ -62,6 +62,8 @@ function tabularInput(){
 
     $('#death').addInputArea({
 
+        populated_data:[1,2,3],
+
         after_add: function () {
             //e = $("[name^='s_1_3_']");
             //e.removeAttr('disabled');
@@ -209,7 +211,7 @@ function checkChange(){
            
     });*/
 
-    $('#exampleValidator').wizard('goTo', 4);
+    $('#exampleValidator').wizard('goTo', 2);
     
     var api = $('#exampleValidator').data('wizard');
 
