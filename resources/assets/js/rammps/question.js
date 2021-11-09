@@ -94,6 +94,8 @@ function tabularInput(){
 
     $('#death_sibiling').addInputArea({
 
+        populated_data:[1,2],
+
         after_add: function () {
             //e = $("[name^='s_1_3_']");
             //e.removeAttr('disabled');

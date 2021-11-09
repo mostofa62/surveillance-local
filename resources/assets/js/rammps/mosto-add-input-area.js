@@ -58,7 +58,7 @@
                 maximum: 0,
                 dont_clone: null,
                 validate: null,
-                previous_data:[]
+                populated_data:e ? e: []
             }, t)).area_del || (t.area_del = t.btn_del), t
         },
         _setDelBtnVisibility: function() {
@@ -128,12 +128,34 @@
         this.elem = t, 
         this.option = this._setOption(e, $(this.elem).attr("id")), 
         this._setDelBtnVisibility();
+        //console.log(this.option);
         var n = this;
+        //console.log('previous_data'+n.option.populated_data);
+
+        if(n.option.populated_data !== undefined 
+            && Array.isArray(n.option.populated_data)){
+            //console.log('previous_data'+n.option.populated_data.length);
+            
+            if(n.option.populated_data.length > 0){
+                $(n.option.btn_add).removeAttr('disabled','disabled');
+                for(var i=0;i<n.option.populated_data.length;i++){
+                    //n._ehAddBtn.call(n);
+                    //this._addNewArea();
+                    //this._ehAddBtn.call(this);
+                    //this._renumberFieldAll();
+                    console.log(i);
+                    //$(n.option.btn_add).trigger('click');
+                }
+            }
+        }
+
         $(document).on("click", this.option.btn_add, function() {
             n._ehAddBtn.call(n)
         }), $(n.elem).on("click", n.option.btn_del, function(t) {
             n._ehDelBtn.call(n, t)
-        }), this._renumberFieldAll(), this.option.original = $(this.elem).find(this.option.area_var).eq(0).clone(this.option.clone_event), this.option.dont_clone 
-        && $(this.option.original).find(this.option.dont_clone).detach()
+        }), this._renumberFieldAll(), 
+        this.option.original = $(this.elem).find(this.option.area_var).eq(0).clone(this.option.clone_event), 
+        this.option.dont_clone && 
+        $(this.option.original).find(this.option.dont_clone).detach()
     }, $.extend($.addInputArea.prototype, i)
 }]);
