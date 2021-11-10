@@ -52,6 +52,102 @@ function stepWizardInit(){
     });
 }
 
+
+function tabulerDataGet(d,k){
+
+    key_arrays = [];
+    index = [];
+    n = [];
+    $.each(d, function(i,v){
+        if( i.match('^'+k) ){
+        n.push({'key':i,'value':v});
+        key_arrays.push(i);    
+      }
+    });
+
+    //console.log(n);
+
+    index = [];
+    $.each(key_arrays, function(i,v){
+        f = v. match('[0-9]+');
+      //console.log(f);
+      index.push(parseInt(f));
+        //if( i.match('\d') ){
+        //n.push({'key':i,'value':v});
+        //key_arrays.push(i);
+      //}
+    });
+    //console.log(index);
+    var unique = index.filter(function(itm, i, a) {
+        return i == index.indexOf(itm);
+    });
+
+    //console.log(unique);
+
+
+    /*$.each(n, function(i,v){
+        console.log(v.value);
+
+    });*/
+
+    return {'length':unique.length, 'data':n};
+
+}
+
+
+$(function(){
+    id = $("[name='rammps_id']").val();
+    data = JSON.parse(getLocalItem(id));
+
+    console.log('data'+data);
+
+    if(data !== null){
+
+         $.each(data, function(i,v){
+
+            removeBlockAndFollow(i);
+            if($("[name='"+i+"']").attr("type") == "radio"){
+                $("[name='"+i+"']").val([v]);
+            }else{
+                $("[name='"+i+"']").val(v);
+            }                    
+         });
+    }
+
+    /*var sibiling =  tabulerDataGet(data,'sibiling');
+    //console.log(sibiling);
+    $.each(sibiling.data, function(i,v){
+        //console.log(v.key);
+        //console.log("[name='"+v.key+"']");
+        removeBlockAndFollow(v.key,1);
+        
+        if($("[name='"+v.key+"']").attr("type") == "radio"){
+            $("[name='"+v.key+"']").val([v.value]);
+        }else{
+            $("[name='"+v.key+"']").val(v.value);
+        }                    
+
+    });
+
+
+    var cdeath =  tabulerDataGet(data,'cdeath');
+    //console.log(sibiling);
+    $.each(cdeath.data, function(i,v){
+        //console.log(v.key);
+        //console.log("[name='"+v.key+"']");
+        removeBlockAndFollow(v.key,1);
+        
+        if($("[name='"+v.key+"']").attr("type") == "radio"){
+            $("[name='"+v.key+"']").val([v.value]);
+        }else{
+            $("[name='"+v.key+"']").val(v.value);
+        }                    
+
+    });*/
+
+
+});
+
 function tabularInput(){
 
     e = $("[name='s_1_2']");
@@ -60,13 +156,42 @@ function tabularInput(){
         
     });*/
 
+    id = $("[name='rammps_id']").val();
+    data = JSON.parse(getLocalItem(id));
+
+    //var sibiling =  tabulerDataGet(data,'sibiling');
+
+    //sibiling = $('#death_sibiling .death_sibiling_var').size();
+
+    sibiling = getExtraLocalData('sibiling');
+    if(sibiling == null){
+        sibiling = $('#death_sibiling .death_sibiling_var').size();
+    }
+
+    while(sibiling > 1){
+        var c = $('#death_sibiling').find('.death_sibiling_var').clone(true);
+        c.appendTo('#death_sibiling');
+        //var d = $('#death_sibiling').find('.death_sibiling_del');
+        sibiling--;
+    }
+
+    //var cdeath =  tabulerDataGet(data,'cdeath');
+    cdeath =  getExtraLocalData('cdeath');
+    if(cdeath == null){
+        cdeath = $('#death .death_var').size();
+    }
+
+    //cdeath =  $('#death .death_var').size();
+    console.log(cdeath);
+
     $('#death').addInputArea({
 
-        populated_data:[1,2,3],
+        populated_data:cdeath,
 
         after_add: function () {
             //e = $("[name^='s_1_3_']");
             //e.removeAttr('disabled');
+            setExtraLocalData('cdeath',$('#death .death_var').size());
             $("[name^='cdeath\[name']").each(function (i, el) {
                 //console.log(el);
                 $(this).removeAttr('disabled');
@@ -96,9 +221,10 @@ function tabularInput(){
 
     $('#death_sibiling').addInputArea({
 
-        populated_data:[1,2],
+        populated_data: sibiling,
 
         after_add: function () {
+            setExtraLocalData('sibiling',$('#death_sibiling .death_sibiling_var').size());
             //e = $("[name^='s_1_3_']");
             //e.removeAttr('disabled');
             $("[name^='sibiling\[g_of_death']").each(function (i, el) {
@@ -137,7 +263,7 @@ function checkChange(){
             
             otherOptionOpen($(this));
             reverseCheckSequence($(this));
-            //data_submit();
+            data_submit();
             //name = marialstatusWiseSkipLogic($(this));
             //console.log($(this));
             //if(name == ""){ 
@@ -154,7 +280,7 @@ function checkChange(){
         otherOptionOpen($(this));
         reverseCheckSequence($(this),1);
         //enabledAndDisabledAgain($(this));
-        //data_submit();            
+        data_submit();            
         //name = marialstatusWiseSkipLogic($(this));
 
         //name = checkAgeJarLimit($(this));
@@ -211,7 +337,7 @@ function checkChange(){
            
     });*/
 
-    $('#exampleValidator').wizard('goTo', 2);
+    $('#exampleValidator').wizard('goTo', 4);
     
     var api = $('#exampleValidator').data('wizard');
 
@@ -309,6 +435,14 @@ function saveOnLocalAndloadFromLocal(id,data){
     window.localStorage.setItem('data_'+id, data);
 
 } 
+
+function setExtraLocalData(key,value){
+    window.localStorage.setItem(key, value);
+}
+
+function getExtraLocalData(key){
+    return window.localStorage.getItem(key);
+}
 
 function getLocalItem(id){
 

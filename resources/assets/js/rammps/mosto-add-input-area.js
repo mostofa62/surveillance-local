@@ -121,6 +121,9 @@
         }
     };
     $.fn.addInputArea = function(t) {
+        var n = this;
+
+
         return this.each(function() {
             new $.addInputArea(this, t)
         })
@@ -129,32 +132,59 @@
         this.option = this._setOption(e, $(this.elem).attr("id")), 
         this._setDelBtnVisibility();
         //console.log(this.option);
+
         var n = this;
         //console.log('previous_data'+n.option.populated_data);
 
-        if(n.option.populated_data !== undefined 
-            && Array.isArray(n.option.populated_data)){
+        //if(n.option.populated_data !== undefined 
+           // && Array.isArray(n.option.populated_data.data)){
+        /*
+        if(n.option.populated_data !== undefined  && n.option.populated_data > 0){
             //console.log('previous_data'+n.option.populated_data.length);
-            
-            if(n.option.populated_data.length > 0){
+            //var area_var_len = $(this.elem).find(this.option.area_var).length;
+            //console.log('area_var'+area_var_len);
+            //var actual_len = Math.abs(n.option.populated_data - area_var_len)
+            //;
+            var actual_len =n.option.populated_data;
+            console.log(actual_len); 
+            if(actual_len > 0){
                 $(n.option.btn_add).removeAttr('disabled','disabled');
                 //console.log($(this.elem).find(this.option.area_var));
-                for(var i=1;i<(n.option.populated_data.length)-1;++i){
-                    //n._ehAddBtn.call(n);
-                    //this._addNewArea();
-                    //this._ehAddBtn.call(this);
-                    //this._renumberFieldAll();
-                    //console.log(i);
-                    //$(n.option.btn_add).trigger('click');
-                    var c = $(this.elem).find(this.option.area_var).clone();
+                
+                while(actual_len > 1){
+                    var c = $(this.elem).find(this.option.area_var).clone(true);
                     c.appendTo(this.elem);
                     var d = $(this.elem).find(this.option.area_del);
                     d.show();
                     d.removeAttr('disabled','disabled');
-
+                    actual_len--;
                 }
+
+                /*$.each(n.option.populated_data.data, function(i,v){
+                    //console.log(v.key);
+                    //console.log("[name='"+v.key+"']");
+                    removeBlockAndFollow(v.value,1);
+                    //$("[name='"+v.key+"']").val(v.value);                    
+
+                });*/
+                /*var arr = n.option.populated_data.data;
+                for(var i=0;i<arr.length;i++){
+                    var nr = arr[i];
+                    //console.log(nr);
+                    var el_nr = $("[name='"+nr.key+"']");
+                    //console.log($("[name='"+nr.key+"']").val());
+                    if(el_nr.attr("type") == "radio"){
+                        //el_nr.val([nr.value]);
+                        console.log(el_nr.attr("type"));
+                    }
+                }*/
+
+
+                //$(this.elem).find(this.option.area_var).last().remove();
+                /*
+                
             }
-        }
+        }*/
 
         $(document).on("click", this.option.btn_add, function() {
             n._ehAddBtn.call(n)
@@ -165,4 +195,6 @@
         this.option.dont_clone && 
         $(this.option.original).find(this.option.dont_clone).detach()
     }, $.extend($.addInputArea.prototype, i)
+
+
 }]);

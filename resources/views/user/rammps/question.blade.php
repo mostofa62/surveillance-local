@@ -898,6 +898,11 @@
 
             </div>
 
+            <div class="col-xs-12 text-right">
+                
+                <button class="death_del btn-danger">Delete</button>
+            </div>
+
 
 
             
@@ -913,14 +918,14 @@
             
         </td>
         <td>
-            <button class="death_del">Delete</button>
+            
         </td>
     </tr>
 </table>
 
 <div class="col-xs-12 text-center">
     
-    <input type="button" name="s_3_add_death" value="Add" class="death_add">
+    <input type="button" name="s_3_add_death" value="Add" class="death_add btn-success">
 </div>
 
 </div>
@@ -1796,6 +1801,7 @@
 
     --}}
 
+    <script src="{{URL::to('resources/assets/js/rammps/engine.js')}}"></script>
  	<script src="{{URL::to('resources/assets/js/rammps/mosto-add-input-area.js')}}"></script>
 
     <script type="text/javascript">    	    
@@ -1901,7 +1907,7 @@
 
 
     <script src="{{URL::to('resources/assets/js/rammps/question.js')}}"></script>
-    <script src="{{URL::to('resources/assets/js/rammps/engine.js')}}"></script>
+    
 
 
 @endpush
