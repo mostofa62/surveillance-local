@@ -79,6 +79,7 @@
         _addNewArea: function() {
             var t = $(this.elem).find(this.option.area_var).length,
                 e = $(this.option.original).clone(!0);
+            console.log(t);
             this._renumberFieldEach(t, e);
             var n = this;
             $(e).find("[name]").each(function() {
@@ -103,12 +104,20 @@
         _renumberFieldAll: function() {
             var t = this;
             $(this.elem).find(this.option.area_var).each(function(e, n) {
+
+                //console.log(e+'-'+n);
+
                 t._renumberFieldEach.call(t, e, n)
             })
         },
         _renumberFieldEach: function(t, e) {
             var n = this;
+
+            
+
             $(e).find("[name]").each(function() {
+                //console.log(t);
+
                 $(this).attr("name", n._getValOfAttr(this, t, "name")), $(this).attr("id", n._getValOfAttr(this, t, "id"))
             }).end().find("[for]").each(function() {
                 $(this).attr("for", n._getValOfAttr(this, t, "for"))
@@ -125,15 +134,19 @@
 
 
         return this.each(function() {
+            //console.log(this);
             new $.addInputArea(this, t)
         })
     }, $.addInputArea = function(t, e) {
+
+        //console.log(JSON.parse(JSON.stringify(e)));
         this.elem = t, 
         this.option = this._setOption(e, $(this.elem).attr("id")), 
         this._setDelBtnVisibility();
         //console.log(this.option);
 
         var n = this;
+        //console.log(n);
         //console.log('previous_data'+n.option.populated_data);
 
         //if(n.option.populated_data !== undefined 
@@ -185,6 +198,7 @@
                 
             }
         }*/
+        //console.log($(this.elem).find(this.option.area_var).length);
 
         $(document).on("click", this.option.btn_add, function() {
             n._ehAddBtn.call(n)

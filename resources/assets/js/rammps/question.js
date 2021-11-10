@@ -152,46 +152,58 @@ function tabularInput(){
 
     e = $("[name='s_1_2']");
 
-    /*e.change(function(){
-        
-    });*/
+    
 
     id = $("[name='rammps_id']").val();
     data = JSON.parse(getLocalItem(id));
 
-    //var sibiling =  tabulerDataGet(data,'sibiling');
+    var sibiling = 0, cdeath=0;
 
-    //sibiling = $('#death_sibiling .death_sibiling_var').size();
+    if(data != null){
+        if(data.hasOwnProperty('sibiling')){
+            sibiling = data.sibiling;
+        }
 
-    sibiling = getExtraLocalData('sibiling');
-    if(sibiling == null){
-        sibiling = $('#death_sibiling .death_sibiling_var').size();
+        if(data.hasOwnProperty('cdeath')){
+            cdeath = data.cdeath;
+        }
+    }
+    
+
+    if(sibiling > 0){
+        console.log($('#death_sibiling .death_sibiling_var').size());
+        $('.death_sibiling_add').removeAttr('disabled','disabled');
+        //var c = $('#death_sibiling').find('.death_sibiling_var')
+
+        while(sibiling > 1){
+            var c = $('#death_sibiling').find('.death_sibiling_var').eq(0).clone(true);
+            //console.log(c);
+            c.appendTo('#death_sibiling');            
+            sibiling--;
+        }
+        var d = $('#death_sibiling').find('.death_sibiling_del');
+        d.show();
+        d.removeAttr('disabled','disabled');
     }
 
-    while(sibiling > 1){
-        var c = $('#death_sibiling').find('.death_sibiling_var').clone(true);
-        c.appendTo('#death_sibiling');
-        //var d = $('#death_sibiling').find('.death_sibiling_del');
-        sibiling--;
-    }
-
-    //var cdeath =  tabulerDataGet(data,'cdeath');
-    cdeath =  getExtraLocalData('cdeath');
-    if(cdeath == null){
-        cdeath = $('#death .death_var').size();
-    }
-
-    //cdeath =  $('#death .death_var').size();
-    console.log(cdeath);
+    
 
     $('#death').addInputArea({
 
-        populated_data:cdeath,
+        //populated_data:cdeath,
 
         after_add: function () {
             //e = $("[name^='s_1_3_']");
             //e.removeAttr('disabled');
-            setExtraLocalData('cdeath',$('#death .death_var').size());
+            //setExtraLocalData('cdeath',$('#death .death_var').size());
+
+            id = $("[name='rammps_id']").val();
+            data = JSON.parse(getLocalItem(id));
+
+            if( data !=null ){
+                data['cdeath']= $('#death .death_var').size();
+                saveOnLocalAndloadFromLocal(id,JSON.stringify(data));
+            }
             $("[name^='cdeath\[name']").each(function (i, el) {
                 //console.log(el);
                 $(this).removeAttr('disabled');
@@ -221,12 +233,21 @@ function tabularInput(){
 
     $('#death_sibiling').addInputArea({
 
-        populated_data: sibiling,
+        //populated_data: sibiling,
+        dont_clone:true,
 
         after_add: function () {
-            setExtraLocalData('sibiling',$('#death_sibiling .death_sibiling_var').size());
+            //setExtraLocalData('sibiling',$('#death_sibiling .death_sibiling_var').size());
             //e = $("[name^='s_1_3_']");
             //e.removeAttr('disabled');
+
+            id = $("[name='rammps_id']").val();
+            data = JSON.parse(getLocalItem(id));
+
+            if( data !=null ){
+                data['sibiling']= $('#death_sibiling .death_sibiling_var').size();
+                saveOnLocalAndloadFromLocal(id,JSON.stringify(data));
+            }
             $("[name^='sibiling\[g_of_death']").each(function (i, el) {
                 //console.log(el);
                 $(this).removeAttr('disabled');
@@ -362,13 +383,21 @@ function checkChange(){
 
 function data_submit(submitted=0){
     var form = $('#validation').serializeArray();
-    var data = {};    
+    var data = {};
+
+
+
     $.each(form, function(i, field){ 
         //obj = {};
         data[field.name]=field.value;
         //data.push(obj);
         //last_input = data[field.name];        
-        if(field.name!== "end_point" && !field.name.match('^cdeath')
+        if( (field.name!== "end_point" 
+            && !field.name.match('^cdeath')) || 
+            (field.name!== "end_point" 
+            && !field.name.match('^sibiling'))
+
+        
            
             ){
             //console.log(field.name);
@@ -377,6 +406,19 @@ function data_submit(submitted=0){
     });
 
     data['_token']=token;
+
+    id = $("[name='rammps_id']").val();
+    p_data = JSON.parse(getLocalItem(id));
+    if(p_data!= null){
+        if(p_data.hasOwnProperty('sibiling')){
+            data['sibiling'] = p_data.sibiling;
+        }
+
+        if(p_data.hasOwnProperty('cdeath')){
+            data['cdeath'] = p_data.cdeath;
+        }
+    }
+
     saveOnLocalAndloadFromLocal(data['rammps_id'],JSON.stringify(data));
     //storage = JSON.parse(getLocalItem(data['rammps_id']));
     //console.log(storage);

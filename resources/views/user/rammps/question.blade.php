@@ -1469,6 +1469,11 @@
 
         <tr class="death_sibiling_var">
             <td>
+                <div class="row spacer">
+                    <div class="col-md-12">
+                        <p class=".death_sibiling_index"></p>
+                    </div>
+                </div>
                 
 
                 <div class="row spacer">
