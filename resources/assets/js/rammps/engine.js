@@ -491,6 +491,15 @@ function checkSkipLogicMVersion(el,type){
 
 }
 
+//animation segment
+function focusOnElement(name){
+    var focusElement = $("[name='"+name+"']").parents('.form-group');
+    ScrollToTop(focusElement, function() { focusElement.focus(); });
+}
+function ScrollToTop(el, callback) { 
+    $('html, body').animate({ scrollTop: $(el).offset().top - 65 }, 'slow', callback);
+}
+
 
 function removeBlockAndFollow(name,t){
 

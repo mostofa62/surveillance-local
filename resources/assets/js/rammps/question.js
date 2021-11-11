@@ -24,12 +24,23 @@
 				
 	});
 
+    /*id = $("[name='rammps_id']").val();
+    data = JSON.parse(getLocalItem(id));
+
+    if(data != null && data.hasOwnProperty('last_input')){
+        last_input = data.last_input;
+        initAllDomDisabled();        
+
+    }else{*/
+        initAllDomDisabled();
+   /* }*/
+
 
 	/*if( question_id > 0 && last_input!=null ){
     	initAllDomDisabled();
     	initChange(last_input,step_index);
 	}else{*/
-	    initAllDomDisabled();
+	    
 	/*}*/
 
 	initiateGeoInformation();
@@ -96,6 +107,8 @@ function tabulerDataGet(d,k){
 
 
 $(function(){
+    
+    
     id = $("[name='rammps_id']").val();
     data = JSON.parse(getLocalItem(id));
 
@@ -110,40 +123,38 @@ $(function(){
                 $("[name='"+i+"']").val([v]);
             }else{
                 $("[name='"+i+"']").val(v);
+                try{
+                    $("[name='"+i+"']").val(v).trigger('change');
+                }catch(err){
+
+                }
             }                    
          });
+
+         last_index = 0;
+         last_input = null;
+
+         if(data.hasOwnProperty('last_index')){
+            last_index = data.last_index;
+
+         }
+
+         if(data.hasOwnProperty('last_input')){
+            last_input = data.last_input;
+         }
+
+         if(last_input != null){
+
+
+            if(last_index > 0){
+                gotoSpecificStepAndFocus(last_input,last_index);
+            }else{
+                focusOnElement(last_input);
+            }
+         }
     }
 
-    /*var sibiling =  tabulerDataGet(data,'sibiling');
-    //console.log(sibiling);
-    $.each(sibiling.data, function(i,v){
-        //console.log(v.key);
-        //console.log("[name='"+v.key+"']");
-        removeBlockAndFollow(v.key,1);
-        
-        if($("[name='"+v.key+"']").attr("type") == "radio"){
-            $("[name='"+v.key+"']").val([v.value]);
-        }else{
-            $("[name='"+v.key+"']").val(v.value);
-        }                    
-
-    });
-
-
-    var cdeath =  tabulerDataGet(data,'cdeath');
-    //console.log(sibiling);
-    $.each(cdeath.data, function(i,v){
-        //console.log(v.key);
-        //console.log("[name='"+v.key+"']");
-        removeBlockAndFollow(v.key,1);
-        
-        if($("[name='"+v.key+"']").attr("type") == "radio"){
-            $("[name='"+v.key+"']").val([v.value]);
-        }else{
-            $("[name='"+v.key+"']").val(v.value);
-        }                    
-
-    });*/
+    
 
 
 });
@@ -171,7 +182,7 @@ function tabularInput(){
     
 
     if(sibiling > 0){
-        console.log($('#death_sibiling .death_sibiling_var').size());
+        //console.log($('#death_sibiling .death_sibiling_var').size());
         $('.death_sibiling_add').removeAttr('disabled','disabled');
         //var c = $('#death_sibiling').find('.death_sibiling_var')
 
@@ -182,6 +193,18 @@ function tabularInput(){
             sibiling--;
         }
         var d = $('#death_sibiling').find('.death_sibiling_del');
+        d.show();
+        d.removeAttr('disabled','disabled');
+    }
+
+    if(cdeath > 0){
+        $('.death_add').removeAttr('disabled','disabled');
+        while(cdeath > 1){
+            var c = $('#death').find('.death_var').eq(0).clone(true);
+            c.appendTo('#death');
+            cdeath--;
+        }
+        var d = $('#death').find('.death_del');
         d.show();
         d.removeAttr('disabled','disabled');
     }
@@ -280,6 +303,9 @@ function checkChange(){
 
 
 
+
+
+
     $('#validation  input').on('click', function(){ // on change of state
             
             otherOptionOpen($(this));
@@ -358,16 +384,25 @@ function checkChange(){
            
     });*/
 
-    $('#exampleValidator').wizard('goTo', 4);
+    //$('#exampleValidator').wizard('goTo', 4);
     
     var api = $('#exampleValidator').data('wizard');
 
-
+    
 
     $('#exampleValidator').on('wizard::next', function (e) {
         //checkStepWiseActive(e);
         var index = api.currentIndex();
         wizardIndexWiseChange(index,'next');
+
+
+        id = $("[name='rammps_id']").val();
+        data = JSON.parse(getLocalItem(id));
+
+        if( data !=null ){
+            data['last_index']= index;
+            saveOnLocalAndloadFromLocal(id,JSON.stringify(data));
+        }
     });
 
     $('#exampleValidator').on('wizard::back', function (e) {
@@ -389,13 +424,15 @@ function data_submit(submitted=0){
 
     $.each(form, function(i, field){ 
         //obj = {};
-        data[field.name]=field.value;
+        if(field.value != ""){
+            data[field.name]=field.value;
+        }
         //data.push(obj);
         //last_input = data[field.name];        
-        if( (field.name!== "end_point" 
-            && !field.name.match('^cdeath')) || 
-            (field.name!== "end_point" 
-            && !field.name.match('^sibiling'))
+        if( field.name!== "end_point" 
+            && !field.name.match('^cdeath') && 
+            !field.name.match('^sibiling') &&
+            field.value != ""
 
         
            
@@ -403,6 +440,8 @@ function data_submit(submitted=0){
             //console.log(field.name);
             data['last_input'] =field.name;
         }
+
+
     });
 
     data['_token']=token;
@@ -416,6 +455,10 @@ function data_submit(submitted=0){
 
         if(p_data.hasOwnProperty('cdeath')){
             data['cdeath'] = p_data.cdeath;
+        }
+
+        if(p_data.hasOwnProperty('last_index')){
+            data['last_index'] = p_data.last_index;
         }
     }
 
@@ -491,6 +534,12 @@ function getLocalItem(id){
     return window.localStorage.getItem('data_'+id);
 
 
+}
+
+function gotoSpecificStepAndFocus(name,step){
+    $('#exampleValidator').wizard('goTo', step);
+    focusOnElement(name);
+
 }  
 
 
@@ -523,7 +572,7 @@ function initAllDomDisabled(last_input=null){
     e.removeAttr('disabled');
     e.parents('.form-group').removeAttr('style');
 
-    e = $("[name='s_3_until_2018']");
+    /*e = $("[name='s_3_until_2018']");
     e.removeAttr('disabled');
     e.parents('.form-group').removeAttr('style');
 
@@ -535,7 +584,7 @@ function initAllDomDisabled(last_input=null){
 
     e = $("[name='s_5_sibiling_alive']");
     e.removeAttr('disabled');
-    e.parents('.form-group').removeAttr('style');
+    e.parents('.form-group').removeAttr('style');*/
 
 
      e = $("[name='rammps_id']");
@@ -558,16 +607,9 @@ function wizardIndexWiseChange(index, type){
         focusOnElement('s_4_mother_a_or_d');
     }
     else if(index == 4){
-
         //console.log('you are here');
         removeBlockAndFollow('s_5_sibiling_alive');
-        focusOnElement('s_5_sibiling_alive');
-        
-
-        
-
-        
-        
+        focusOnElement('s_5_sibiling_alive');       
     } 
 
 }
