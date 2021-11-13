@@ -51,30 +51,30 @@
 
 <ul class="wizard-steps" role="tablist">
     <li class="active" role="tab">
-        <h4><span><i class="ti-user"></i></span>{{  @App\Models\Rammps::initialText()['s_1'] }} </h4></li>
+        <h4><span><i class="ti-user"></i></span>{{  @App\Models\Rammps::initialText()['s_1_t'] }} </h4></li>
     <li role="tab">
         <h4><span><i class="ti-credit-card"></i></span>        	
-        {{ @App\Models\Rammps::initialText()['s_2'] }}	
+        {{ @App\Models\Rammps::initialText()['s_2_t'] }}	
         </h4>
     </li>
     <li role="tab">
         <h4><span><i class="ti-credit-card"></i></span>         
-        {{ @App\Models\Rammps::initialText()['s_3'] }}  
+        {{ @App\Models\Rammps::initialText()['s_3_t'] }}  
         </h4>
     </li>
     <li role="tab">
         <h4><span><i class="ti-credit-card"></i></span>         
-        {{ @App\Models\Rammps::initialText()['s_4'] }}  
+        {{ @App\Models\Rammps::initialText()['s_4_t'] }}  
         </h4>
     </li>
     <li role="tab">
         <h4><span><i class="ti-credit-card"></i></span>         
-        {{ @App\Models\Rammps::initialText()['s_5'] }}  
+        {{ @App\Models\Rammps::initialText()['s_5_t'] }}  
         </h4>
     </li>
     <li role="tab">
         <h4><span><i class="ti-credit-card"></i></span>         
-        {{ @App\Models\Rammps::initialText()['s_6'] }}  
+        {{ @App\Models\Rammps::initialText()['s_6_t'] }}  
         </h4>
     </li>    
     
@@ -97,7 +97,7 @@
 <div class="form-group">
 	<label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_1_consent']}}</label>
 	<div class="col-xs-4">
-	{!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 's_1_consent',0,$question->s_1_consent, true) !!}
+	{!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNoAnotherTime(), 's_1_consent',0,$question->s_1_consent, true) !!}
 
 	</div>
 	<div class="col-md-4">
@@ -266,7 +266,7 @@
 <p>
 <br>
 <strong> 
-	{{ @App\Models\Rammps::questionText()['s_2'] }}
+	{{ @App\Models\Rammps::initialText()['s_2'] }}
 </strong>
 </p>
 
@@ -354,7 +354,7 @@
 <p>
 <br>
 <strong> 
-    {{ @App\Models\Rammps::questionText()['s_3'] }}
+    {{ @App\Models\Rammps::initialText()['s_3'] }}
 </strong>
 </p>
 
@@ -403,10 +403,10 @@
 
 
 <div class="form-group">
-    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_3_until_2018']}}</label>
+    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_3_until_2019']}}</label>
     <div class="col-xs-4">
     
-    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 's_3_until_2018',0,$question->s_3_until_2018, true) !!}
+    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 's_3_until_2019',0,$question->s_3_until_2019, true) !!}
     </div>
     <div class="col-md-4">
 
@@ -419,7 +419,7 @@
 <div class="form-group table-responsive">
 <div class="form-group">
 <label class="col-xs-4 control-label">
-{{ @App\Models\Rammps::questionText()['s_3_until_2018_a']}}
+{{ @App\Models\Rammps::questionText()['s_3_until_2019_a']}}
 </label>
 <div class="col-md-4">
     {{ @App\Models\Rammps::placeHolderText()['add_more']}}
@@ -1505,6 +1505,7 @@
                     
 
                     <div class="col-md-3">
+                    <span class="sibiling_death_name" style="font-weight: bold;"></span>
                     {{ @App\Models\Rammps::placeHolderText()['sibiling_death_year']}}
                     <br/>
 

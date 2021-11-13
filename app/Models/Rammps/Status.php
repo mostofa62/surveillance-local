@@ -6,6 +6,17 @@ trait Status{
 
 
 	
+	public static function getYesNoAnotherTime(){
+        
+        return[ 
+
+            
+                1 => '1- হ্যাঁ',
+                3 => '3- না',
+                5 => '5- হ্যাঁ, অন্য সময়ে***'               
+
+         ];
+    }
 
 
 	public static function getYesNo(){

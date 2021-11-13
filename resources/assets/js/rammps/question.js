@@ -118,6 +118,10 @@ $(function(){
 
          $.each(data, function(i,v){
 
+            //console.log('from storage'+i);
+
+            enabled_cdeath_or_sibiling(i,v);
+
             removeBlockAndFollow(i);
             if($("[name='"+i+"']").attr("type") == "radio"){
                 $("[name='"+i+"']").val([v]);
@@ -142,22 +146,60 @@ $(function(){
          if(data.hasOwnProperty('last_input')){
             last_input = data.last_input;
          }
+         console.log('last_input'+last_input)
 
          if(last_input != null){
 
-
+            data['last_input'] = last_input;
+            saveOnLocalAndloadFromLocal(id,JSON.stringify(data));
             if(last_index > 0){
                 gotoSpecificStepAndFocus(last_input,last_index);
             }else{
                 focusOnElement(last_input);
             }
          }
+
+         child_or_sibling_enabled();
     }
 
     
 
 
 });
+
+function enabled_cdeath_or_sibiling(el,val){
+
+    if(el == 's_3_until_2019' && val == 1){
+        removeBlockAndFollow('cdeath[name][0]',1);
+        removeBlockAndFollow('s_3_add_death');        
+    }
+
+    if(el == 's_5_sibiling_dead_in_alive' && val!=''){
+        removeBlockAndFollow('sibiling[g_of_death][0]',1);
+        removeBlockAndFollow('death_sibiling_add');
+    }
+
+
+}
+
+function child_or_sibling_enabled(){
+
+    cdeath = "[name='cdeath[name][0]']";
+
+    if( $(cdeath).val() != "" ){
+        cdeath = "[name^='cdeath\[name]']";
+        $(cdeath).removeAttr('disabled','disabled');
+    }
+
+    sibling = "[name='sibiling[g_of_death][0]']";
+    if($(sibling).is(':checked')){
+        sibiling = "[name^='sibiling\[g_of_death]']";
+        $(sibiling).removeAttr('disabled','disabled');
+        //$(sibiling).parent().removeAttr('style');                
+    }
+}
+
+
 
 function tabularInput(){
 
@@ -299,6 +341,8 @@ function tabularInput(){
 
 }
 
+
+
 function checkChange(){
 
 
@@ -310,6 +354,7 @@ function checkChange(){
             
             otherOptionOpen($(this));
             reverseCheckSequence($(this));
+            father_or_mother_death_issues($(this));
             data_submit();
             //name = marialstatusWiseSkipLogic($(this));
             //console.log($(this));
@@ -319,13 +364,15 @@ function checkChange(){
                 //31-8-2020
                 //checkAgeJarLimit($(this));
             //}
+
+
     });
 
 
     $('#validation .select2').on('select2:open', function (e) {
         
         otherOptionOpen($(this));
-        reverseCheckSequence($(this),1);
+        reverseCheckSequence($(this),1);        
         //enabledAndDisabledAgain($(this));
         data_submit();            
         //name = marialstatusWiseSkipLogic($(this));
@@ -361,6 +408,7 @@ function checkChange(){
     $('#validation  input').on('change', function(){ // on change of state
             otherOptionOpen($(this));
             reverseCheckSequence($(this));
+            father_or_mother_death_issues($(this));
             checkSkipLogicMVersion($(this));
             data_submit();
             //name = marialstatusWiseSkipLogic($(this));
@@ -414,6 +462,27 @@ function checkChange(){
 
 }
 
+function father_or_mother_death_issues(el){
+
+    if(el.attr('name')=='s_4_mother_name' &&
+        $("[name='s_4_mother_a_or_d']").filter(':checked').val() == 3  
+     ){
+        removeBlockAndFollow('s_4_mother_d_age');
+    }else{
+        disableReverseSection( $("[name='s_4_mother_d_age']"));
+    }
+
+    if(el.attr('name')=='s_4_father_name' &&
+        $("[name='s_4_father_a_or_d']").filter(':checked').val() == 3  
+     ){
+        removeBlockAndFollow('s_4_father_d_age');
+    }else{
+        disableReverseSection( $("[name='s_4_father_d_age']"));
+    }
+    
+
+}
+
 
 
 function data_submit(submitted=0){
@@ -424,7 +493,9 @@ function data_submit(submitted=0){
 
     $.each(form, function(i, field){ 
         //obj = {};
+
         if(field.value != ""){
+            //console.log(field.name);
             data[field.name]=field.value;
         }
         //data.push(obj);
@@ -460,6 +531,10 @@ function data_submit(submitted=0){
         if(p_data.hasOwnProperty('last_index')){
             data['last_index'] = p_data.last_index;
         }
+
+
+
+
     }
 
     saveOnLocalAndloadFromLocal(data['rammps_id'],JSON.stringify(data));
@@ -489,45 +564,11 @@ function data_submit(submitted=0){
 
 //setInterval(postDataOnTime, 5000);
 
-function postDataOnTime(){
-    
-    id = $("[name='rammps_id']").val();
-    data = JSON.parse(getLocalItem(id));
-
-    $.ajax({
-        cache: false,
-        method: "POST",
-        url: url,
-        data: data,
-    }).done(function( msg ) {
-        console.log(msg);
-
-        /*if(submitted){
-
-                    if(msg.success==true)
-                    window.location.href =  redirect;
-
-        }else{
-
-        }*/
-    });
-}
 
 function saveOnLocalAndloadFromLocal(id,data){
-
-
-
     window.localStorage.setItem('data_'+id, data);
-
 } 
 
-function setExtraLocalData(key,value){
-    window.localStorage.setItem(key, value);
-}
-
-function getExtraLocalData(key){
-    return window.localStorage.getItem(key);
-}
 
 function getLocalItem(id){
 
@@ -572,7 +613,7 @@ function initAllDomDisabled(last_input=null){
     e.removeAttr('disabled');
     e.parents('.form-group').removeAttr('style');
 
-    /*e = $("[name='s_3_until_2018']");
+    /*e = $("[name='s_3_until_2019']");
     e.removeAttr('disabled');
     e.parents('.form-group').removeAttr('style');
 

@@ -182,6 +182,7 @@ trait Sequence {
         	's_1_consent'=>[
 
         		1=>['s_1_gender'],
+                5=>['s_1_gender'],
 
         		//3=>['end_point',1],
                 3=>['s_1_consent_n']
@@ -212,10 +213,10 @@ trait Sequence {
             's_3_khana_m'=>['s_3_khana_f'],
             's_3_khana_f'=>['s_3_relation_w_main'],
             's_3_relation_w_main'=>['s_3_khana_u_5'],
-            's_3_khana_u_5'=>['s_3_until_2018'],
-            's_3_until_2018'=>[
-                1=>['s_3_add_death','cdeath[name][0]'],
-                3=>['s_4_mother_a_or_d']
+            's_3_khana_u_5'=>['s_3_until_2019'],
+            's_3_until_2019'=>[
+                1=>['s_3_add_death','cdeath[name][0]','s_4_mother_a_or_d'],
+                3=>['s_4_mother_a_or_d',3]
             ],
 
             's_4_mother_a_or_d'=>[
@@ -225,7 +226,7 @@ trait Sequence {
             ],
             's_4_mother_age'=>['s_4_mother_location'],
             's_4_mother_location'=>['s_4_mother_name'],
-            's_4_mother_name'=>['s_4_mother_d_age'],
+            's_4_mother_name'=>['s_4_father_a_or_d'],
             's_4_mother_d_age'=>['s_4_mother_db_location'],
             's_4_mother_db_location'=>['s_4_mother_d_year'],
 
@@ -239,8 +240,7 @@ trait Sequence {
 
 
             's_4_father_age'=>['s_4_father_location'],
-            's_4_father_location'=>['s_4_father_name'],
-            's_4_father_name'=>['s_4_father_d_age'],
+            's_4_father_location'=>['s_4_father_name'],            
             's_4_father_d_age'=>['s_4_father_db_location'],
             's_4_father_db_location'=>['s_4_father_d_year'],
 
@@ -299,12 +299,15 @@ trait Sequence {
     public static function gateReverseSequence(){
         return [
             's_1_consent'=>[
-                1=>['s_1_consent_n'],  
+                1=>['s_1_consent_n'],
+                5=>['s_1_consent_n'],
+                3=>['s_1_gender','s_1_18up','s_1_age','s_1_dd','s_1_v_or_c','s_1_uz','s_1_mc','s_1_cc'],                
 
             ],              
     
-            's_3_until_2018'=>[
-                3=>['s_3_add_death','cdeath']
+            's_3_until_2019'=>[
+                3=>['s_3_add_death','cdeath'],
+                88=>['s_3_add_death','cdeath']
             ],
 
             's_4_mother_a_or_d'=>[                

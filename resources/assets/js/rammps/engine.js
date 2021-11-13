@@ -603,10 +603,11 @@ function reverseCheckSequence(el,type=0){
 
     if( len >= 1 ){
         
-        value = e.filter(':checked').val();
+        value = el.filter(':checked').val();
         if(value == undefined || value == null){
-            value = e.val();
+            value = el.val();
         }
+        console.log('selected value in reverse:'+value);
         valueNode = keyVal[value];
         console.log(valueNode);
         if( valueNode === undefined ){
