@@ -160,6 +160,7 @@ $(function(){
          }
 
          child_or_sibling_enabled();
+         tabuler_indexining();
     }
 
     
@@ -197,6 +198,18 @@ function child_or_sibling_enabled(){
         $(sibiling).removeAttr('disabled','disabled');
         //$(sibiling).parent().removeAttr('style');                
     }
+}
+
+function tabuler_indexining(){
+
+    $('#death').find('.death_var').each(function(i,e) {
+        //console.log('i'+i);
+     inc = i+1;   $(this).find('.death_index').text(inc);
+    });
+
+    $('#death_sibiling').find('.death_sibiling_var').each(function(i,e) {
+     inc = i+1;   $(this).find('.death_sibiling_index').text(inc);
+    });
 }
 
 
@@ -275,6 +288,8 @@ function tabularInput(){
             });
 
             $('.death_del').removeAttr('disabled');
+
+            tabuler_indexining();
         }
 
     }).on('click', 'input',function(){
@@ -282,17 +297,20 @@ function tabularInput(){
         otherOptionOpenTab($(this));
         checkSkipLogicForTabuler($(this));
         reverseCheckSequenceTabuler($(this));
+        replace_text($(this));
     })
     .on('change', 'input',function(){
         //console.log($(this).attr('name'));
         otherOptionOpenTab($(this));
         checkSkipLogicForTabuler($(this));
         reverseCheckSequenceTabuler($(this));
+        replace_text($(this));
     }).on('change', 'select',function(){
         //console.log($(this).attr('name'));
         otherOptionOpenTab($(this));
         checkSkipLogicForTabuler($(this));
         reverseCheckSequenceTabuler($(this),1);
+        replace_text($(this));
     });
 
 
@@ -319,6 +337,7 @@ function tabularInput(){
             });
 
             $('.death_sibiling_del').removeAttr('disabled');
+            tabuler_indexining();
         }
 
     }).on('click', 'input',function(){
@@ -339,6 +358,119 @@ function tabularInput(){
         reverseCheckSequenceTabuler($(this),1);
     });
 
+    $('.death_del').click(function(){
+        t = $(this).
+       parent()
+       .parent()
+       .parent()
+       .find("[name^='cdeath\[name]']")
+       .attr('name');
+       match = t.match(/(\d+)(?!.*\d)/);
+       
+       index = match[0];
+       //console.log(index); 
+       id = $("[name='rammps_id']").val();
+       data = JSON.parse(getLocalItem(id));
+
+
+        delete data['cdeath[name]['+index+']'];
+        delete data['cdeath[r_with_death]['+index+']'];
+        delete data['cdeath[r_with_death_e]['+index+']'];
+        delete data['cdeath[db_location_death]['+index+']'];
+        delete data['cdeath[g_of_covid]['+index+']'];
+        delete data['cdeath[dyear]['+index+']'];
+        delete data['cdeath[dmonth]['+index+']'];
+        delete data['cdeath[dday]['+index+']'];
+        delete data['cdeath[death_year]['+index+']'];
+        delete data['cdeath[death_married]['+index+']'];
+        delete data['cdeath[death_pregnant]['+index+']'];
+        delete data['cdeath[death_on_birth]['+index+']'];
+        delete data['cdeath[death_2m_birth]['+index+']'];
+
+        delete data['cdeath[death_symptoms_1]['+index+']'];
+        delete data['cdeath[death_symptoms_1_e]['+index+']'];
+        delete data['cdeath[death_symptoms_2]['+index+']'];
+        delete data['cdeath[death_symptoms_2_e]['+index+']'];
+        delete data['cdeath[death_symptoms_3]['+index+']'];
+        delete data['cdeath[death_symptoms_3_e]['+index+']'];
+        delete data['cdeath[death_symptoms_4]['+index+']'];
+        delete data['cdeath[death_symptoms_4_e]['+index+']'];
+
+
+        delete data['cdeath[death_location]['+index+']'];
+        delete data['cdeath[death_location_e]['+index+']'];
+        delete data['cdeath[death_reason_1]['+index+']'];
+        delete data['cdeath[death_reason_1_e]['+index+']'];
+        delete data['cdeath[death_reason_2]['+index+']'];
+        delete data['cdeath[death_reason_2_e]['+index+']'];
+        delete data['cdeath[death_reason_3]['+index+']'];
+        delete data['cdeath[death_reason_3_e]['+index+']'];
+        delete data['cdeath[death_reason_4]['+index+']'];
+        delete data['cdeath[death_reason_4_e]['+index+']'];
+
+
+        delete data['cdeath[death_detect_by]['+index+']'];
+        delete data['cdeath[death_covid_symptoms]['+index+']'];
+        delete data['cdeath[death_covid_symptoms_e]['+index+']'];
+        delete data['cdeath[death_covid_hospital]['+index+']'];
+        delete data['cdeath[death_covid_hospital_a]['+index+']'];
+        delete data['cdeath[death_covid_death_where]['+index+']'];
+        delete data['cdeath[death_covid_death_where_e]['+index+']'];
+        delete data['cdeath[death_covid_grave]['+index+']'];
+        delete data['cdeath[death_covid_grave_e]['+index+']'];
+
+        if(data.hasOwnProperty('cdeath') && data.cdeath > 0){
+            data.cdeath = data.cdeath - 1;           
+        }
+        
+        saveOnLocalAndloadFromLocal(id, JSON.stringify(data));
+
+
+
+
+
+    });
+
+
+    $('.death_sibiling_del').click(function(){
+       //alert('moving');
+       t = $(this).
+       parent()
+       .parent()
+       .parent()
+       .find("[name^='sibiling\[g_of_death]']")
+       .attr('name');
+       match = t.match(/(\d+)(?!.*\d)/);
+       
+       index = match[0];
+       //console.log(index); 
+
+       id = $("[name='rammps_id']").val();
+       data = JSON.parse(getLocalItem(id));
+       //console.log(data['sibiling[g_of_death]['+index+']']);
+        
+        delete data['sibiling[g_of_death]['+index+']'];
+        delete data['sibiling[age_of_death]['+index+']'];
+        delete data['sibiling[year_of_death]['+index+']'];
+        delete data['sibiling[db_location_death]['+index+']'];
+        delete data['sibiling[death_detect_by]['+index+']'];
+        delete data['sibiling[death_covid_symptoms]['+index+']'];
+        delete data['sibiling[death_covid_symptoms_e]['+index+']'];
+        delete data['sibiling[death_covid_hospital]['+index+']'];
+        delete data['sibiling[death_covid_hospital_a]['+index+']'];
+        delete data['sibiling[death_covid_death_where]['+index+']'];
+        delete data['sibiling[death_covid_death_where_e]['+index+']'];
+        delete data['sibiling[death_covid_grave]['+index+']'];
+        delete data['sibiling[death_covid_grave_e]['+index+']'];
+
+        if(data.hasOwnProperty('sibiling') && data.sibiling > 0){
+            data.sibiling = data.sibiling - 1;           
+        }
+        
+        saveOnLocalAndloadFromLocal(id, JSON.stringify(data));        
+
+    });
+
 }
 
 
@@ -355,6 +487,7 @@ function checkChange(){
             otherOptionOpen($(this));
             reverseCheckSequence($(this));
             father_or_mother_death_issues($(this));
+            replace_text($(this));
             data_submit();
             //name = marialstatusWiseSkipLogic($(this));
             //console.log($(this));
@@ -374,6 +507,7 @@ function checkChange(){
         otherOptionOpen($(this));
         reverseCheckSequence($(this),1);        
         //enabledAndDisabledAgain($(this));
+        replace_text($(this));
         data_submit();            
         //name = marialstatusWiseSkipLogic($(this));
 
@@ -393,6 +527,7 @@ function checkChange(){
             //disableMultipleDropdown($(this));            
             reverseCheckSequence($(this),1);
             //enabledAndDisabledAgain($(this));
+            replace_text($(this));
             data_submit();            
             //name = marialstatusWiseSkipLogic($(this));
             //name = checkAgeJarLimit($(this));
@@ -410,6 +545,7 @@ function checkChange(){
             reverseCheckSequence($(this));
             father_or_mother_death_issues($(this));
             checkSkipLogicMVersion($(this));
+            replace_text($(this));
             data_submit();
             //name = marialstatusWiseSkipLogic($(this));
             //name = checkAgeJarLimit($(this));
@@ -459,6 +595,20 @@ function checkChange(){
         wizardIndexWiseChange(index,'back');
     });
     
+
+}
+
+function replace_text(el){
+    name = el.attr('name');
+    match = name.match(/(\d+)(?!.*\d)/);
+    index = match[0];
+
+    dom = $("[name='cdeath[name]["+index+"]']");
+
+    if(dom.val()!==""){
+        dom.parent().parent().find('.cdeath_place').text(dom.val());
+    }
+    //console.log(dom);
 
 }
 
