@@ -44,6 +44,9 @@
 }
 .cdeath_place{
     font-weight: bold;
+    background-color: #000;
+    color: #fff;
+    padding: 2px;
 }
 </style>
 
@@ -1190,7 +1193,7 @@
 <div class="row spacer">
     <div class="col-md-3">
 
-        {{ @App\Models\Rammps::placeHolderText()['death_detect_by']}}
+        {!! @App\Models\Rammps::placeHolderText()['death_detect_by'] !!}
         <br/>
 
         {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'mother_death_detect_by',0,null, false) !!}
@@ -1296,7 +1299,7 @@
 <div class="row spacer">
     <div class="col-md-3">
 
-        {{ @App\Models\Rammps::placeHolderText()['death_detect_by']}}
+        {!! @App\Models\Rammps::placeHolderText()['death_detect_by'] !!}
         <br/>
 
         {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'father_death_detect_by',0,null, false) !!}
@@ -1560,7 +1563,7 @@
                 <div class="row spacer">
                 <div class="col-md-3">
 
-                    {{ @App\Models\Rammps::placeHolderText()['death_detect_by']}}
+                    {!! @App\Models\Rammps::placeHolderText()['s_death_detect_by']!!}
                     <br/>
 
                     {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'sibiling[death_detect_by][]',0,null, false,'data-name-format="sibiling[death_detect_by][%d]"') !!}
@@ -1570,7 +1573,7 @@
 
                 <div class="col-md-3">
 
-                    {!! @App\Models\Rammps::placeHolderText()['death_covid_symptoms'] !!}
+                    {!! @App\Models\Rammps::placeHolderText()['s_death_covid_symptoms'] !!}
                     <br/>        
 
                     {!! Form::select('sibiling[death_covid_symptoms][]',
@@ -1593,7 +1596,7 @@
 
                 <div class="col-md-3">
 
-                    {{ @App\Models\Rammps::placeHolderText()['death_covid_hospital']}}
+                    {!! @App\Models\Rammps::placeHolderText()['s_death_covid_hospital'] !!}
                     <br/>
 
                     {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'sibiling[death_covid_hospital][]',0,null, false,'data-name-format="sibiling[death_covid_hospital][%d]"') !!}
@@ -1603,7 +1606,7 @@
 
                 <div class="col-md-3">
 
-                    {{ @App\Models\Rammps::placeHolderText()['death_covid_hospital_a']}}
+                    {!! @App\Models\Rammps::placeHolderText()['s_death_covid_hospital_a'] !!}
                     <br/>
 
                     {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'sibiling[death_covid_hospital_a][]',0,null, false,'data-name-format="sibiling[death_covid_hospital_a][%d]"') !!}
@@ -1617,7 +1620,7 @@
 
                 <div class="col-md-6">
 
-                    {{ @App\Models\Rammps::placeHolderText()['death_covid_death_where']}}
+                    {!! @App\Models\Rammps::placeHolderText()['s_death_covid_death_where']!!}
                     <br/>        
 
                     {!! Form::select('sibiling[death_covid_death_where][]',
@@ -1641,7 +1644,7 @@
 
                 <div class="col-md-6">
 
-                    {{ @App\Models\Rammps::placeHolderText()['death_covid_grave']}}
+                    {!! @App\Models\Rammps::placeHolderText()['s_death_covid_grave']!!}
                     <br/>        
 
                     {!! Form::select('sibiling[death_covid_grave][]',

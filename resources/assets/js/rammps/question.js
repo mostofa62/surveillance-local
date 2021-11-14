@@ -606,7 +606,7 @@ function replace_text(el){
     dom = $("[name='cdeath[name]["+index+"]']");
 
     if(dom.val()!==""){
-        dom.parent().parent().find('.cdeath_place').text(dom.val());
+        dom.parent().parent().parent().find('.cdeath_place').text(dom.val());        
     }
     //console.log(dom);
 
