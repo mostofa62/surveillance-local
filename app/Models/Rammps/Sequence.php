@@ -16,8 +16,8 @@ trait Sequence {
                 7=>['cdeath[dyear]','cdeath[dmonth]','cdeath[dday]'],
             ],
 
-            'cdeath[dyear]'=>['cdeath[death_year]'],
-            'cdeath[dmonth]'=>['cdeath[death_year]'],
+            'cdeath[dyear]'=>['cdeath[death_year]','cdeath[dmonth]'],
+            'cdeath[dmonth]'=>['cdeath[death_year]','cdeath[dday]'],
             'cdeath[dday]'=>['cdeath[death_year]'],
 
             'cdeath[death_year]'=>['cdeath[death_married]'],
@@ -40,9 +40,21 @@ trait Sequence {
             ],
 
             //symptoms
-            'cdeath[death_symptoms_1]'=>['cdeath[death_location]'],
-            'cdeath[death_symptoms_2]'=>['cdeath[death_location]'],
-            'cdeath[death_symptoms_3]'=>['cdeath[death_location]'],
+            'cdeath[death_symptoms_1]'=>[
+                'cdeath[death_location]',
+                'cdeath[death_symptoms_2]'
+            ],
+            
+            'cdeath[death_symptoms_2]'=>[
+                'cdeath[death_location]',
+                'cdeath[death_symptoms_3]'
+            ],
+            
+            'cdeath[death_symptoms_3]'=>[
+                'cdeath[death_location]',
+                'cdeath[death_symptoms_4]'
+            ],
+            
             'cdeath[death_symptoms_4]'=>['cdeath[death_location]'],
 
             'cdeath[death_location]'=>[

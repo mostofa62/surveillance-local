@@ -48,6 +48,10 @@
     color: #fff;
     padding: 2px;
 }
+
+#consent_no_submit{
+    display: none;
+}
 </style>
 
 
@@ -61,6 +65,58 @@
 
       <!-- Typehead CSS -->
 <link href="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/typeahead.js-master/dist/typehead-min.css')}}" rel="stylesheet">
+
+
+<!-- Rescheduled -->
+        
+<div class="col-md-4 col-sm-12  table-position" style="display: none;">
+    {{--
+    <div class="form-group">
+        <div class="col-md-12">
+        <button class="close btn btn-danger">close(X)
+        </button>
+        </div>
+    </div>
+    --}}
+   
+    <div class="form-group">
+        
+        <div class="col-md-12">
+            {!! Form::select('call_status',[''=>'--- Call Status ---']+\App\Models\Ivr::getScheduleSuveillance(),Input::old('call_status',isset($question->call_status)?$question->call_status:''), array('id' => 'call_status', 'class' => 'form-control')) !!}
+        </div>
+    </div>
+    
+
+    <div class="form-group">
+        <label class="col-md-12 control-label ">Date</label>
+        <div class="col-md-12">
+            <input type="date" name="date" id="date" class="form-control" required="required" value="<?=date('Y-m-d')?>" min="<?=date('Y-m-d')?>">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-12 control-label ">Time</label>
+        <div class="col-md-12">
+            <input type="time" name="time" id="time" class="form-control" required="required" value="<?=date('H:i')?>">
+        </div>
+    </div>
+   
+
+    <div class="form-group">
+        <label class="control-label ">Call Status</label>
+        {!! Form::select('call_status',[''=>'--- সাক্ষাৎকার অবস্থা ---']+\App\Models\Ivr::getForcedfinished(),Input::old('call_status',isset($question->call_state)?$question->call_status:''), array('id' => 'call_status', 'class' => 'form-control')) !!}
+    </div>
+
+    
+
+    <div class="form-group">
+        <button type="submit" id="submit_new" class="btn btn-primary btn-block" name="schedule">Submit</button>
+    </div>
+
+    <br>
+</div>
+
+<!-- end Rescheduled -->
+
 
 <div id="exampleValidator" class="wizard">
 
@@ -138,6 +194,12 @@
 
     </div>
 </div>
+<div class="form-group">
+ <div class="col-xs-12 text-center">
+     <a id="consent_no_submit" class="btn btn-success btn-lg">        সম্পূর্ণ করুন          
+     </a>
+ </div>
+</div>                                
 
 
 
