@@ -125,7 +125,12 @@ function showScheduleBlock(){
 function schedule_block_on_propertime(el){
 
     s_1_consent = $("[name='s_1_consent']").filter(':checked').val();
-    if( el.attr('name') == 's_1_dd' && s_1_consent == 5){
+    if( (el.attr('name') == 's_1_dd' 
+        || el.attr('name') == 's_1_v_or_c' 
+        || el.attr('name') == 's_1_cc_uz_mc'
+        || el.attr('name') == 's_1_mc'
+        || el.attr('name') == 's_1_consent'
+        ) && s_1_consent == 5){
         $('.table-position').show();
     }
     else if(el.attr('name') == 's_1_consent' 
@@ -201,6 +206,9 @@ function tabulerDataGet(d,k){
 
 
 $(function(){
+
+
+
     
     
     id = $("[name='rammps_id']").val();
@@ -247,6 +255,7 @@ $(function(){
             data['last_input'] = last_input;
             saveOnLocalAndloadFromLocal(id,JSON.stringify(data));
             if(last_index > 0){
+                $('.table-position').show();
                 gotoSpecificStepAndFocus(last_input,last_index);
             }else{
                 focusOnElement(last_input);
@@ -676,6 +685,10 @@ function checkChange(){
         var index = api.currentIndex();
         wizardIndexWiseChange(index,'next');
 
+        if( index > 0 ){
+            $('.table-position').show();
+        }
+
 
         id = $("[name='rammps_id']").val();
         data = JSON.parse(getLocalItem(id));
@@ -705,6 +718,18 @@ function replace_text(el){
     if(dom.val()!==""){
         dom.parent().parent().parent().find('.cdeath_place').text(dom.val());        
     }
+
+    dom = $("[name='s_4_mother_name']");
+    if(dom.val()!==""){
+        $('.m_place').text(dom.val());        
+    }
+
+    dom = $("[name='s_4_father_name']");
+    if(dom.val()!==""){
+        $('.f_place').text(dom.val());        
+    }
+
+    
     //console.log(dom);
 
 }

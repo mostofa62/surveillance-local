@@ -42,7 +42,7 @@
     padding: 5px;
     border-radius: 5px;
 }
-.cdeath_place{
+.cdeath_place, .m_place, .f_place{
     font-weight: bold;
     background-color: #000;
     color: #fff;
@@ -79,7 +79,7 @@
     </div>
     --}}
    
-    <div class="form-group">
+    <div class="form-group" style="margin-top: 15px">
         
         <div class="col-md-12">
             {!! Form::select('call_status',[''=>'--- Call Status ---']+\App\Models\Ivr::getScheduleSuveillance(),Input::old('call_status',isset($question->call_status)?$question->call_status:''), array('id' => 'call_status', 'class' => 'form-control')) !!}
@@ -1255,7 +1255,7 @@
 <div class="row spacer">
     <div class="col-md-3">
 
-        {!! @App\Models\Rammps::placeHolderText()['death_detect_by'] !!}
+        {!! @App\Models\Rammps::placeHolderText()['m_death_detect_by'] !!}
         <br/>
 
         {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'mother_death_detect_by',0,null, false) !!}
@@ -1265,7 +1265,7 @@
 
     <div class="col-md-3">
 
-        {!! @App\Models\Rammps::placeHolderText()['death_covid_symptoms'] !!}
+        {!! @App\Models\Rammps::placeHolderText()['m_death_covid_symptoms'] !!}
         <br/>        
 
         {!! Form::select('mother_death_covid_symptoms',
@@ -1286,7 +1286,7 @@
 
     <div class="col-md-3">
 
-        {{ @App\Models\Rammps::placeHolderText()['death_covid_hospital']}}
+        {!! @App\Models\Rammps::placeHolderText()['m_death_covid_hospital']!!}
         <br/>
 
         {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'mother_death_covid_hospital',0,null, false) !!}
@@ -1296,7 +1296,7 @@
 
     <div class="col-md-3">
 
-        {{ @App\Models\Rammps::placeHolderText()['death_covid_hospital_a']}}
+        {!! @App\Models\Rammps::placeHolderText()['m_death_covid_hospital_a']!!}
         <br/>
 
         {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'mother_death_covid_hospital_a',0,null, false) !!}
@@ -1311,7 +1311,7 @@
 
 <div class="col-md-6">
 
-    {{ @App\Models\Rammps::placeHolderText()['death_covid_death_where']}}
+    {!! @App\Models\Rammps::placeHolderText()['m_death_covid_death_where']!!}
     <br/>        
 
     {!! Form::select('mother_death_covid_death_where',
@@ -1333,7 +1333,7 @@
 
 <div class="col-md-6">
 
-    {{ @App\Models\Rammps::placeHolderText()['death_covid_grave']}}
+    {!! @App\Models\Rammps::placeHolderText()['m_death_covid_grave']!!}
     <br/>        
 
     {!! Form::select('mother_death_covid_grave',
@@ -1361,7 +1361,7 @@
 <div class="row spacer">
     <div class="col-md-3">
 
-        {!! @App\Models\Rammps::placeHolderText()['death_detect_by'] !!}
+        {!! @App\Models\Rammps::placeHolderText()['f_death_detect_by'] !!}
         <br/>
 
         {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'father_death_detect_by',0,null, false) !!}
@@ -1371,7 +1371,7 @@
 
     <div class="col-md-3">
 
-        {!! @App\Models\Rammps::placeHolderText()['death_covid_symptoms'] !!}
+        {!! @App\Models\Rammps::placeHolderText()['f_death_covid_symptoms'] !!}
         <br/>        
 
         {!! Form::select('father_death_covid_symptoms',
@@ -1392,7 +1392,7 @@
 
     <div class="col-md-3">
 
-        {{ @App\Models\Rammps::placeHolderText()['death_covid_hospital']}}
+        {!! @App\Models\Rammps::placeHolderText()['f_death_covid_hospital']!!}
         <br/>
 
         {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'father_death_covid_hospital',0,null, false) !!}
@@ -1402,7 +1402,7 @@
 
     <div class="col-md-3">
 
-        {{ @App\Models\Rammps::placeHolderText()['death_covid_hospital_a']}}
+        {!! @App\Models\Rammps::placeHolderText()['f_death_covid_hospital_a']!!}
         <br/>
 
         {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'father_death_covid_hospital_a',0,null, false) !!}
@@ -1417,7 +1417,7 @@
 
 <div class="col-md-6">
 
-    {{ @App\Models\Rammps::placeHolderText()['death_covid_death_where']}}
+    {!! @App\Models\Rammps::placeHolderText()['f_death_covid_death_where']!!}
     <br/>        
 
     {!! Form::select('father_death_covid_death_where',
@@ -1439,7 +1439,7 @@
 
 <div class="col-md-6">
 
-    {{ @App\Models\Rammps::placeHolderText()['death_covid_grave']}}
+    {!! @App\Models\Rammps::placeHolderText()['f_death_covid_grave']!!}
     <br/>        
 
     {!! Form::select('father_death_covid_grave',
