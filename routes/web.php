@@ -137,6 +137,8 @@ Route::group(['middleware' =>['admin:user']], function () {
     Route::any('user/rammps/callInitiate', 'RammpsController@index');
     Route::any('user/rammps/question/{id}', 'RammpsController@question');
 
+    Route::any('user/rammps/callschedule', 'RammpsController@callSchedule');
+
     //JE
     Route::any('user/encephalitis/callInitiate', 'EncephalitisController@callInitiate');
     Route::any('user/encephalitis/callschedule', 'EncephalitisController@callSchedule');

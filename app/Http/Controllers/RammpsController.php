@@ -10,6 +10,10 @@ use Carbon\Carbon;
 use App\Models\Rammps;
 use App\Models\RammpsQuestion as Question;
 use App\Models\RammpsQuestionCovid as CovidQuestion;
+
+use App\User;
+use Response;
+
 class RammpsController extends Controller{
 
 
@@ -43,10 +47,10 @@ class RammpsController extends Controller{
                
 
         }else{
-        	view()->share('rammps', null);
+        	view()->share('info', null);
         }
 
-        view()->share('rammps', $rammps);
+        view()->share('info', $rammps);
 
         return view(session('access').'rammps/initiate');
 
@@ -67,16 +71,7 @@ class RammpsController extends Controller{
 			if(!isset($question))
                 $question = new Question();
 
-            //$death_data = $this->death_covid($request->input('cdeath'));
-            /*foreach ($request->input('cdeath') as $value) {
-
-            	$death_data[]=array(
-            		'rammps_id'=>$id,
-            		'name'=>$value[0],
-            		'd_of_covid'=>$value[1]
-            	);
-            	
-            }*/
+            
             
 
 
@@ -126,21 +121,21 @@ class RammpsController extends Controller{
 
 	}
 
-	private function death_covid($a){
-		$data = array();
-		$i=0;
-		$a =array_values($a);		
-		while($i<count($a[0]))  {
-		  $data_arr = array();
-		  
-		  for($x=0;$x<count($a);$x++){
-		    array_push($data_arr,$a[$x][$i]);
-		  }
-		  array_push($data,$data_arr);
-		  $i++;
-		}
+    public function callSchedule()
+    {
 
-		return $data;
+        if(isset($_POST['schedule_id'])){
 
-	}
+            $totalDuration = 0;
+
+        }
+        else if(isset($_POST['mobile_no'])){
+
+        }else{
+            return redirect(session('access').'rammps/callInitiate')->with('message', 'সফলভাবে সংরক্ষিত');
+        }
+
+    }
+
+	
 }

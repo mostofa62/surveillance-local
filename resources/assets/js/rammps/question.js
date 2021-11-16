@@ -702,6 +702,10 @@ function checkChange(){
     $('#exampleValidator').on('wizard::back', function (e) {
         //checkStepWiseActive(e);
         var index = api.currentIndex();
+
+        if( index < 1 ){
+            $('.table-position').hide();
+        }
         wizardIndexWiseChange(index,'back');
     });
     
