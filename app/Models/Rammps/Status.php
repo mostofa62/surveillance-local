@@ -33,7 +33,7 @@ trait Status{
         return[ 
 
             
-                1 => '1- হ্যাঁ',
+                1 => '1- হ্যাঁ, এখনই ',
                 3 => '3- না',
                 5 => '5- হ্যাঁ, অন্য সময়ে***'               
 
@@ -79,6 +79,15 @@ trait Status{
             3 => '3- না',
             88=>'88 - জানি না'
     	];
+    }
+
+    public static function getYNDNIgnore(){
+        return [
+            1 => '1- হ্যাঁ',
+            3 => '3- না',
+            88=>'88 - জানি না',
+            99=>'99 - অস্বীকৃতী'
+        ];
     }
 
     public static function getCovidResult(){

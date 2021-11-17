@@ -329,12 +329,12 @@ function tabularInput(){
     var sibiling = 0, cdeath=0;
 
     if(data != null){
-        if(data.hasOwnProperty('sibiling')){
-            sibiling = data.sibiling;
+        if(data.hasOwnProperty('sibiling_len')){
+            sibiling = data.sibiling_len;
         }
 
-        if(data.hasOwnProperty('cdeath')){
-            cdeath = data.cdeath;
+        if(data.hasOwnProperty('cdeath_len')){
+            cdeath = data.cdeath_len;
         }
     }
     
@@ -382,7 +382,7 @@ function tabularInput(){
             data = JSON.parse(getLocalItem(id));
 
             if( data !=null ){
-                data['cdeath']= $('#death .death_var').size();
+                data['cdeath_len']= $('#death .death_var').size();
                 saveOnLocalAndloadFromLocal(id,JSON.stringify(data));
             }
             $("[name^='cdeath\[name']").each(function (i, el) {
@@ -431,7 +431,7 @@ function tabularInput(){
             data = JSON.parse(getLocalItem(id));
 
             if( data !=null ){
-                data['sibiling']= $('#death_sibiling .death_sibiling_var').size();
+                data['sibiling_len']= $('#death_sibiling .death_sibiling_var').size();
                 saveOnLocalAndloadFromLocal(id,JSON.stringify(data));
             }
             $("[name^='sibiling\[g_of_death']").each(function (i, el) {
@@ -522,8 +522,8 @@ function tabularInput(){
         delete data['cdeath[death_covid_grave]['+index+']'];
         delete data['cdeath[death_covid_grave_e]['+index+']'];
 
-        if(data.hasOwnProperty('cdeath') && data.cdeath > 0){
-            data.cdeath = data.cdeath - 1;           
+        if(data.hasOwnProperty('cdeath_len') && data.cdeath_len > 0){
+            data.cdeath_len = data.cdeath_len - 1;           
         }
         
         saveOnLocalAndloadFromLocal(id, JSON.stringify(data));
@@ -566,8 +566,8 @@ function tabularInput(){
         delete data['sibiling[death_covid_grave]['+index+']'];
         delete data['sibiling[death_covid_grave_e]['+index+']'];
 
-        if(data.hasOwnProperty('sibiling') && data.sibiling > 0){
-            data.sibiling = data.sibiling - 1;           
+        if(data.hasOwnProperty('sibiling_len') && data.sibiling_len > 0){
+            data.sibiling_len = data.sibiling_len - 1;           
         }
         
         saveOnLocalAndloadFromLocal(id, JSON.stringify(data));        
@@ -660,6 +660,11 @@ function checkChange(){
                 //console.log("name:"+name);           
                 
             //}
+    });
+
+    $('#consent_no_submit').click(function(){
+
+        data_submit(1,41);
     });
 
     $('#submit_new').click(function(){        
@@ -761,7 +766,7 @@ function father_or_mother_death_issues(el){
 
 
 
-function data_submit(submitted=0){
+function data_submit(submitted=0,call_status=null){
     var form = $('#validation').serializeArray();
     var data = {};
 
@@ -796,12 +801,12 @@ function data_submit(submitted=0){
     id = $("[name='rammps_id']").val();
     p_data = JSON.parse(getLocalItem(id));
     if(p_data!= null){
-        if(p_data.hasOwnProperty('sibiling')){
-            data['sibiling'] = p_data.sibiling;
+        if(p_data.hasOwnProperty('sibiling_len')){
+            data['sibiling_len'] = p_data.sibiling_len;
         }
 
-        if(p_data.hasOwnProperty('cdeath')){
-            data['cdeath'] = p_data.cdeath;
+        if(p_data.hasOwnProperty('cdeath_len')){
+            data['cdeath_len'] = p_data.cdeath_len;
         }
 
         if(p_data.hasOwnProperty('last_index')){
@@ -813,29 +818,32 @@ function data_submit(submitted=0){
 
     }
 
+    if(call_status != null){
+        data['call_status'] = call_status;
+    }
+
     saveOnLocalAndloadFromLocal(data['rammps_id'],JSON.stringify(data));
-    //storage = JSON.parse(getLocalItem(data['rammps_id']));
-    //console.log(storage);
+    data = JSON.parse(getLocalItem(data['rammps_id']));
+    //console.log(data);
 
+    if(submitted > 0){
+    
+        $.ajax({
+            cache: false,
+            method: "POST",
+            url: url,
+            data: data,
+        }).done(function( msg ) {
+            //console.log(msg);
 
+            if(submitted){
 
-    /*$.ajax({
-        cache: false,
-        method: "POST",
-        url: url,
-        data: data,
-    }).done(function( msg ) {
-        console.log(msg);*/
+                if(msg.success==true)
+                window.location.href =  redirect;
 
-        /*if(submitted){
-
-                    if(msg.success==true)
-                    window.location.href =  redirect;
-
-        }else{
-
-        }*/
-    /*});*/
+            }
+        });
+    }
 }
 
 //setInterval(postDataOnTime, 5000);

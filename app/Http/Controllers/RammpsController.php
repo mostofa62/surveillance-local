@@ -9,7 +9,6 @@ use Carbon\Carbon;
 
 use App\Models\Rammps;
 use App\Models\RammpsQuestion as Question;
-use App\Models\RammpsQuestionCovid as CovidQuestion;
 
 use App\User;
 use Response;
@@ -65,35 +64,34 @@ class RammpsController extends Controller{
 
 			$totalDuration = 0;
 			$rammps = Rammps::find($id);
-			$question=Question::where('rammps_id',$id)->first();
-			$question_covid = CovidQuestion::where('rammps_id',$id)->get();
+			$question=Question::where('rammps_id',$id)->first();			
 
 			if(!isset($question))
                 $question = new Question();
 
-            
-            
-
-
-
-
-            /*$question->rammps_id = $id;
+            $question->rammps_id = $id;
             $input = $request->all();
             $fillable = $question->getFillable();
             $question->filled($fillable, $input);
-            $question->user_id = \Auth::User()->id;
-            $question->save();
 
+            //var_dump($input);
+
+            $section_answers = $question->unset_fillables($input);
+            if(!empty($section_answers)){
+                $question->section_answers = $section_answers;
+            }
+            $question->user_id = \Auth::User()->id;
+            $question->call_status=$input['call_status'];
+            $question->save();
             $rammps->interview_id = $question->user_id;
-            $rammps->save();*/
+            $rammps->save();            
 
 
 
             return array(
                 'success'=>true,
                 'message'=>'সফলভাবে সংরক্ষিত',
-                //'death_data'=>$death_data,
-                'request_data'=>$request->input('cdeath')
+                //'section_answers'=>$section_answers                              
             );   
 
 
@@ -127,6 +125,12 @@ class RammpsController extends Controller{
         if(isset($_POST['schedule_id'])){
 
             $totalDuration = 0;
+
+            $schedule = Schedule::find($_POST['schedule_id']);
+            if(isset($_POST['date']) && isset($_POST['time'])){
+                $schedule->schedule_date=date('Y-m-d', strtotime($_POST['date']))." ".date("H:i:s", strtotime($_POST['time']));
+            }
+            $schedule->call_state=$_POST['call_state'];
 
         }
         else if(isset($_POST['mobile_no'])){

@@ -1790,7 +1790,7 @@
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_6_vac_taken']}}</label>
     <div class="col-xs-4">
     
-    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 's_6_vac_taken',0,$question->s_6_vac_taken, true) !!}
+    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDNIgnore(), 's_6_vac_taken',0,$question->s_6_vac_taken, true) !!}
     </div>
     <div class="col-md-4">
 
@@ -1963,29 +1963,7 @@
             @endphp
             ;
 
-        @php
-                $allsteps = [];
-                $key = -1;
-
-                if(isset($question) && isset($question->last_input)){
-
-                	$step = $question->last_input;
-                	$questionStep = \App\Models\Rammps::stepWiseNode();
-
-                	$key = \App\Models\Rammps::searchForId($step, $questionStep);
-                    //dd($key);
-                    $allsteps=\App\Models\Rammps::dataArray($step,$key);
-
-
-                }
-
-        @endphp;
-
-        var  AllSteps =@php
-                echo json_encode($allsteps);
-            @endphp;
-
-        var step_index =@php echo $key;  @endphp;
+      
 
 
 

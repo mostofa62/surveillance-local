@@ -289,11 +289,13 @@ trait Sequence {
             's_6_vac_possible'=>['s_6_vac_taken'],
             's_6_vac_taken'=>[
                 1=>['s_6_vac_number'],
-                3=>['s_6_vac_number']
+                3=>['s_6_vac_ignorance_reason','end_point'],
+                88=>['s_6_vac_ignorance_reason','end_point'],
+                99=>['s_6_vac_ignorance_reason','end_point']
             ],
             's_6_vac_number'=>['s_6_vac_which'],
             's_6_vac_which'=>['s_6_vac_suggested'],
-            's_6_vac_suggested'=>['s_6_vac_ignorance_reason'],
+            's_6_vac_suggested'=>['end_point'],
 
 
 
@@ -315,7 +317,13 @@ trait Sequence {
                 5=>['s_1_consent_n'],
                 3=>['s_1_gender','s_1_18up','s_1_age','s_1_dd','s_1_v_or_c','s_1_uz','s_1_mc','s_1_cc'],                
 
-            ],              
+            ], 
+            's_1_v_or_c'=>[
+                1=>['s_1_uz'],
+                3=>['s_1_cc','s_1_mc'],
+                88=>['s_1_uz','s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_ccuzmc_o_e'],
+                99=>['s_1_uz','s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_ccuzmc_o_e']
+            ],             
     
             's_3_until_2019'=>[
                 3=>['s_3_add_death','cdeath'],
@@ -330,6 +338,13 @@ trait Sequence {
             's_4_father_a_or_d'=>[                
                 3=>['s_4_father_age','s_4_father_location'],
                 88=>['s_4_father_age','s_4_father_location']
+            ],
+
+            's_6_vac_taken'=>[
+                1=>['s_6_vac_ignorance_reason'],                
+                3=>['s_6_vac_number','s_6_vac_which','s_6_vac_suggested'],
+                88=>['s_6_vac_number','s_6_vac_which','s_6_vac_suggested'],
+                99=>['s_6_vac_number','s_6_vac_which','s_6_vac_suggested']
             ],
 
         ];
