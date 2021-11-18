@@ -82,6 +82,20 @@ class RammpsController extends Controller{
             }
             $question->user_id = \Auth::User()->id;
             $question->call_status=$input['call_status'];
+            $status = $question->call_status;
+            if( $status == 41 
+                || $status == 1
+                 
+            ){
+                $rammps->status = 1;
+                $rammps->session_end = Carbon::now();
+
+
+                if($status == 1){
+                    $question->submitted_at = Carbon::now();
+                }
+            }
+            $rammps->last_status = $status;
             $question->save();
             $rammps->interview_id = $question->user_id;
             $rammps->save();            

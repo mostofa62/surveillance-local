@@ -13,6 +13,8 @@ class RammpsQuestion extends Model
   protected $fillable = [
       "last_input",
       "s_1_consent",
+      "s_1_consent_n",
+      "s_1_consent_n_e",
       "s_1_gender",
       "s_1_18up",
       "s_1_age",
@@ -57,12 +59,17 @@ class RammpsQuestion extends Model
       unset($data['_token']);
       unset($data['rammps_id']);
     }*/
+    if( isset($data['_token']) ){
+      unset($data['_token']);
+    }
 
     //var_dump($data);
 
     return $data;
 
   }
+
+  
 	
 
 

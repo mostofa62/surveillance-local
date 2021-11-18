@@ -15,11 +15,11 @@
         return true;
      },
      onFinish: function () {
-       /* $('#validation').submit();
+        $('#validation').submit();
         $('#validation').append("<input type='hidden' name='submitted_at' value='1' />");
-        $("#call_status").append('<option value="1" selected="selected">সাক্ষাৎকার সম্পন্ন হয়েছে</option>');
-        $(".wizard-finish ").attr("disabled", "disabled");*/
-        data_submit(1);
+        //$("#call_status").append('<option value="1" selected="selected">সাক্ষাৎকার সম্পন্ন হয়েছে</option>');
+        $(".wizard-finish ").attr("disabled", "disabled");
+        data_submit(1,1);
      },     
 				
 	});
@@ -264,6 +264,8 @@ $(function(){
 
          child_or_sibling_enabled();
          tabuler_indexining();
+
+         mother_father_answer_prefilled();
     }
 
     
@@ -741,6 +743,23 @@ function replace_text(el){
     
     //console.log(dom);
 
+}
+
+function mother_father_answer_prefilled(){
+    cdeath = "[name^='cdeath\[r_with_death]']";
+    $(cdeath).each(function(i,v){
+        //console.log('i'+i+'value'+$(this).val());
+        name = $("[name^='cdeath\[name\]\["+i+"\]'\]").val();
+        //father
+        if($(this).val() == 7){
+            $("[name='s_4_mother_name']").val(name);
+        }
+        //mother
+        if($(this).val() == 8){
+            $("[name='s_4_father_name']").val(name);
+
+        }
+    });
 }
 
 function father_or_mother_death_issues(el){
