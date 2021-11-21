@@ -116,6 +116,20 @@ function showScheduleBlock(){
     });
 
 
+    $('.table-position-show').click(function(){
+        $('.table-position').css('right',0);
+        $('.table-position-hide').show();
+        $(this).hide();
+    });
+
+
+    $('.table-position-hide').click(function(){
+        $('.table-position').css('right','-23%');
+        $('.table-position-show').show();
+        $(this).hide();
+    });
+
+
 
     //end logic
 
@@ -214,7 +228,9 @@ $(function(){
     id = $("[name='rammps_id']").val();
     data = JSON.parse(getLocalItem(id));
 
-    console.log('data'+data);
+    //console.log('data'+data);
+
+    indexing_labels();
 
     if(data !== null){
 
@@ -273,6 +289,22 @@ $(function(){
 
 });
 
+
+function indexing_labels(){
+
+    $('.wizard-pane').each(function(i,v){
+            
+            var ix = i+1;
+            $(this).find('.form-group, #death').each(function(x,y){
+                var ex = x+1;
+                $(this).find('.control-label').prepend(ix+"."+ex+" |&nbsp;");
+            });
+    
+    });
+}
+
+
+
 function enabled_cdeath_or_sibiling(el,val){
 
     if(el == 's_3_until_2019' && val == 1){
@@ -287,6 +319,8 @@ function enabled_cdeath_or_sibiling(el,val){
 
 
 }
+
+
 
 function child_or_sibling_enabled(){
 
@@ -615,6 +649,7 @@ function checkChange(){
         //enabledAndDisabledAgain($(this));
         schedule_block_on_propertime($(this));
         replace_text($(this));
+        f_18_up($(this));
         data_submit();            
         //name = marialstatusWiseSkipLogic($(this));
 
@@ -636,6 +671,7 @@ function checkChange(){
             //enabledAndDisabledAgain($(this));
             schedule_block_on_propertime($(this));
             replace_text($(this));
+            f_18_up($(this));
             data_submit();            
             //name = marialstatusWiseSkipLogic($(this));
             //name = checkAgeJarLimit($(this));
@@ -667,6 +703,11 @@ function checkChange(){
     $('#consent_no_submit').click(function(){
 
         data_submit(1,41);
+    });
+
+    $('#age_below_18_submit').click(function(){
+
+        data_submit(1,42);
     });
 
     $('#submit_new').click(function(){        
@@ -745,18 +786,67 @@ function replace_text(el){
 
 }
 
+function f_18_up(e){
+
+
+    if(e.attr('name')=='s_1_age'){
+        
+        if(e.val() >= 18){
+            $('#age_below_18_submit').hide();
+            removeBlockAndFollow('s_1_dd');
+            $('.wizard-next').removeClass('disabled');
+        }
+        else{
+            $('#age_below_18_submit').show();
+            disableReverseSection($("[name='s_1_dd']"),0);
+            disableReverseSection($("[name='s_1_v_or_c']"),0);        
+            disableReverseSection($("[name='s_1_cc']"),0);
+            disableReverseSection($("[name='s_1_mc']"),0);
+            disableReverseSection($("[name='s_1_uz']"),0);
+            disableReverseSection($("[name='s_1_ccuzmc_o']"),0);
+            disableReverseSection($("[name='s_1_ccuzmc_o_e']"),0);
+            $('.wizard-next').addClass('disabled');
+        }
+
+        
+
+    }
+
+}
+
+
 function mother_father_answer_prefilled(){
     cdeath = "[name^='cdeath\[r_with_death]']";
     $(cdeath).each(function(i,v){
         //console.log('i'+i+'value'+$(this).val());
         name = $("[name^='cdeath\[name\]\["+i+"\]'\]").val();
+
+        dday = parseInt($("[name^='cdeath\[dday\]\["+i+"\]'\]").val());
+        dyear = parseInt($("[name^='cdeath\[dyear\]\["+i+"\]'\]").val());
+        dmonth = parseInt($("[name^='cdeath\[dmonth\]\["+i+"\]'\]").val());
+
+
+
         //father
         if($(this).val() == 7){
+            
             $("[name='s_4_mother_name']").val(name);
+            $("[name='s_4_mother_location']").val([1]);
+            
+            
+            if(dyear > 0 || dmonth > 0 || dday > 0){
+                $("[name='s_4_mother_a_or_d']").val([3]);
+            }
+            
         }
         //mother
         if($(this).val() == 8){
             $("[name='s_4_father_name']").val(name);
+            $("[name='s_4_father_location']").val([1]);
+            
+            if(dyear > 0 || dmonth > 0 || dday > 0){
+                $("[name='s_4_father_a_or_d']").val([3]);
+            }
 
         }
     });
@@ -958,6 +1048,10 @@ function wizardIndexWiseChange(index, type){
     else if(index == 5){
         removeBlockAndFollow('s_6_vac_possible');
         focusOnElement('s_6_vac_possible');
+    }
+    else if(index == 6){
+        removeBlockAndFollow('s_7_owner_phone');
+        focusOnElement('s_7_owner_phone');
     } 
 
 }

@@ -112,6 +112,10 @@ class RammpsController extends Controller{
 
 		}else{
 			$rammps = Rammps::find($id);
+
+            if($rammps->status == 1){
+                return redirect(session('access').'rammps/callInitiate')->with('message', 'ইতিমধ্য এ ইহা সম্পন্ন হয়েছে ');
+            }
 			$question=Question::where('rammps_id',$id)->first();
 
 		view()->share('pageTitle', "Rammps Question Form");

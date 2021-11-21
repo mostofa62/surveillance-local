@@ -204,13 +204,8 @@ trait Sequence {
                 1001=>['end_point',1]
             ],
 
-            's_1_gender'=>['s_1_18up'],
-            's_1_18up'=>[
-                1=>['s_1_age'],
-                3=>['end_point',3],
-                99=>['end_point',3]
-            ],
-            's_1_age'=>['s_1_dd'],
+            's_1_gender'=>['s_1_age'],
+                        
             's_1_dd'=>['s_1_v_or_c'],
             's_1_v_or_c'=>[
                 1=>['s_1_cc','s_1_mc','s_1_ccuzmc_o'],
@@ -225,9 +220,24 @@ trait Sequence {
             's_3_khana_m'=>['s_3_khana_f'],
             's_3_khana_f'=>['s_3_relation_w_main'],
             's_3_relation_w_main'=>['s_3_khana_u_5'],
-            's_3_khana_u_5'=>['s_3_until_2019'],
+            's_3_khana_u_5'=>[
+                's_3_child_health_decesion_1',
+                's_3_your_health_decesion_1',
+                's_3_until_2019'],
+            's_3_child_health_decesion_1'=>['s_3_child_health_decesion_2'],
+            's_3_child_health_decesion_2'=>['s_3_child_health_decesion_3'],
+            's_3_child_health_decesion_3'=>[
+                's_3_child_health_decesion_4'
+            ],
+
+            's_3_your_health_decesion_1'=>['s_3_your_health_decesion_2'],
+            's_3_your_health_decesion_2'=>['s_3_your_health_decesion_3'],
+            's_3_your_health_decesion_3'=>[
+                's_3_your_health_decesion_4'
+            ],
+
             's_3_until_2019'=>[
-                1=>['s_3_add_death','cdeath[name][0]','s_4_mother_a_or_d'],
+                1=>['s_3_until_2019_a','s_3_add_death','cdeath[name][0]','s_4_mother_a_or_d'],
                 3=>['s_4_mother_a_or_d',3]
             ],
 
@@ -280,7 +290,7 @@ trait Sequence {
 
             's_5_sibiling_alive'=>['s_5_sibiling_dead_in_alive'],
 
-            's_5_sibiling_dead_in_alive'=>['s_5_sibiling_dead_2019','sibiling[g_of_death][0]'],
+            's_5_sibiling_dead_in_alive'=>['s_5_sibiling_dead_2019_a','s_5_sibiling_dead_2019','sibiling[g_of_death][0]'],
 
 
             //'s_5_sibiling_dead_2019'=>['s_5_add_death_sibiling','sibiling[g_of_death][0]'],
@@ -295,8 +305,15 @@ trait Sequence {
             ],
             's_6_vac_number'=>['s_6_vac_which'],
             's_6_vac_which'=>['s_6_vac_suggested'],
-            's_6_vac_suggested'=>['end_point'],
+            's_6_vac_suggested'=>['s_7_owner_phone'],
 
+            's_7_owner_phone'=>[
+                1=>['s_7_qnty_of_sim'],
+                1001=>['s_7_recharge_permission']
+            ],
+            's_7_qnty_of_sim'=>['s_7_recharge_permission'],
+            's_7_recharge_permission'=>['s_7_random_access'],
+            's_7_random_access'=>['end_point'],
 
 
 
@@ -326,8 +343,8 @@ trait Sequence {
             ],             
     
             's_3_until_2019'=>[
-                3=>['s_3_add_death','cdeath'],
-                88=>['s_3_add_death','cdeath']
+                3=>['s_3_until_2019_a','s_3_add_death','cdeath'],
+                88=>['s_3_until_2019_a','s_3_add_death','cdeath']
             ],
 
             's_4_mother_a_or_d'=>[                
@@ -345,6 +362,10 @@ trait Sequence {
                 3=>['s_6_vac_number','s_6_vac_which','s_6_vac_suggested'],
                 88=>['s_6_vac_number','s_6_vac_which','s_6_vac_suggested'],
                 99=>['s_6_vac_number','s_6_vac_which','s_6_vac_suggested']
+            ],
+
+            's_7_owner_phone'=>[
+                1001=>['s_7_qnty_of_sim'],                
             ],
 
         ];
@@ -430,35 +451,7 @@ trait Sequence {
     }
 
 
-    public static function stepWiseNode($index = null)
-    {
-
-       $a=[
-            [
-        	"s_1_consent",
-          	"s_1_gender",
-            's_1_18up',
-            's_1_age',
-            's_1_dd',
-            's_1_v_or_c',
-            's_1_cc',
-            's_1_uz',
-            's_1_mc',
-            's_1_ccuzmc_o',
-            's_1_ccuzmc_o_e'          	
-            ],
-            
-            [
-            's_2_1'
-
-            ]
-            
-
-
-
-        ];
-        return isset($index)? $a[$index]:$a;
-    }
+    
 
 
     public static function searchForId($id, $array) {

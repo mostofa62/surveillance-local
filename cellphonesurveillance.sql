@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Nov 16, 2021 at 11:41 AM
+-- Generation Time: Nov 21, 2021 at 12:08 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -3551,8 +3551,9 @@ CREATE TABLE `rammps` (
 --
 
 INSERT INTO `rammps` (`id`, `mobile_no`, `no_of_call`, `status`, `last_status`, `last_schedule_id`, `schedule_date`, `interview_id`, `duration`, `session_started`, `session_end`, `created_at`, `updated_at`) VALUES
-(1, '01670502283', 0, -1, 0, NULL, NULL, 36, 0, '2021-10-05 12:08:58', NULL, '2021-10-03 16:01:07', '2021-10-05 12:08:58'),
-(2, '01670502284', 0, -1, 0, NULL, NULL, 4, 0, '2021-11-16 15:55:13', NULL, '2021-10-03 16:01:07', '2021-11-16 15:55:13');
+(1, '01817380528', 0, 1, 41, NULL, NULL, 4, 0, '2021-11-18 10:40:05', '2021-11-18 12:00:03', '2021-11-17 10:55:25', '2021-11-18 12:00:03'),
+(2, '01818225362', 0, -1, 0, NULL, NULL, 4, 0, '2021-11-21 10:16:34', NULL, '2021-11-17 10:55:25', '2021-11-21 10:16:34'),
+(3, '01815287125', 0, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, '2021-11-17 10:55:42', '2021-11-17 10:55:42');
 
 -- --------------------------------------------------------
 
@@ -3569,19 +3570,28 @@ CREATE TABLE `rammps_questions` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `last_input` varchar(65) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `s_1_consent` int(5) DEFAULT NULL,
-  `s_1_gender` int(5) DEFAULT NULL,
-  `s_1_18up` int(5) DEFAULT NULL,
-  `s_1_age` int(5) DEFAULT NULL,
-  `s_1_dd` int(5) DEFAULT NULL,
-  `s_1_v_or_c` int(5) DEFAULT NULL,
-  `s_1_cc` int(5) DEFAULT NULL,
-  `s_1_uz` int(5) DEFAULT NULL,
-  `s_1_mc` int(5) DEFAULT NULL,
-  `s_1_ccuzmc_o` int(5) DEFAULT NULL,
-  `s_1_ccuzmc_o_e` varchar(65) CHARACTER SET utf8 NOT NULL,
+  `s_1_consent` int(3) DEFAULT NULL,
+  `s_1_consent_n` int(3) DEFAULT NULL,
+  `s_1_consent_n_e` varchar(65) DEFAULT NULL,
+  `s_1_gender` int(3) DEFAULT NULL,
+  `s_1_18up` int(3) DEFAULT NULL,
+  `s_1_age` int(3) DEFAULT NULL,
+  `s_1_dd` int(3) DEFAULT NULL,
+  `s_1_v_or_c` int(3) DEFAULT NULL,
+  `s_1_cc` int(3) DEFAULT NULL,
+  `s_1_uz` int(3) DEFAULT NULL,
+  `s_1_mc` int(3) DEFAULT NULL,
+  `s_1_ccuzmc_o` int(3) DEFAULT NULL,
+  `s_1_ccuzmc_o_e` varchar(65) CHARACTER SET utf8 DEFAULT NULL,
   `section_answers` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`section_answers`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rammps_questions`
+--
+
+INSERT INTO `rammps_questions` (`id`, `rammps_id`, `submitted_at`, `call_status`, `user_id`, `created_at`, `updated_at`, `last_input`, `s_1_consent`, `s_1_consent_n`, `s_1_consent_n_e`, `s_1_gender`, `s_1_18up`, `s_1_age`, `s_1_dd`, `s_1_v_or_c`, `s_1_cc`, `s_1_uz`, `s_1_mc`, `s_1_ccuzmc_o`, `s_1_ccuzmc_o_e`, `section_answers`) VALUES
+(1, 1, NULL, 41, 4, '2021-11-18 11:59:02', '2021-11-18 11:59:02', 's_1_consent_n', 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '{\"rammps_id\":\"1\",\"last_index\":\"1\",\"call_status\":\"41\"}');
 
 -- --------------------------------------------------------
 
@@ -5577,13 +5587,13 @@ ALTER TABLE `questions_1`
 -- AUTO_INCREMENT for table `rammps`
 --
 ALTER TABLE `rammps`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `rammps_questions`
 --
 ALTER TABLE `rammps_questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `rammps_schedules`
