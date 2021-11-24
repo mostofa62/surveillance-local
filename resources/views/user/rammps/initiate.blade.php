@@ -96,8 +96,8 @@ $running_question = 1;
             --}}
             <tr  style="border: 1px solid;">
                 <td>No of Attempts:</td>
-                <td>@if(@$info->no_of_call < 3)
-                    @if($info->no_of_call == 2)
+                <td>@if(@$info->no_of_call < 2)
+                    @if($info->no_of_call == 1)
                         <span class="label label-danger">{{ @$info->no_of_call }} | Final</span>
                     @else
                     {{ @$info->no_of_call }}
@@ -118,6 +118,43 @@ $running_question = 1;
         </table>
         @endif
 
+        @if( isset($scheduleListApp) && count($scheduleListApp) > 0 && $running_question < 1)
+        <table class="table table-bordered" align="center">
+        <tbody style="color: #fff !important;">
+        
+        <tr style="text-align: center;border: 1px solid;font-weight: 600;color:#fff;background-color: #ff7676;">
+            <td colspan="2" > APPOINTMENT | এপয়ন্টমেন্ট @if($delaytime)  <br/>[ BETWEEN :{{@$delaylestime}}- {{@$delaytime}}] @endif </td>
+        </tr>
+
+        @foreach ($scheduleListApp as $schedule)
+            <tr>
+            <td  style="border: 1px solid;">
+               SI :{!! @$schedule->id !!} |
+               {!! @$schedule->mobile_no !!}
+
+               <span>
+               {{ date('d/m/Y g:i A',strtotime(@$schedule->schedule_date)) }}
+               </span>
+               (<strong>{{ @$schedule->username }}</strong>)
+                    
+                   
+               
+               
+            </td>
+            
+            <td style="border: 1px solid;">                                    
+                <a href="{{ route('pickrammps', [$schedule->id, @$info->id]) }}" 
+           class="schedule-pick btn btn-primary" style="color: #fff;">PICK
+                </a>
+            </td>
+            
+            </tr>    
+
+            @endforeach
+            </tbody>
+        </table>
+    @endif
+
 
     </div>
 
@@ -135,7 +172,7 @@ $running_question = 1;
 
     </div>
 
-
+    @if($info)
     <div class="row">
     <div class="col-md-7 col-sm-12">
         <button id="initiate" name="initiate" class="btn btn-primary btn-block">Call Initiate
@@ -147,10 +184,10 @@ $running_question = 1;
     </div>
     <div class="col-md-5 col-sm-12" id="call_recieved">
 
-        
+       @if(!isset($info->question)) 
 
         {!! Form::open(array('url' => session('access').'rammps/callschedule','id'=>'form','method' =>'post',  'enctype'=>'multipart/form-data')) !!}
-        @if($info->no_of_call < 3)
+        @if($info->no_of_call < 2)
         <div class="form-group">
             <label class="control-label ">Call Status</label>
             {!! Form::select('call_state',[''=>'--- সাক্ষাৎকার অবস্থা ---']+\App\Models\Rammps::getCallStatus(),Input::old('call_state',isset($info->call_state)?$info->call_state:''), array('id' => 'call_state', 'class' => 'form-control')) !!}
@@ -164,15 +201,29 @@ $running_question = 1;
 
         @endif
         <input id="schedule_id" type="hidden" name="schedule_id">
+        <input type="hidden" value="{{ $info->id }}" name="id">
         <br>
         <input type="submit" id="submit" class="btn btn-primary btn-block" name="schedule">
         <br>
         {{ Form::close() }}
 
+        @endif
+
     </div>
     
 
     </div>
+
+    @else
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger" >
+                Please refill Number
+            </div>
+        </div>
+    </div>
+
+    @endif
     
 </div>
 

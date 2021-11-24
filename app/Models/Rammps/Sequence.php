@@ -164,6 +164,8 @@ trait Sequence {
             ],
 
 
+
+
             'cdeath[death_reason_1]'=>[
 
                 1001=>[
@@ -172,6 +174,7 @@ trait Sequence {
                         'cdeath[death_year]'=>[
                             2020=>['cdeath[death_detect_by]'],
                             2021=>['cdeath[death_detect_by]'],
+                            2022=>['cdeath[death_detect_by]'],
                                 
                         ],
 
@@ -194,7 +197,18 @@ trait Sequence {
         	's_1_consent'=>[
 
         		1=>['s_1_gender'],
-                5=>['s_1_gender'],
+                5=>[
+                    's_1_gender',
+                    's_1_age',
+                    's_1_dd',
+                    's_1_v_or_c',
+                    's_1_cc',
+                    's_1_mc',
+                    's_1_uz',
+                    's_1_ccuzmc_o',
+                    's_1_ccuzmc_o_e',
+                    's_1_name'
+                ],
 
         		//3=>['end_point',1],
                 3=>['s_1_consent_n']
@@ -208,11 +222,12 @@ trait Sequence {
                         
             's_1_dd'=>['s_1_v_or_c'],
             's_1_v_or_c'=>[
-                1=>['s_1_cc','s_1_mc','s_1_ccuzmc_o'],
-                3=>['s_1_uz','s_1_ccuzmc_o']
+                1=>['s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_name'],
+                3=>['s_1_uz','s_1_ccuzmc_o','s_1_name']
             ],
+            
 
-        	's_2_name'=>['s_2_education'],
+        	's_1_name'=>['s_2_education'],
             's_2_education'=>['s_2_marial_status'],
             's_2_marial_status'=>['s_2_occupation'],
         		
@@ -332,14 +347,14 @@ trait Sequence {
             's_1_consent'=>[
                 1=>['s_1_consent_n'],
                 5=>['s_1_consent_n'],
-                3=>['s_1_gender','s_1_18up','s_1_age','s_1_dd','s_1_v_or_c','s_1_uz','s_1_mc','s_1_cc'],                
+                3=>['s_1_gender','s_1_18up','s_1_age','s_1_dd','s_1_v_or_c','s_1_uz','s_1_mc','s_1_cc','s_1_name'],                
 
             ], 
             's_1_v_or_c'=>[
                 1=>['s_1_uz'],
                 3=>['s_1_cc','s_1_mc'],
-                88=>['s_1_uz','s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_ccuzmc_o_e'],
-                99=>['s_1_uz','s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_ccuzmc_o_e']
+                88=>['s_1_uz','s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_ccuzmc_o_e','s_1_name'],
+                99=>['s_1_uz','s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_ccuzmc_o_e','s_1_name']
             ],             
     
             's_3_until_2019'=>[

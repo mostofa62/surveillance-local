@@ -78,7 +78,7 @@ function showScheduleBlock(){
 
         val = $(this).val();
 
-        if((val == 0) && val !=""){
+        if((val == 10) && val !=""){
            
             date.removeAttr('disabled');
             date.parents('.form-group').removeAttr('style');
@@ -221,16 +221,44 @@ function tabulerDataGet(d,k){
 
 $(function(){
 
-
-
-    
-    
     id = $("[name='rammps_id']").val();
+
+    /*if(Object.keys(previous_data).length > 0){
+        
+        if(previous_data.hasOwnProperty('cdeath')){
+
+            var cdeath_organization = [];
+
+            $.each(previous_data['cdeath'],function(k,v){
+
+                $.each(v,function(x,y){
+                    //console.log(k);
+                    var c ="cdeath["+k+"]["+x+"]";
+                    var vv=y;
+                    //console.log(c);
+                    cdeath_organization.push({c:vv});
+                });
+            });
+
+            console.log(JSON.stringify(cdeath_organization));
+
+            delete previous_data['cdeath'];
+            
+        }
+    }*/
+    if(Object.keys(previous_data).length > 0){
+        saveOnLocalAndloadFromLocal(id,JSON.stringify(previous_data));
+    }
+    
+    
     data = JSON.parse(getLocalItem(id));
 
     //console.log('data'+data);
 
     indexing_labels();
+    tabuler_indexining();
+    cdeath_indexing_label();
+    sibiling_indexing_label();
 
     if(data !== null){
 
@@ -264,7 +292,7 @@ $(function(){
          if(data.hasOwnProperty('last_input')){
             last_input = data.last_input;
          }
-         console.log('last_input'+last_input)
+         //console.log('last_input'+last_input)
 
          if(last_input != null){
 
@@ -279,10 +307,10 @@ $(function(){
          }
 
          child_or_sibling_enabled();
-         tabuler_indexining();
-
          mother_father_answer_prefilled();
     }
+
+
 
     
 
@@ -300,6 +328,42 @@ function indexing_labels(){
                 $(this).find('.control-label').prepend(ix+"."+ex+" |&nbsp;");
             });
     
+    });
+
+    $('.mother_index .index_label').each(function(i,v){
+        var ix = i + 1;
+        $(this).text("4.15."+ix+" | ");
+    });
+
+    $('.father_index .index_label').each(function(i,v){
+        var ix = i + 1;
+        $(this).text("4.16."+ix+" | ");
+    });
+
+
+}
+
+function cdeath_indexing_label(){
+
+    $('.death_var').each(function(i,v){
+        var ix=i+1; 
+        $(this).find(".cdeath_index").each(function(x,y){
+            var ixx= x+1;
+            $(this).text("3.8."+ix+"."+ixx+" | ");
+        });
+
+    });
+}
+
+
+function sibiling_indexing_label(){
+    $('.death_sibiling_var').each(function(i,v){
+        var ix=i+1; 
+        $(this).find(".sibiling_index").each(function(x,y){
+            var ixx= x+1;
+            $(this).text("5.4."+ix+"."+ixx+" | ");
+        });
+
     });
 }
 
@@ -343,7 +407,9 @@ function tabuler_indexining(){
 
     $('#death').find('.death_var').each(function(i,e) {
         //console.log('i'+i);
-     inc = i+1;   $(this).find('.death_index').text(inc);
+        inc = i+1;
+        //console.log($(this).find('.death_index'));
+        $(this).find('.death_index').text(inc);
     });
 
     $('#death_sibiling').find('.death_sibiling_var').each(function(i,e) {
@@ -429,6 +495,7 @@ function tabularInput(){
             $('.death_del').removeAttr('disabled');
 
             tabuler_indexining();
+            cdeath_indexing_label();
         }
 
     }).on('click', 'input',function(){
@@ -477,6 +544,7 @@ function tabularInput(){
 
             $('.death_sibiling_del').removeAttr('disabled');
             tabuler_indexining();
+            sibiling_indexing_label();
         }
 
     }).on('click', 'input',function(){
@@ -710,7 +778,16 @@ function checkChange(){
         data_submit(1,42);
     });
 
-    $('#submit_new').click(function(){        
+    $('#submit_new').click(function(){
+
+            id = $("[name='rammps_id']").val();
+            data = JSON.parse(getLocalItem(id));
+            data['call_status'] = $('#call_status').val();
+            if($("[name='date']").val()!="")
+                data['date'] = $("[name='date']").val();
+            if($("[name='time']").val() != "")
+                data['time'] = $("[name='time']").val();
+            saveOnLocalAndloadFromLocal(id, JSON.stringify(data));                  
             data_submit(1);
            
     });
@@ -722,7 +799,7 @@ function checkChange(){
            
     });*/
 
-    //$('#exampleValidator').wizard('goTo', 4);
+    //$('#exampleValidator').wizard('goTo', 2);
     
     var api = $('#exampleValidator').data('wizard');
 
@@ -745,6 +822,8 @@ function checkChange(){
             data['last_index']= index;
             saveOnLocalAndloadFromLocal(id,JSON.stringify(data));
         }
+
+
     });
 
     $('#exampleValidator').on('wizard::back', function (e) {
@@ -922,6 +1001,18 @@ function data_submit(submitted=0,call_status=null){
             data['last_index'] = p_data.last_index;
         }
 
+        if(p_data.hasOwnProperty('call_status')){
+            data['call_status'] = p_data.call_status;
+        }
+
+        if(p_data.hasOwnProperty('date')){
+            data['date'] = p_data.date;
+        }
+
+        if(p_data.hasOwnProperty('time')){
+            data['time'] = p_data.time;
+        }
+
 
 
 
@@ -944,6 +1035,7 @@ function data_submit(submitted=0,call_status=null){
             data: data,
         }).done(function( msg ) {
             //console.log(msg);
+            window.localStorage.clear();
 
             if(submitted){
 

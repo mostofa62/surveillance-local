@@ -13,6 +13,15 @@
 */
 use App\Http\Middleware\Admin;
 
+
+Route::get('reset', function () {
+    Artisan::call('route:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+    return "All is cleared";
+});
+
 Route::group(['prefix' => 'api/v1/'], function () {
     Route::post('login', 'Api\LoginController@login_user');
     //Schedule
@@ -138,6 +147,10 @@ Route::group(['middleware' =>['admin:user']], function () {
     Route::any('user/rammps/question/{id}', 'RammpsController@question');
 
     Route::any('user/rammps/callschedule', 'RammpsController@callSchedule');
+
+    Route::any('user/rammps/pick/{id}/drop/{did?}', 'RammpsController@pick')->name('pickrammps');
+
+    //Route::any('user/rammps/missing', 'RammpsController@missingScheduleOrAppointment');
 
     //JE
     Route::any('user/encephalitis/callInitiate', 'EncephalitisController@callInitiate');

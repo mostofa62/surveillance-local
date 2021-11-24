@@ -494,6 +494,10 @@ function checkSkipLogicMVersion(el,type){
 //animation segment
 function focusOnElement(name){
     var focusElement = $("[name='"+name+"']").parents('.form-group');
+
+    if(focusElement.attr('name') == undefined){
+        focusElement = $("[name='"+name+"']").parent();
+    }
     ScrollToTop(focusElement, function() { focusElement.focus(); });
 }
 function ScrollToTop(el, callback) { 
@@ -553,17 +557,6 @@ function setDataForGeo(data){
 
 }
 
-
-
-
-//animation segment
-function focusOnElement(name){
-    var focusElement = $("[name='"+name+"']").parents('.form-group');
-    ScrollToTop(focusElement, function() { focusElement.focus(); });
-}
-function ScrollToTop(el, callback) { 
-    $('html, body').animate({ scrollTop: $(el).offset().top - 65 }, 'slow', callback);
-}
 
 
 function checkHasData(name, last_active_dropdown){

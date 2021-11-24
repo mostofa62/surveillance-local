@@ -14,9 +14,17 @@ class Rammps extends Model{
 	use Status;
 	use Sequence;
 
+    protected $casts = [
+        'schedules' => 'array',
+    ];
+
 	public function user_interviewer()
     {
         return $this->hasOne('App\User', 'id','interview_id');
+    }
+
+    public function question(){
+        return $this->hasOne('App\Models\RammpsQuestion', 'rammps_id','id');
     }
 
     public static function getGender($id = null){
@@ -142,18 +150,18 @@ class Rammps extends Model{
     public static function getLastEducation(){
         return[ 
 
-            'bn'=>[
+            
                 1 => '১- স্কুল না যেয়ে থাকলে',
                 2=>'২- প্রাইমারী  স্কুল পর্যায়',
                 3 => '৩- প্রাইমারী স্কুল পাশ',
-                5 => '৫- এস . এস . সি বা ও  লেভেল পাশ',
-                7 => '৭ -এইচ. এস . সি বা এ লেভেল পাশ',
-                9 => '৯- স্নাতক / ডিগ্রী বা তার বেশি',
+                5 => '৫- এস . এস . সি বা ও  লেভেল পাশ বা আলিম',
+                7 => '৭ -এইচ. এস . সি বা এ লেভেল পাশ বা ফাজিল',
+                9 => '৯- স্নাতক / ডিগ্রী বা তার বেশি / কামিল',
+                
                 99 => '৯৯- অস্বীকৃিত',
                 66=>'৬৬-অন্যান্য (উল্লেখ করুন)',
 
-         ]]
-            [session('language')];
+         ];
     }
 
 

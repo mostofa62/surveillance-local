@@ -7,23 +7,47 @@ trait Status{
 
     public static function getCallStatus(){
 
-        return ['en'=>[ 2=>'Called but did not respond',3=>'Busy', 4=>'Switch off', 5=>'Have Not agreed',6=>'Call dropped',10=>'Not Eligible'],
-            'bn'=>[ 2=>'রিং হচ্ছে ধরে নি',3=>'ব্যস্ত', 4=>'মোবাইল বন্ধ',5=>'অসম্মত',6=>'শুরুতে লাইন কেটে গেছে',10=>'প্রযোজ্য নয়',11=>'গ্রাহকের নাম্বার নয় ']][session('language')];
+        return [             
+                31=>'রিং হচ্ছে ধরে নি',
+                32=>'ব্যস্ত', 
+                33=>'মোবাইল বন্ধ',
+                34=>'অসম্মত',
+                35=>'শুরুতে লাইন কেটে গেছে',
+                36=>'প্রযোজ্য নয়',
+                37=>'গ্রাহকের নাম্বার নয় '
+            ];
 
         
 
     }
 
+    /*public static function getInitialStatus(){
+
+        return [
+            31 => ['রিং হচ্ছে ধরে নি'],
+            32 => ['গ্রাহকের নাম্বার নয়'],
+            33 => ['মোবাইল বন্ধ'],
+            35 => ['শুরুতে লাইন কেটে গেছে'],
+            36 => ['অসম্মত'],
+        ];
+
+        
+
+    }*/
+
 
     public static function getForcedfinished(){
         return [
-            'bn'=>[8=>'আংশিক সম্পূর্ণ করুন']
-        ][session('language')];
+            51=>'আংশিক সম্পূর্ণ করুন'
+        ];
     }
 
     public static function getScheduleSuveillance(){
-        return ['en'=>[0=>'Not Finished', 12=>'call Dropped/ Not Clear',7=>'Partially Done'],
-            'bn'=>[0=>'শেষ হয়নি', 12=>'লাইন কেটে গেছে / অস্পষ্ট',7=>'আংশিক অসম্মত']][session('language')];
+        return [
+            10=>'শেষ হয়নি', 
+            43=>'লাইন কেটে গেছে / অস্পষ্ট',
+            44=>'আংশিক অসম্মত'
+        ];
     }
 
 
@@ -56,7 +80,8 @@ trait Status{
     	return [
     		2019=>'2019',
     		2020=>'2020',
-    		2021=>'2021'
+    		2021=>'2021',
+            2022=>'2022'
     	];
     }
 
@@ -112,19 +137,7 @@ trait Status{
     }
 
 
-	public static function getInitialStatus(){
-
-        return [
-			31 => ['রিং হচ্ছে ধরে নি'],
-			32 => ['গ্রাহকের নাম্বার নয়'],
-			33 => ['মোবাইল বন্ধ'],
-			35 => ['শুরুতে লাইন কেটে গেছে'],
-			36 => ['অসম্মত'],
-		];
-
-        
-
-    }
+	
 
     public static function getYNO(){
     	return [
@@ -210,6 +223,8 @@ Homeopathy Physicians  19',
 			14 => '14 নাতি-নাতনি',
 			15 => '15 আশ্রিত',
 			16 => '16 কোন সম্পর্ক নেই',
+            17 => '17 ভাই',
+            18 => '18 বোন',
 			66 => '66 অন্যান্য (উল্লেখ করুন ----)'
 		];
 

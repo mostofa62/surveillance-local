@@ -76,6 +76,9 @@
 #consent_no_submit, #age_below_18_submit{
     display: none;
 }
+.cdeath_index, .sibiling_index, .index_label{
+    font-weight: bold;
+}
 </style>
 
 
@@ -101,11 +104,11 @@
         <span>Hide</span>
     </div>
     
-   
+    @if($rammps->no_of_call <= 1)
     <div class="form-group" style="margin-top: 15px">
         
         <div class="col-md-12">
-            {!! Form::select('call_status',[''=>'--- Call Status ---']+\App\Models\Ivr::getScheduleSuveillance(),Input::old('call_status',isset($question->call_status)?$question->call_status:''), array('id' => 'call_status', 'class' => 'form-control')) !!}
+            {!! Form::select('call_status',[''=>'--- Call Status ---']+\App\Models\Rammps::getScheduleSuveillance(),Input::old('call_status',isset($question->call_status)?$question->call_status:''), array('id' => 'call_status', 'class' => 'form-control')) !!}
         </div>
     </div>
     
@@ -122,12 +125,13 @@
             <input type="time" name="time" id="time" class="form-control" required="required" value="<?=date('H:i')?>">
         </div>
     </div>
-   
+    @else
 
     <div class="form-group">
         <label class="control-label ">Call Status</label>
-        {!! Form::select('call_status',[''=>'--- সাক্ষাৎকার অবস্থা ---']+\App\Models\Ivr::getForcedfinished(),Input::old('call_status',isset($question->call_state)?$question->call_status:''), array('id' => 'call_status', 'class' => 'form-control')) !!}
+        {!! Form::select('call_status',[''=>'--- সাক্ষাৎকার অবস্থা ---']+\App\Models\Rammps::getForcedfinished(),Input::old('call_status',isset($question->call_state)?$question->call_status:''), array('id' => 'call_status', 'class' => 'form-control')) !!}
     </div>
+    @endif
 
     
 
@@ -223,7 +227,7 @@
 
     </div>
 </div>
-<div class="form-group">
+<div class="row">
  <div class="col-xs-12 text-center">
      <a id="consent_no_submit" class="btn btn-success btn-lg">        সম্পূর্ণ করুন          
      </a>
@@ -231,7 +235,12 @@
 </div>                                
 
 
-
+<p>
+<br>
+<strong> 
+    {!! @App\Models\Rammps::initialText()['s_1_s'] !!}
+</strong>
+</p>
 
 <div class="form-group">
 	<label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_1_gender']}}</label>
@@ -267,7 +276,7 @@
     </div>
 </div>
 
-<div class="form-group">
+<div class="row">
  <div class="col-xs-12 text-center">
      <a id="age_below_18_submit" class="btn btn-success btn-lg">       বয়স ১৮ এর নিচে সপন্ন করুন         
      </a>
@@ -354,7 +363,18 @@
     </div>
 </div>
 
+<div class="form-group">
+    <label class="col-xs-4 control-label">{!! @App\Models\Rammps::questionText()['s_1_name'] !!}</label>
+    <div class="col-xs-4">
+    {!! Form::text('s_1_name', Input::old('s_1_name',isset($question->s_1_name)?$question->s_1_name:''),array('id'=>'s_1_name','class' => 'form-control')) !!}
 
+    </div>
+    <div class="col-md-4">
+    
+
+
+    </div>
+</div>
 
 
 
@@ -373,18 +393,7 @@
 </strong>
 </p>
 
-<div class="form-group">
-	<label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_2_name']}}</label>
-	<div class="col-xs-4">
-	{!! Form::text('s_2_name', Input::old('s_2_name',isset($question->s_2_name)?$question->s_2_name:''),array('id'=>'s_2_name','class' => 'form-control','placeholder'=>@App\Models\Rammps::questionText()['s_2_name'])) !!}
 
-	</div>
-	<div class="col-md-4">
-	
-
-
-	</div>
-</div>
 
 <div class="form-group">
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_2_education']}}</label>
@@ -474,7 +483,7 @@
 
 
 <div class="form-group">
-    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_3_relation_w_main']}}</label>
+    <label class="col-xs-4 control-label">{!! @App\Models\Rammps::questionText()['s_3_relation_w_main'] !!}</label>
     <div class="col-xs-4">
     
     {!! Form::select('s_3_relation_w_main',[''=>'---Select an options---']+\App\Models\Rammps::getMainRelation(),Input::old('s_3_relation_w_main',isset($question->s_3_relation_w_main)?$question->s_3_relation_w_main:''), array('id' => 's_3_relation_w_main', 'class' => 'form-control select2')) !!}
@@ -732,6 +741,7 @@
             </div>
             <div class="row spacer">
                 <div class="col-md-6" >
+                    <span class="cdeath_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['death_name']!!}
                     <br/>
                     {!! Form::text('cdeath[name][]',null,array(
@@ -742,6 +752,7 @@
                     )) !!}
                 </div>
                 <div class="col-md-3">
+                    <span class="cdeath_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['relation_with']!!}
                     <br/>
                     {!! Form::select('cdeath[r_with_death][]',
@@ -763,6 +774,7 @@
                 </div>
 
                 <div class="col-md-3">
+                    <span class="cdeath_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['death_gender'] !!}
                     <br/>
 
@@ -779,6 +791,7 @@
 
             <div class="row spacer">
                 <div class="col-md-3">
+                    <span class="cdeath_index"></span>
         {!! @App\Models\Rammps::placeHolderText()['death_time']!!}
                 </div>
                 <div class="col-md-3">
@@ -821,12 +834,15 @@
 
             <div class="row spacer">
                 <div class="col-md-12">
+                  <span class="cdeath_index"></span>
                   {!! @App\Models\Rammps::placeHolderText()['death_year']!!}  
                 </div>
 
                 <div class="col-md-6">
                     
-                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYearOfDeath(), 'cdeath[death_year][]',0,null, false,'data-name-format="cdeath[death_year][%d]"') !!}      
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYearOfDeath(), 'cdeath[death_year][]',0,null, false,'data-name-format="cdeath[death_year][%d]"') !!}
+
+                    
                     
                 </div>
 
@@ -837,7 +853,7 @@
 
             <div class="row spacer">
                 <div class="col-md-3">
-
+                    <span class="cdeath_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['death_married']!!}
                     <br/>
 
@@ -847,6 +863,7 @@
                 </div>
 
                 <div class="col-md-3">
+                    <span class="cdeath_index"></span>
 
                     {!! @App\Models\Rammps::placeHolderText()['death_pregnant']!!}
                     <br/>
@@ -857,6 +874,7 @@
                 </div>
 
                 <div class="col-md-3">
+                    <span class="cdeath_index"></span>
 
                     {!! @App\Models\Rammps::placeHolderText()['death_on_birth']!!}
                     <br/>
@@ -867,6 +885,7 @@
                 </div>
 
                 <div class="col-md-3">
+                    <span class="cdeath_index"></span>
 
                     {!! @App\Models\Rammps::placeHolderText()['death_2m_birth']!!}
                     <br/>
@@ -879,6 +898,7 @@
 
             <div class="row spacer">
                 <div class="col-md-12">
+                  <span class="cdeath_index"></span>  
                   {!! @App\Models\Rammps::placeHolderText()['death_symptoms']!!}  
                 </div>
 
@@ -963,6 +983,7 @@
 
             <div class="row spacer">
                 <div class="col-md-12">
+                  <span class="cdeath_index"></span>
                   {!! @App\Models\Rammps::placeHolderText()['death_location']!!}  
                 </div>
 
@@ -992,6 +1013,7 @@
 
             <div class="row spacer">
                 <div class="col-md-12">
+                  <span class="cdeath_index"></span>
                   {!! @App\Models\Rammps::placeHolderText()['death_reason']!!}  
                 </div>
 
@@ -1084,7 +1106,7 @@
 
             <div class="row spacer">
                 <div class="col-md-3">
-
+                    <span class="cdeath_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['death_detect_by']!!}
                     <br/>
 
@@ -1094,7 +1116,7 @@
                 </div>
 
                 <div class="col-md-3">
-
+                    <span class="cdeath_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['death_covid_symptoms'] !!}
                     <br/>        
 
@@ -1117,7 +1139,7 @@
                 </div>
 
                 <div class="col-md-3">
-
+                    <span class="cdeath_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['death_covid_hospital'] !!}
                     <br/>
 
@@ -1127,7 +1149,7 @@
                 </div>
 
                 <div class="col-md-3">
-
+                    <span class="cdeath_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['death_covid_hospital_a'] !!}
                     <br/>
 
@@ -1142,7 +1164,7 @@
     
 
                 <div class="col-md-6">
-
+                    <span class="cdeath_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['death_covid_death_where']!!}
                     <br/>        
 
@@ -1166,7 +1188,7 @@
 
 
                 <div class="col-md-6">
-
+                    <span class="cdeath_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['death_covid_grave']!!}
                     <br/>        
 
@@ -1460,13 +1482,19 @@
         <strong>{{ @App\Models\Rammps::initialText()['covid_19_mf_question'] }}</strong>
     </div>
 </div>
-{{ @App\Models\Rammps::initialText()['covid_19_mother_c'] }}
+<div class="form-group">
+    <div class="col-md-12 control-label text-center" style="font-weight: bold;text-align: left !important;">
+    {{ @App\Models\Rammps::initialText()['covid_19_mother_c'] }}
+    </div>
+</div>
 <hr/>
+<div class="mother_index">
 
 <div class="row spacer">
     <div class="col-md-3">
-
+        <span class="index_label"></span>
         {!! @App\Models\Rammps::placeHolderText()['m_death_detect_by'] !!}
+        
         <br/>
 
         {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'mother_death_detect_by',0,null, false) !!}
@@ -1475,7 +1503,7 @@
     </div>
 
     <div class="col-md-3">
-
+        <span class="index_label"></span>
         {!! @App\Models\Rammps::placeHolderText()['m_death_covid_symptoms'] !!}
         <br/>        
 
@@ -1496,7 +1524,7 @@
     </div>
 
     <div class="col-md-3">
-
+        <span class="index_label"></span>
         {!! @App\Models\Rammps::placeHolderText()['m_death_covid_hospital']!!}
         <br/>
 
@@ -1506,7 +1534,7 @@
     </div>
 
     <div class="col-md-3">
-
+        <span class="index_label"></span>
         {!! @App\Models\Rammps::placeHolderText()['m_death_covid_hospital_a']!!}
         <br/>
 
@@ -1521,7 +1549,7 @@
     
 
 <div class="col-md-6">
-
+    <span class="index_label"></span>
     {!! @App\Models\Rammps::placeHolderText()['m_death_covid_death_where']!!}
     <br/>        
 
@@ -1543,7 +1571,7 @@
 
 
 <div class="col-md-6">
-
+    <span class="index_label"></span>
     {!! @App\Models\Rammps::placeHolderText()['m_death_covid_grave']!!}
     <br/>        
 
@@ -1566,12 +1594,22 @@
 
 
 </div>
+
+</div>
+
+
+
+<div class="form-group">
+    <div class="col-md-12 control-label text-center" style="font-weight: bold;text-align: left !important;">
 {{ @App\Models\Rammps::initialText()['covid_19_father_c'] }}
+    </div>
+</div>
 <hr/>
+<div class="father_index">
 
 <div class="row spacer">
     <div class="col-md-3">
-
+        <span class="index_label"></span>
         {!! @App\Models\Rammps::placeHolderText()['f_death_detect_by'] !!}
         <br/>
 
@@ -1581,7 +1619,7 @@
     </div>
 
     <div class="col-md-3">
-
+        <span class="index_label"></span>
         {!! @App\Models\Rammps::placeHolderText()['f_death_covid_symptoms'] !!}
         <br/>        
 
@@ -1602,7 +1640,7 @@
     </div>
 
     <div class="col-md-3">
-
+        <span class="index_label"></span>
         {!! @App\Models\Rammps::placeHolderText()['f_death_covid_hospital']!!}
         <br/>
 
@@ -1612,7 +1650,7 @@
     </div>
 
     <div class="col-md-3">
-
+        <span class="index_label"></span>
         {!! @App\Models\Rammps::placeHolderText()['f_death_covid_hospital_a']!!}
         <br/>
 
@@ -1627,7 +1665,7 @@
     
 
 <div class="col-md-6">
-
+    <span class="index_label"></span>
     {!! @App\Models\Rammps::placeHolderText()['f_death_covid_death_where']!!}
     <br/>        
 
@@ -1649,7 +1687,7 @@
 
 
 <div class="col-md-6">
-
+    <span class="index_label"></span>
     {!! @App\Models\Rammps::placeHolderText()['f_death_covid_grave']!!}
     <br/>        
 
@@ -1673,6 +1711,7 @@
 
 </div>
 
+</div>
 
 
 </div>
@@ -1767,6 +1806,7 @@
 
                 <div class="row spacer">
                     <div class="col-md-3">
+                    <span class="sibiling_index"></span>
                     {{ @App\Models\Rammps::placeHolderText()['sibiling_death_gender']}}
                     <br/>
 
@@ -1775,6 +1815,7 @@
                     </div>
 
                     <div class="col-md-3">
+                        <span class="sibiling_index"></span>
                         {{ @App\Models\Rammps::placeHolderText()['sibiling_death_age']}}
                         <br/>
                         
@@ -1794,7 +1835,7 @@
                     
 
                     <div class="col-md-3">
-                    <span class="sibiling_death_name" style="font-weight: bold;"></span>
+                    <span class="sibiling_index"></span>
                     {{ @App\Models\Rammps::placeHolderText()['sibiling_death_year']}}
                     <br/>
 
@@ -1807,6 +1848,7 @@
                     </div>
 
                     <div class="col-md-3">
+                        <span class="sibiling_index"></span>
                         {{ @App\Models\Rammps::placeHolderText()['sibiling_death_db_location']}}
                         <br/>
                         
@@ -1829,7 +1871,7 @@
 
                 <div class="row spacer">
                 <div class="col-md-3">
-
+                    <span class="sibiling_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['s_death_detect_by']!!}
                     <br/>
 
@@ -1839,7 +1881,7 @@
                 </div>
 
                 <div class="col-md-3">
-
+                    <span class="sibiling_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['s_death_covid_symptoms'] !!}
                     <br/>        
 
@@ -1862,7 +1904,7 @@
                 </div>
 
                 <div class="col-md-3">
-
+                    <span class="sibiling_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['s_death_covid_hospital'] !!}
                     <br/>
 
@@ -1872,7 +1914,7 @@
                 </div>
 
                 <div class="col-md-3">
-
+                    <span class="sibiling_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['s_death_covid_hospital_a'] !!}
                     <br/>
 
@@ -1886,7 +1928,7 @@
     
 
                 <div class="col-md-6">
-
+                    <span class="sibiling_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['s_death_covid_death_where']!!}
                     <br/>        
 
@@ -1910,7 +1952,7 @@
 
 
                 <div class="col-md-6">
-
+                    <span class="sibiling_index"></span>
                     {!! @App\Models\Rammps::placeHolderText()['s_death_covid_grave']!!}
                     <br/>        
 
@@ -2233,7 +2275,9 @@
             @endphp
             ;
 
-      
+      var previous_data = @php  
+        echo json_encode($previous_question)
+      @endphp;
 
 
 
