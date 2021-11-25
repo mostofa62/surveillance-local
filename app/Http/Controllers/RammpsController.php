@@ -270,7 +270,7 @@ rammps_schedules.id as schedule_id, rammps.schedule_date from `rammps` inner joi
 		view()->share('id', $id);
 
 		view()->share('question', $question);
-        view()->share('previous_question', $question->getAnswersJson($question->section_answers));
+        view()->share('previous_question', Question::getAnswersJson(isset($question->section_answers)?$question->section_answers:null));
 		view()->share('rammps', $rammps);
         //view()->share('previous_respondent', $previous_respondent);
 		return view(session('access').'rammps/question');

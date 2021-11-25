@@ -163,6 +163,11 @@
     </li>
     <li role="tab">
         <h4><span><i class="ti-credit-card"></i></span>         
+        {{ @App\Models\Rammps::initialText()['s_3_b'] }}  
+        </h4>
+    </li>
+    <li role="tab">
+        <h4><span><i class="ti-credit-card"></i></span>         
         {{ @App\Models\Rammps::initialText()['s_4_t'] }}  
         </h4>
     </li>
@@ -715,23 +720,27 @@
 
 
 
+
+
+
+
+
+</div>
+<!--end section 3-->
+<!--section 3b-->
+<div class="wizard-pane" role="tabpanel">
+
 <!--tabuler covid death information -->
 <div class="row table-responsive">
 
 
 <table class="table col-xs-12" id="death">
     <tr>
-        <th colspan="2" class="control-label">{{ @App\Models\Rammps::initialText()['covid_death_intial']}}
+        <th colspan="2" style="font-weight:bold;"> 4 | {{ @App\Models\Rammps::initialText()['covid_death_intial']}}
             <span class="note"> {{ @App\Models\Rammps::placeHolderText()['add_more']}}</span>
         </th>
     </tr>
-    {{--
-    <tr>
-        <th colspan="2">
-            <input type="button" name="s_3_add_death" value="Add" class="death_add">
-        </th>
-    </tr>
-    --}}
+    
     <tr class="death_var">
         <td>
             <div class="row">
@@ -1094,6 +1103,23 @@
                 </div>
                 
             </div>
+			
+			
+			<div class="row spacer">
+                <div class="col-md-12">
+                  <span class="cdeath_index"></span>
+                  {!! @App\Models\Rammps::placeHolderText()['death_violance']!!}  
+                </div>
+
+                <div class="col-md-6">
+                    
+                     {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDNIgnore(), 'cdeath[death_violance][]',0,null, false,'data-name-format="cdeath[death_violance][%d]"') !!}
+
+                   
+                    
+                </div>
+
+            </div>
 
             <hr/>
 
@@ -1161,30 +1187,7 @@
 
 
             <div class="row spacer">
-    
-
-                <div class="col-md-6">
-                    <span class="cdeath_index"></span>
-                    {!! @App\Models\Rammps::placeHolderText()['death_covid_death_where']!!}
-                    <br/>        
-
-                    {!! Form::select('cdeath[death_covid_death_where][]',
-                    [''=>'---Select an option---']+\App\Models\Rammps::death_where(),
-                    null, array(
-                    'class' => 'form-control select2',
-                    'data-name-format'=>"cdeath[death_covid_death_where][%d]"                    
-
-                    )) !!}
-
-                    {!! Form::text('cdeath[death_covid_death_where_e][]',null,array(
-                    'class' => 'form-control',
-                    'data-name-format'=>"cdeath[death_covid_death_where_e][%d]"
-                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
-
-                    )) !!}
-
-
-                </div>
+                    
 
 
                 <div class="col-md-6">
@@ -1247,11 +1250,10 @@
 </div>
 <!--end covid death -->
 
-
-
-
 </div>
-<!--end section 3-->
+<!--end section 3b-->
+
+
 
 <!--section 4-->
 <div class="wizard-pane" role="tabpanel">
@@ -1367,6 +1369,34 @@
     </div>
 </div>
 
+<div class="form-group">
+    <label class="col-xs-4 control-label">
+    {!! @App\Models\Rammps::placeHolderText()['m_death_covid_death_where']!!}
+    </label>       
+    <div class="col-xs-4">
+    {!! Form::select('mother_death_covid_death_where',
+    [''=>'---Select an option---']+\App\Models\Rammps::death_where(),
+    null, array(
+    'class' => 'form-control select2'                   
+
+    )) !!}
+
+    {!! Form::text('mother_death_covid_death_where_e',null,array(
+    'class' => 'form-control'
+    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+    )) !!}
+
+    </div>
+    <div class="col-md-4">
+    
+
+
+    </div>
+
+
+</div>
+
 
 
 {{ @App\Models\Rammps::initialText()['covid_19_father'] }}
@@ -1475,6 +1505,39 @@
     </div>
 </div>
 
+
+<div class="form-group">
+    <label class="col-xs-4 control-label">
+    {!! @App\Models\Rammps::placeHolderText()['f_death_covid_death_where']!!}
+    </label>       
+    <div class="col-xs-4">
+    {!! Form::select('father_death_covid_death_where',
+    [''=>'---Select an option---']+\App\Models\Rammps::death_where(),
+    null, array(
+    'class' => 'form-control select2'                   
+
+    )) !!}
+
+    {!! Form::text('father_death_covid_death_where_e',null,array(
+    'class' => 'form-control'
+    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+    )) !!}
+
+    </div>
+    <div class="col-md-4">
+    
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
 <hr/>
 
 <div class="row spacer">
@@ -1548,26 +1611,6 @@
 <div class="row spacer">
     
 
-<div class="col-md-6">
-    <span class="index_label"></span>
-    {!! @App\Models\Rammps::placeHolderText()['m_death_covid_death_where']!!}
-    <br/>        
-
-    {!! Form::select('mother_death_covid_death_where',
-    [''=>'---Select an option---']+\App\Models\Rammps::death_where(),
-    null, array(
-    'class' => 'form-control select2'                   
-
-    )) !!}
-
-    {!! Form::text('mother_death_covid_death_where_e',null,array(
-    'class' => 'form-control'
-    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
-
-    )) !!}
-
-
-</div>
 
 
 <div class="col-md-6">
@@ -1662,28 +1705,6 @@
 
 
 <div class="row spacer">
-    
-
-<div class="col-md-6">
-    <span class="index_label"></span>
-    {!! @App\Models\Rammps::placeHolderText()['f_death_covid_death_where']!!}
-    <br/>        
-
-    {!! Form::select('father_death_covid_death_where',
-    [''=>'---Select an option---']+\App\Models\Rammps::death_where(),
-    null, array(
-    'class' => 'form-control select2'                   
-
-    )) !!}
-
-    {!! Form::text('father_death_covid_death_where_e',null,array(
-    'class' => 'form-control'
-    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
-
-    )) !!}
-
-
-</div>
 
 
 <div class="col-md-6">

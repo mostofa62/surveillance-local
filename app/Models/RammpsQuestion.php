@@ -86,12 +86,12 @@ class RammpsQuestion extends Model
 
   public function call_complete_question_status(){
     return [
-      1,41,42,43,44,51
+      41,42,43,44,51
     ];
 
   }
 
-  public function getAnswersJson($data){
+  public static function getAnswersJson($data){
 
     
 

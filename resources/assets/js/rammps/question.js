@@ -246,7 +246,7 @@ $(function(){
             
         }
     }*/
-    if(Object.keys(previous_data).length > 0){
+    if(previous_data != null && Object.keys(previous_data).length > 0){
         saveOnLocalAndloadFromLocal(id,JSON.stringify(previous_data));
     }
     
@@ -332,12 +332,12 @@ function indexing_labels(){
 
     $('.mother_index .index_label').each(function(i,v){
         var ix = i + 1;
-        $(this).text("4.15."+ix+" | ");
+        $(this).text("5.17."+ix+" | ");
     });
 
     $('.father_index .index_label').each(function(i,v){
         var ix = i + 1;
-        $(this).text("4.16."+ix+" | ");
+        $(this).text("5.18."+ix+" | ");
     });
 
 
@@ -349,7 +349,7 @@ function cdeath_indexing_label(){
         var ix=i+1; 
         $(this).find(".cdeath_index").each(function(x,y){
             var ixx= x+1;
-            $(this).text("3.8."+ix+"."+ixx+" | ");
+            $(this).text("4."+ixx+"."+ix+" | ");
         });
 
     });
@@ -361,7 +361,7 @@ function sibiling_indexing_label(){
         var ix=i+1; 
         $(this).find(".sibiling_index").each(function(x,y){
             var ixx= x+1;
-            $(this).text("5.4."+ix+"."+ixx+" | ");
+            $(this).text("6."+ixx+"."+ix+" | ");
         });
 
     });
@@ -842,6 +842,7 @@ function checkChange(){
 function replace_text(el){
     name = el.attr('name');
     match = name.match(/(\d+)(?!.*\d)/);
+    if(match == null) return;
     index = match[0];
 
     dom = $("[name='cdeath[name]["+index+"]']");
@@ -1128,20 +1129,26 @@ function wizardIndexWiseChange(index, type){
         focusOnElement('s_3_khana_m');
         removeBlockAndFollow('s_3_khana_f');
         focusOnElement('s_3_khana_f');
+
     }else if(index == 3){       
+        removeBlockAndFollow('cdeath[name][0]');
+        focusOnElement('cdeath[name][0]');
+    }
+
+    else if(index == 4){       
         removeBlockAndFollow('s_4_mother_a_or_d');
         focusOnElement('s_4_mother_a_or_d');
     }
-    else if(index == 4){
+    else if(index == 5){
         //console.log('you are here');
         removeBlockAndFollow('s_5_sibiling_alive');
         focusOnElement('s_5_sibiling_alive');       
     }
-    else if(index == 5){
+    else if(index == 6){
         removeBlockAndFollow('s_6_vac_possible');
         focusOnElement('s_6_vac_possible');
     }
-    else if(index == 6){
+    else if(index == 7){
         removeBlockAndFollow('s_7_owner_phone');
         focusOnElement('s_7_owner_phone');
     } 

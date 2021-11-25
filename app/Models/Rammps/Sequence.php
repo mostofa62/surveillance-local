@@ -69,15 +69,16 @@ trait Sequence {
             'cdeath[death_reason_3]'=>['cdeath[death_detect_by]'],
             'cdeath[death_reason_4]'=>['cdeath[death_detect_by]'],*/
 
+            'cdeath[death_reason_1]'=>['cdeath[death_violance]'],
+
 
             'cdeath[death_detect_by]'=>['cdeath[death_covid_symptoms]'],
 
             'cdeath[death_covid_symptoms]'=>['cdeath[death_covid_hospital]'],
             'cdeath[death_covid_hospital]'=>['cdeath[death_covid_hospital_a]'],
+            
 
-            'cdeath[death_covid_hospital_a]'=>['cdeath[death_covid_death_where]'],
-
-            'cdeath[death_covid_death_where]'=>['cdeath[death_covid_grave]'],
+            'cdeath[death_covid_hospital_a]'=>['cdeath[death_covid_grave]'],
 
 
 
@@ -93,8 +94,7 @@ trait Sequence {
 
             'sibiling[death_covid_hospital_a]'=>['sibiling[death_covid_death_where]'],
 
-
-            'sibiling[death_covid_death_where]'=>['sibiling[death_covid_grave]'],
+            'sibiling[death_covid_death_where]'=>['sibiling[death_covid_grave]']
 
 
 
@@ -166,7 +166,7 @@ trait Sequence {
 
 
 
-            'cdeath[death_reason_1]'=>[
+            'cdeath[death_violance]'=>[
 
                 1001=>[
                     [
@@ -267,7 +267,7 @@ trait Sequence {
             's_4_mother_d_age'=>['s_4_mother_db_location'],
             's_4_mother_db_location'=>['s_4_mother_d_year'],
 
-            's_4_mother_d_year'=>['s_4_father_a_or_d'],
+            's_4_mother_d_year'=>['mother_death_covid_death_where','s_4_father_a_or_d'],
 
             's_4_father_a_or_d'=>[
                 1=>['s_4_father_age'],
@@ -281,7 +281,7 @@ trait Sequence {
             's_4_father_d_age'=>['s_4_father_db_location'],
             's_4_father_db_location'=>['s_4_father_d_year'],
 
-
+            's_4_father_d_year'=>['father_death_covid_death_where'],
             
 
 
@@ -289,16 +289,14 @@ trait Sequence {
             'mother_death_detect_by'=>['mother_death_covid_symptoms'],
             'mother_death_covid_symptoms'=>['mother_death_covid_hospital'],
             'mother_death_covid_hospital'=>['mother_death_covid_hospital_a'],
-            'mother_death_covid_hospital_a'=>['mother_death_covid_death_where'],
-            'mother_death_covid_death_where'=>['mother_death_covid_grave'],
+            'mother_death_covid_hospital_a'=>['mother_death_covid_grave'],            
 
 
             //father covid
             'father_death_detect_by'=>['father_death_covid_symptoms'],
             'father_death_covid_symptoms'=>['father_death_covid_hospital'],
             'father_death_covid_hospital'=>['father_death_covid_hospital_a'],
-            'father_death_covid_hospital_a'=>['father_death_covid_death_where'],
-            'father_death_covid_death_where'=>['father_death_covid_grave'],
+            'father_death_covid_hospital_a'=>['father_death_covid_grave'],            
 
 
             'father_death_covid_grave'=>['s_5_sibiling_alive'],
@@ -362,12 +360,14 @@ trait Sequence {
                 88=>['s_3_until_2019_a','s_3_add_death','cdeath']
             ],
 
-            's_4_mother_a_or_d'=>[                
+            's_4_mother_a_or_d'=>[
+                1=>['s_4_mother_d_age','s_4_mother_db_location','s_4_mother_d_year','m_death_covid_death_where','m_death_covid_death_where_e'],                
                 3=>['s_4_mother_age','s_4_mother_location'],
                 88=>['s_4_mother_age','s_4_mother_location']
             ],
 
-            's_4_father_a_or_d'=>[                
+            's_4_father_a_or_d'=>[
+                1=>['s_4_father_d_age','s_4_father_db_location','s_4_father_d_year','f_death_covid_death_where','f_death_covid_death_where_e'],                
                 3=>['s_4_father_age','s_4_father_location'],
                 88=>['s_4_father_age','s_4_father_location']
             ],

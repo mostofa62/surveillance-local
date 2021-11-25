@@ -495,8 +495,12 @@ function checkSkipLogicMVersion(el,type){
 function focusOnElement(name){
     var focusElement = $("[name='"+name+"']").parents('.form-group');
 
-    if(focusElement.attr('name') == undefined){
+    if(!focusElement.hasClass( "form-group" )){
         focusElement = $("[name='"+name+"']").parent();
+    }
+
+    if(focusElement == undefined){
+        focusElement = $("[name='"+name+"']");
     }
     ScrollToTop(focusElement, function() { focusElement.focus(); });
 }

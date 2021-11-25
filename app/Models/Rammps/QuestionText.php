@@ -88,7 +88,7 @@ trait QuestionText {
 			'death_name'=>'মৃত ব্যক্তির নাম ',
 			'relation_with'=>"মৃত (<span class='cdeath_place'>নাম </span>) -এর সাথে আপনার(উত্তরদাতার) কি সম্পর্ক ছিল? <br/>
 (অর্থাৎ, তিনি আপনার কি হন?)",
-			'death_time'=>"(<span class='cdeath_place'>নাম</span>)কতদিন আগে মারা গেছেন?",
+			'death_time'=>"(<span class='cdeath_place'>নাম</span>)কত বছর বয়সে মারা গেছেন?",
 			'death_gender'=>"(<span class='cdeath_place'>নাম</span>)তিনি কি পুরুষ না মহিলা?",
 			'death_year'=>" (<span class='cdeath_place'>নাম</span>) কোন্ বছরে মারা গেছেন?",
 			'dyear'=>'বছর',
@@ -96,18 +96,19 @@ trait QuestionText {
 			'dday'=>'দিন',
 			'death_married'=>" (<span class='cdeath_place'>নাম</span>) তিনি কি বিবাহ করেছিলেন?",
 			'death_pregnant'=>" (<span class='cdeath_place'>নাম</span>) বিবাহিত মহিলা হলে; তিনি যখন মারা যান তখন কী গর্ভবতী ছিলেন ?",
-			'death_on_birth'=>"(<span class='cdeath_place'>নাম</span>) বিবাহিত মহিলা হলে; উনি কী প্রসবের সময় মারা গিয়েছিলেন ?",
+			'death_on_birth'=>"(<span class='cdeath_place'>নাম</span>) বিবাহিত গর্ভবতী মহিলা হলে; উনি কী প্রসবের সময় মারা গিয়েছিলেন ?",
 			'death_2m_birth'=>" (<span class='cdeath_place'>নাম</span>) বিবাহিত মহিলা হলে; উনি কী গর্ভাবস্থা শেষ হওয়ার বা সন্তান প্রসবের ২ মাসের মধ্যে মারা গিয়েছিলেন ?",
 			'death_symptoms'=>" (<span class='cdeath_place'>নাম</span>) কি আগে থেকেই অন্য কোন স্বাস্থ্য সমস্যায় ভুগছিলেন যা তার মৃত্যুর কারণ হতে পারে?",
 			'death_location'=>" (<span class='cdeath_place'>নাম</span>) তিনি কোথায় মারা গেছেন?",
 			'death_reason'=>" (<span class='cdeath_place'>নাম</span>) কি কারণে বা অসুখে মারা গিয়েছিলেন?",
 
+			'death_violance'=>"(<span class='cdeath_place'>নাম</span>) কি কোন পারিবারিক সহিংসতায় মারা গেছেন? ",
+
 			'death_detect_by'=>"মৃত (<span class='cdeath_place'>নাম</span>)-কে কোন স্বাস্থ্য কর্মী কোভিড ১৯ রোগী হিসাবে শনাক্ত করেছিলেন কি?",			
 			'death_covid_symptoms'=>"মৃত্যুর আগে (<span class='cdeath_place'>নাম</span>) কি কি অসুবিধায় বা উপসর্গে ভুগছিলেন?<br/>
 তিনি কি ঠান্ডা জনিত বা ইন্ফ্লুয়েঞ্জার মত অথবা শ্বসনতন্ত্র  সংশ্লিষ্ট কোন অসুবিধা বা উপসর্গে ভুগছিলেন?",
 			'death_covid_hospital'=>"মৃত্যুর দুই সপ্তাহের মধে (<span class='cdeath_place'>নাম</span>) কি কোন হাসপাতালে গিয়েছিলেন?",
-			'death_covid_hospital_a'=>"মৃত্যুর দুই সপ্তাহের মধ্যে (<span class='cdeath_place'>নাম</span>) কি কোন হাসপাতালে ভর্তি হয়েছিলেন?",
-			'death_covid_death_where'=>"(<span class='cdeath_place'>নাম</span>) তিনি কোথায় মারা গেছেন?",
+			'death_covid_hospital_a'=>"মৃত্যুর দুই সপ্তাহের মধ্যে (<span class='cdeath_place'>নাম</span>) কি কোন হাসপাতালে ভর্তি হয়েছিলেন?",			
 			'death_covid_grave'=>"(<span class='cdeath_place'>নাম</span>) -কে কোথায় কবর দেয়া হয়েছে?",
 
 
@@ -124,6 +125,7 @@ trait QuestionText {
 			'm_death_covid_hospital_a'=>"মৃত্যুর দুই সপ্তাহের মধ্যে (<span class='m_place'>নাম</span>) কি কোন হাসপাতালে ভর্তি হয়েছিলেন?",
 			'm_death_covid_death_where'=>"(<span class='m_place'>নাম</span>) তিনি কোথায় মারা গেছেন?",
 			'm_death_covid_grave'=>"(<span class='m_place'>নাম</span>) -কে কোথায় কবর দেয়া হয়েছে?",
+			
 
 
 			'f_death_detect_by'=>"মৃত (<span class='f_place'>নাম</span>)-কে কোন স্বাস্থ্য কর্মী কোভিড ১৯ রোগী হিসাবে শনাক্ত করেছিলেন কি?",			
@@ -133,6 +135,7 @@ trait QuestionText {
 			'f_death_covid_hospital_a'=>"মৃত্যুর দুই সপ্তাহের মধ্যে (<span class='f_place'>নাম</span>) কি কোন হাসপাতালে ভর্তি হয়েছিলেন?",
 			'f_death_covid_death_where'=>"(<span class='f_place'>নাম</span>) তিনি কোথায় মারা গেছেন?",
 			'f_death_covid_grave'=>"(<span class='f_place'>নাম</span>) -কে কোথায় কবর দেয়া হয়েছে?",
+
 
 
 			's_death_detect_by'=>"মৃত -কে কোন স্বাস্থ্য কর্মী কোভিড ১৯ রোগী হিসাবে শনাক্ত করেছিলেন কি?",			
@@ -169,15 +172,16 @@ trait QuestionText {
 		's_2_t'=>'Section 2',
 		's_3'=>'খানাসংশ্লিষ্ট সদস্যদের তথ্যঃ এখন আমি আপনাকে আপনার পরিবারের সদস্যদের সম্পর্কে কিছু প্রশ্ন করতে চাই।',
 		's_3_t'=>'Section 3',
+		's_3_b'=>'Section 4',
 		'covid_death_intial'=>'খানায় জানুয়ারী ২০১৯ থেকে সদস্যদের মৃত্যুর তথ্যঃ এখন, আমি ২০১৯ সালের জানুয়ারী মাস থেকে এখন পর্যন্ত খানার/পরিবারের যে সদস্যগণ মারা গিয়াছেন তাদের তথ্য জানতে চাইবো (দয়া করে প্রথমে সাম্প্রতিক মৃত্যুর তথ্য দিয়ে শুরু করুন)।',
 		's_4'=>'এখন আমি আপনার জন্মদাতা পিতা-মাতা সম্পর্কে কিছু তথ্যাদি জানতে প্রশ্ন করব',
-		's_4_t'=>'Section 4',
+		's_4_t'=>'Section 5',
 		's_5'=>'এখন আমি আপনার জন্মদাত্রি মায়ের কোলে জন্ম নেয়া আপনার ভাই-বোনদের সম্পর্কে কিছু প্রশ্ন করব।',
-		's_5_t'=>'Section 5',
+		's_5_t'=>'Section 6',
 		's_6'=>'কোভিড -১৯ ভ্যাকসিন সম্পর্কে সিদ্ধান্তহীনতা : এখন আমি আপনাকে কোভিড- ১৯ টিকা সম্পর্কে প্রশ্ন করতে চাই',
-		's_6_t'=>'Section 6',
+		's_6_t'=>'Section 7',
 		's_7'=>'মোবাইল ফোনের মালিকানা এবং ব্যবহার: এখন আমি আপনাকে ফোনের মালিকানা এবং ব্যবহার সম্পর্কে কিছু প্রশ্ন করব:',
-		's_7_t'=>'Section 7',
+		's_7_t'=>'Section 8',
 
 		'covid_19_question'=>'গত প্রায় দুই বছর ধরে করোনা ভাইরাস বা কোভিড-১৯ রোগ বাংলাদেশ সহ বিশ^জুড়ে মহামারি হিসেবে ছড়িয়ে পড়েছে। এখন আমি আপনার উল্লেখ করা জানুয়ারী ২০২০ এর পরের প্রতিটি মৃত্যু করোনা ভাইরাস (কোভিড- ১৯) এর কারণে হয়েছে কিনা তা যাঁচাই করতে চাইঃ',
 
