@@ -303,10 +303,10 @@ trait Sequence {
 
             's_5_sibiling_alive'=>['s_5_sibiling_dead_in_alive'],
 
-            's_5_sibiling_dead_in_alive'=>['s_5_sibiling_dead_2019_a','s_5_sibiling_dead_2019','sibiling[g_of_death][0]'],
+            's_5_sibiling_dead_in_alive'=>['s_5_sibiling_dead_2019_a'],
 
-
-            //'s_5_sibiling_dead_2019'=>['s_5_add_death_sibiling','sibiling[g_of_death][0]'],
+            
+            's_5_sibiling_dead_2019_a'=>['s_5_sibiling_dead_add','sibiling[g_of_death][0]'],
 
 
             's_6_vac_possible'=>['s_6_vac_taken'],
@@ -370,6 +370,9 @@ trait Sequence {
                 1=>['s_4_father_d_age','s_4_father_db_location','s_4_father_d_year','f_death_covid_death_where','f_death_covid_death_where_e'],                
                 3=>['s_4_father_age','s_4_father_location'],
                 88=>['s_4_father_age','s_4_father_location']
+            ],
+            's_5_sibiling_dead_2019_a'=>[
+                0=>['s_5_sibiling_dead_add','sibiling']
             ],
 
             's_6_vac_taken'=>[

@@ -21,19 +21,21 @@
         <ul class="nav" id="side-menu">
 
             <li>
+                <a href="{{URL::to(session('access').'dashboard')}}">
+                    <i class="fa fa-list"></i> 
+                    <span class="hide-menu">Dashboard</span>
+                </a>
+            </li>
+
+            <li>
                 <a href="{{URL::to(session('access').'rammps/callInitiate')}}">
                     <i class="fa fa-plus"></i> 
                     <span class="hide-menu">Call Initiate</span>
                 </a>
             </li>
-            {{--
-            <li>
-                <a href="{{URL::to(session('access').'rammps/missing')}}">
-                    <i class="fa fa-list"></i> 
-                    <span class="hide-menu">Call Initiate</span>
-                </a>
-            </li>
-            --}}
+            
+            
+            
            
             <li class="devider"></li>
            

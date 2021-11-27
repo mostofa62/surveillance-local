@@ -10,6 +10,7 @@
 /resources/assets/less
 /resources/assets/sass
 /resources/assets/css
+/resources/assets/lib
 /storage/
 /vendor
 /.idea

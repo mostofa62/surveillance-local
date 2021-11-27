@@ -151,6 +151,7 @@
 <ul class="wizard-steps" role="tablist">
     <li class="active" role="tab">
         <h4><span><i class="ti-user"></i></span>{{  @App\Models\Rammps::initialText()['s_1_t'] }} </h4></li>
+    
     <li role="tab">
         <h4><span><i class="ti-credit-card"></i></span>        	
         {{ @App\Models\Rammps::initialText()['s_2_t'] }}	
@@ -1752,7 +1753,13 @@
 <div class="form-group">
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_5_sibiling_alive']}}</label>
     <div class="col-xs-4">
-    {!! Form::number('s_5_sibiling_alive', Input::old('s_5_sibiling_alive',isset($question->s_5_sibiling_alive)?$question->s_5_sibiling_alive:''),array('id'=>'s_5_sibiling_alive','class' => 'form-control','min'=>0)) !!}
+    
+    {!! Form::select('s_5_sibiling_alive',
+    [''=>'---Select an option---']+\App\Models\Rammps::getNumberRange(),
+    null, array(
+    'class' => 'form-control'                  
+
+    )) !!}
 
     </div>
     <div class="col-md-4">
@@ -1766,7 +1773,13 @@
 <div class="form-group">
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_5_sibiling_dead_in_alive']}}</label>
     <div class="col-xs-4">
-    {!! Form::number('s_5_sibiling_dead_in_alive', Input::old('s_5_sibiling_dead_in_alive',isset($question->s_5_sibiling_dead_in_alive)?$question->s_5_sibiling_dead_in_alive:''),array('id'=>'s_5_sibiling_dead_in_alive','class' => 'form-control','min'=>0)) !!}
+    
+    {!! Form::select('s_5_sibiling_dead_in_alive',
+    [''=>'---Select an option---']+\App\Models\Rammps::getNumberRange(),
+    null, array(
+    'class' => 'form-control'                  
+
+    )) !!}
 
     </div>
     <div class="col-md-4">
@@ -1777,9 +1790,15 @@
 </div>
 
 <div class="form-group">
-    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_5_sibiling_dead_2019']}}</label>
+    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_5_sibiling_dead_2019_a']}}</label>
     <div class="col-xs-4">
-    {!! Form::number('s_5_sibiling_dead_2019_a', Input::old('s_5_sibiling_dead_2019_a',isset($question->s_5_sibiling_dead_2019_a)?$question->s_5_sibiling_dead_2019_a:''),array('id'=>'s_5_sibiling_dead_2019_a','class' => 'form-control','min'=>0)) !!}
+   
+    {!! Form::select('s_5_sibiling_dead_2019_a',
+    [''=>'---Select an option---']+\App\Models\Rammps::getNumberRange(),
+    null, array(
+    'class' => 'form-control'                  
+
+    )) !!}
 
     </div>
     <div class="col-md-4">
@@ -2019,7 +2038,7 @@
     </table>
 
     <div class="col-xs-12 text-center">
-        <input type="button" name="s_5_sibiling_dead_2019" value="Add" class="death_sibiling_add btn-success">
+        <input type="button" name="s_5_sibiling_dead_add" value="Add" class="death_sibiling_add btn-success">
     </div>
 
     

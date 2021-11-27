@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
+    
     <meta http-equiv='cache-control' content='no-cache'>
     <meta http-equiv='expires' content='0'>
     <meta http-equiv='pragma' content='no-cache'>
@@ -44,7 +45,9 @@
     </style>
     <!-- color CSS -->
     <link href="{{URL::to('resources/assets/ampleadmin/css/colors/blue-dark.css')}}" id="theme" rel="stylesheet">
+    {{--
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
+    --}}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     {{--select2--}}
@@ -55,7 +58,7 @@
     <link href="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/custom-select/custom-select.css')}}"
           rel="stylesheet" type="text/css"/>
           --}}
-          <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+          <link href="{{URL::to('resources/assets/lib/select2/select2.min.css')}}" rel="stylesheet" />
     <!-- Datepicker Timepicker -->
     {{--<link rel="stylesheet" href="{{URL::to('resources/assets/theme/css/plugins/timepicker/bootstrap-timepicker.min.css')}}">--}}
     {{--<link rel="stylesheet" href="{{URL::to('resources/assets/theme/css/plugins/datepicker/datepicker.css')}}">--}}
@@ -151,11 +154,14 @@
     <!-- ============================================================== -->
 </div>
 <!-- /#wrapper -->
+{{--
 <script src="{{URL::to('resources/assets/js/search.js')}}"></script>
-
+--}}
+{{--
 <script src="https://cdnjs.cloudflare.com/ajax/libs/alasql/0.3.7/alasql.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.9.2/xlsx.core.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+--}}
 
 <!-- Menu Plugin JavaScript -->
 <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js')}}"></script>
@@ -177,10 +183,11 @@
 {{--
 <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/custom-select/custom-select.min.js')}}" type="text/javascript"></script>
 --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+<script src="{{URL::to('resources/assets/lib/select2/select2.min.js')}}"></script>
 <!-- Validation -->
 <script src="{{URL::to('resources/assets/theme/js/plugins/validation/jquery.validate.min.js')}}"></script>
 {{-- <script src="{{URL::to('resources/assets/theme/js/eakroko.js')}}"></script> --}}
+{{--
 <!-- Plugin JavaScript -->
 <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/moment/moment.js')}}"></script>
 <!-- Clock Plugin JavaScript -->
@@ -189,24 +196,26 @@
 <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
 <!-- Date range Plugin JavaScript -->
 <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/timepicker/bootstrap-timepicker.min.js')}}"></script>
-
+{{--
 <!--Morris JavaScript -->
 <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/raphael/raphael-min.js')}}"></script>
 <!-- <script src="{{URL::to('resources/assets/ampleadmin/js/morris-data.js')}}"></script> -->
 <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/morrisjs/morris.js')}}"></script>
 
 <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/alasql/0.3.7/alasql.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.9.2/xlsx.core.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+
 <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/tinymce/tinymce.min.js')}}"></script>
 
 <!-- Sweet-Alert  -->
 <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/sweetalert/sweetalert.min.js')}}"></script>
 <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js')}}"></script>
 <script src="{{URL::to('resources/assets/ampleadmin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js')}}"></script>
-
-
+--}}
+{{--
 <script>
     $(document).ready(function () {
 
@@ -223,6 +232,8 @@
         }
     });
 </script>
+
+--}}
 <script>
 
     // For select 2
@@ -237,6 +248,7 @@
         
         
         // Clock pickers
+        /*
         $('#single-input, .clockpicker, .timepick').clockpicker({
             placement: 'top',
             align: 'left',
@@ -271,7 +283,7 @@
             cancelClass: 'btn-inverse'
         });
 
-
+        */
         /*$('.input-daterange-timepicker').daterangepicker({
             timePicker: true,
             format: 'MM/DD/YYYY h:mm A',

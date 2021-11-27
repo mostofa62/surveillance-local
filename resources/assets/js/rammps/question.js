@@ -1,4 +1,9 @@
+$(document).ready(function(){
+    complete_load_after();
+});
+
 (function () {
+    
 
 	$('#exampleValidator').wizard({
 
@@ -24,25 +29,8 @@
 				
 	});
 
-    /*id = $("[name='rammps_id']").val();
-    data = JSON.parse(getLocalItem(id));
-
-    if(data != null && data.hasOwnProperty('last_input')){
-        last_input = data.last_input;
-        initAllDomDisabled();        
-
-    }else{*/
-        initAllDomDisabled();
-   /* }*/
-
-
-	/*if( question_id > 0 && last_input!=null ){
-    	initAllDomDisabled();
-    	initChange(last_input,step_index);
-	}else{*/
-	    
-	/*}*/
-
+    initAllDomDisabled();
+   
 	initiateGeoInformation();
 	disabledEnabledLogicOther();
 
@@ -169,83 +157,27 @@ function schedule_block_on_propertime(el){
 }
 
 function stepWizardInit(){
+    //complete_load_after();
     //initiate form validation
     $('#validation').formValidation({
         //framework: 'bootstrap',
         fields:{}
     });
-}
-
-
-function tabulerDataGet(d,k){
-
-    key_arrays = [];
-    index = [];
-    n = [];
-    $.each(d, function(i,v){
-        if( i.match('^'+k) ){
-        n.push({'key':i,'value':v});
-        key_arrays.push(i);    
-      }
-    });
-
-    //console.log(n);
-
-    index = [];
-    $.each(key_arrays, function(i,v){
-        f = v. match('[0-9]+');
-      //console.log(f);
-      index.push(parseInt(f));
-        //if( i.match('\d') ){
-        //n.push({'key':i,'value':v});
-        //key_arrays.push(i);
-      //}
-    });
-    //console.log(index);
-    var unique = index.filter(function(itm, i, a) {
-        return i == index.indexOf(itm);
-    });
-
-    //console.log(unique);
-
-
-    /*$.each(n, function(i,v){
-        console.log(v.value);
-
-    });*/
-
-    return {'length':unique.length, 'data':n};
 
 }
 
 
-$(function(){
+
+
+
+//$(function(){
+function complete_load_after(){
+
+    //window.location.reload(true);
 
     id = $("[name='rammps_id']").val();
 
-    /*if(Object.keys(previous_data).length > 0){
-        
-        if(previous_data.hasOwnProperty('cdeath')){
-
-            var cdeath_organization = [];
-
-            $.each(previous_data['cdeath'],function(k,v){
-
-                $.each(v,function(x,y){
-                    //console.log(k);
-                    var c ="cdeath["+k+"]["+x+"]";
-                    var vv=y;
-                    //console.log(c);
-                    cdeath_organization.push({c:vv});
-                });
-            });
-
-            console.log(JSON.stringify(cdeath_organization));
-
-            delete previous_data['cdeath'];
-            
-        }
-    }*/
+    
     if(previous_data != null && Object.keys(previous_data).length > 0){
         saveOnLocalAndloadFromLocal(id,JSON.stringify(previous_data));
     }
@@ -259,6 +191,7 @@ $(function(){
     tabuler_indexining();
     cdeath_indexing_label();
     sibiling_indexing_label();
+    
 
     if(data !== null){
 
@@ -311,11 +244,9 @@ $(function(){
     }
 
 
+}
 
-    
-
-
-});
+//});
 
 
 function indexing_labels(){
@@ -771,11 +702,13 @@ function checkChange(){
     $('#consent_no_submit').click(function(){
 
         data_submit(1,41);
+        
     });
 
     $('#age_below_18_submit').click(function(){
 
         data_submit(1,42);
+        
     });
 
     $('#submit_new').click(function(){
@@ -1023,6 +956,8 @@ function data_submit(submitted=0,call_status=null){
         data['call_status'] = call_status;
     }
 
+    console.log(data);
+
     saveOnLocalAndloadFromLocal(data['rammps_id'],JSON.stringify(data));
     data = JSON.parse(getLocalItem(data['rammps_id']));
     //console.log(data);
@@ -1222,6 +1157,14 @@ function disabledEnabledLogicOther(){
 
     $("[name='s_1_dd']").change(function () {
         initCityAndUpazila($(this).val());                
+    });
+
+    if( $("[name='s_1_dd']").val() != null ){
+        //console.log($("[name='s_1_dd']").val());
+        initCityAndUpazila( $("[name='s_1_dd']").val() );
+    }
+    $("[name='s_1_v_or_c']").click(function () {
+        initCityAndUpazila($("[name='s_1_dd']").val());                
     });
 
 

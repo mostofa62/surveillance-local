@@ -85,6 +85,10 @@ trait Status{
     	];
     }
 
+    public static function getNumberRange($s=0,$e=20){
+        return range($s,$e);
+    }
+
     public static function getWhyNo(){
 
     	return [

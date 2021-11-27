@@ -159,12 +159,13 @@ rammps_schedules.id as schedule_id, rammps.schedule_date from `rammps` inner joi
                 $rammps->status=1;
                 
                 $rammps->duration += $totalDuration;
+                $rammps->session_end=Carbon::now();
                 $question->submitted_at = Carbon::now();
 
-            }
+            }else{
 
             //schedule set
-            if ($request->get('call_status') == 10) {
+                if ($request->get('call_status') == 10) {
 
                 $schedule = Schedule::where('rammps_id',$id)->where('schedule_date',null)->where('call_state',0)->where('mobile_no', $rammps->mobile_no)->first();
 
@@ -203,7 +204,7 @@ rammps_schedules.id as schedule_id, rammps.schedule_date from `rammps` inner joi
                 }
 
 
-            }else if(in_array($status, $question->call_complete_question_status())){
+                }else if(in_array($status, $question->call_complete_question_status())){
                 //here 9 status for age group limit reached
 
                 /*Schedule::where('rammps_id',$id)->where('schedule_date', '=', null)->orWhere('schedule_date', '<>', null)->delete();*/
@@ -231,7 +232,9 @@ rammps_schedules.id as schedule_id, rammps.schedule_date from `rammps` inner joi
 
                 $question->call_status =$status;
                 $rammps->status=1;
+                $rammps->session_end=Carbon::now();
 
+                }
             }
 
 
