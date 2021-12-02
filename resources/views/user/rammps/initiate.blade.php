@@ -96,8 +96,8 @@ $running_question = 1;
             --}}
             <tr  style="border: 1px solid;">
                 <td>No of Attempts:</td>
-                <td>@if(@$info->no_of_call < 2)
-                    @if($info->no_of_call == 1)
+                <td>@if(@$info->no_of_call < 3)
+                    @if($info->no_of_call == 2)
                         <span class="label label-danger">{{ @$info->no_of_call }} | Final</span>
                     @else
                     {{ @$info->no_of_call }}
@@ -129,7 +129,7 @@ $running_question = 1;
         @foreach ($scheduleListApp as $schedule)
             <tr>
             <td  style="border: 1px solid;">
-               SI :{!! @$schedule->id !!} |
+               SI :{!! @$schedule->id !!} {!! @$schedule->schedule_id !!}|
                {!! @$schedule->mobile_no !!}
 
                <span>
@@ -237,6 +237,15 @@ $running_question = 1;
 
 @if($info)
     <script type="text/javascript">
+
+
+
+        var data = window.localStorage.getItem('data_'+<?=$info->id?>);
+
+        if(data !=null){
+            window.location.href = '<?= url(session('access').'rammps/question/'.@$info->id) ?>';
+        }
+
         $(document).ready(function () {
             $("#recieved").hide();
             $("#call_recieved").hide();

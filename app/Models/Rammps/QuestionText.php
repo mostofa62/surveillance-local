@@ -107,8 +107,8 @@ trait QuestionText {
 			'death_detect_by'=>"মৃত (<span class='cdeath_place'>নাম</span>)-কে কোন স্বাস্থ্য কর্মী কোভিড ১৯ রোগী হিসাবে শনাক্ত করেছিলেন কি?",			
 			'death_covid_symptoms'=>"মৃত্যুর আগে (<span class='cdeath_place'>নাম</span>) কি কি অসুবিধায় বা উপসর্গে ভুগছিলেন?<br/>
 তিনি কি ঠান্ডা জনিত বা ইন্ফ্লুয়েঞ্জার মত অথবা শ্বসনতন্ত্র  সংশ্লিষ্ট কোন অসুবিধা বা উপসর্গে ভুগছিলেন?",
-			'death_covid_hospital'=>"মৃত্যুর দুই সপ্তাহের মধে (<span class='cdeath_place'>নাম</span>) কি কোন হাসপাতালে গিয়েছিলেন?",
-			'death_covid_hospital_a'=>"মৃত্যুর দুই সপ্তাহের মধ্যে (<span class='cdeath_place'>নাম</span>) কি কোন হাসপাতালে ভর্তি হয়েছিলেন?",			
+			'death_covid_hospital'=>"মৃত্যুর আগে দুই সপ্তাহের মধে (<span class='cdeath_place'>নাম</span>) কি কোন হাসপাতালে গিয়েছিলেন?",
+			'death_covid_hospital_a'=>"মৃত্যুর আগে দুই সপ্তাহের মধ্যে (<span class='cdeath_place'>নাম</span>) কি কোন হাসপাতালে ভর্তি হয়েছিলেন?",			
 			'death_covid_grave'=>"(<span class='cdeath_place'>নাম</span>) -কে কোথায় কবর দেয়া হয়েছে?",
 
 

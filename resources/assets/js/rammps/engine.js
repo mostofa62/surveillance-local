@@ -118,7 +118,7 @@ function checkSkipLogicForTabuler(el, type){
 
     cblogic =  CombineForwardLogic[nameblock[0]];
     if( cblogic !== undefined ) {
-        console.log('Combination logic tabuler'+JSON.stringify(cblogic));
+        //console.log('Combination logic tabuler'+JSON.stringify(cblogic));
         if(Object.keys(cblogic).length > 1){
                 console.log(value);
                 //console.log(JSON.stringify( cblogic[0]));
@@ -162,11 +162,53 @@ function checkSkipLogicForTabuler(el, type){
                         console.log('open_issue:'+val+'['+index[0]+']');
                         removeBlockAndFollow(val+'['+index[0]+']');
                     });
+                }else{
+
+                    if(typeof cblogic[4] != 'undefined'){
+                        close_issue = cblogic[4];
+                        
+
+                        $.each( close_issue, function( key,val ) {
+                            //console.log('close_issue'+"[name='"+val+'['+index[0]+']'+"']");
+                            disableReverseSection($("[name='"+val+'['+index[0]+']'+"']"),1);
+                        });
+                    }
+
+                }
+
+
+            }//off logic
+            else{
+
+                console.log('Bypassed'+JSON.stringify(cblogic[3]));
+
+                if(typeof cblogic[3] != 'undefined' &&
+                    $.inArray(value, cblogic[3]) > -1
+                    ){
+
+                    //console.log('Bypassed'+JSON.stringify(cblogic[3]));
+
+
+                    if(typeof cblogic[4] != 'undefined'){
+                        close_issue = cblogic[4];
+                        
+
+                        $.each( close_issue, function( key,val ) {
+                            //console.log('close_issue'+"[name='"+val+'['+index[0]+']'+"']");
+                            disableReverseSection($("[name='"+val+'['+index[0]+']'+"']"),1);
+                        });
+                    }
+                            
+
                 }
 
 
             }
+
         }
+        
+
+        
 
     }
 
@@ -509,21 +551,18 @@ function ScrollToTop(el, callback) {
 }
 
 
-function removeBlockAndFollow(name,t){
-
-
-    
+function removeBlockAndFollow(name,t){    
     var e = $("[name='"+name+"']");
     e.removeAttr('disabled');    
     if(t>0){
         e.parent().removeAttr('style');
     }else{
         e.parent().parent().removeAttr('style');
-    }
-    
-    e.parents('.form-group').removeAttr('style');
-    
+    }    
+    e.parents('.form-group').removeAttr('style');    
 }
+
+
 
 function removeBlockAndFollowChangeStep(name, step){
     $('#exampleValidator').wizard('goTo', step);    

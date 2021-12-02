@@ -26,18 +26,16 @@ trait Sequence {
             //pregnent part comes from women gender
 
             'cdeath[death_pregnant]'=>[
-                1=>['cdeath[death_on_birth]'],
-                3=>['cdeath[death_on_birth]'],
+                'cdeath[death_on_birth]',
+                'cdeath[death_symptoms_1]'
             ],
+            
 
             'cdeath[death_on_birth]'=>[
-                1=>['cdeath[death_2m_birth]'],
-                3=>['cdeath[death_2m_birth]'],
+                'cdeath[death_2m_birth]',
+                'cdeath[death_symptoms_1]'
             ],
-            'cdeath[death_2m_birth]'=>[
-                1=>'cdeath[death_symptoms_1]',
-                3=>'cdeath[death_symptoms_1]'
-            ],
+            'cdeath[death_2m_birth]'=>['cdeath[death_symptoms_1]'],
 
             //symptoms
             'cdeath[death_symptoms_1]'=>[
@@ -116,6 +114,13 @@ trait Sequence {
             'cdeath[death_married]'=>[
                 3=>[
                     'cdeath[death_pregnant]',
+                    'cdeath[death_on_birth]',
+                    'cdeath[death_2m_birth]'
+                ]
+            ],
+
+            'cdeath[death_pregnant]'=>[
+                3=>[                    
                     'cdeath[death_on_birth]',
                     'cdeath[death_2m_birth]'
                 ]
@@ -215,7 +220,7 @@ trait Sequence {
         	],
 
             's_1_consent_n'=>[
-                1001=>['end_point',1]
+                1001=>['end_point',7]
             ],
 
             's_1_gender'=>['s_1_age'],
@@ -223,8 +228,12 @@ trait Sequence {
             's_1_dd'=>['s_1_v_or_c'],
             's_1_v_or_c'=>[
                 1=>['s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_name'],
-                3=>['s_1_uz','s_1_ccuzmc_o','s_1_name']
+                3=>['s_1_uz','s_1_ccuzmc_o','s_1_name'],
+                88=>['s_1_ccuzmc_o'],
+                99=>['s_1_ccuzmc_o']
             ],
+
+            's_1_ccuzmc_o'=>['s_1_name'],
             
 
         	's_1_name'=>['s_2_education'],
@@ -232,13 +241,16 @@ trait Sequence {
             's_2_marial_status'=>['s_2_occupation'],
         		
             's_2_occupation'=>['s_3_khana_m','s_3_khana_f'],
-            's_3_khana_m'=>['s_3_khana_f'],
+            's_3_khana_m'=>['s_3_khana_f','s_3_relation_w_main'],
             's_3_khana_f'=>['s_3_relation_w_main'],
             's_3_relation_w_main'=>['s_3_khana_u_5'],
+            
+            //s_3_khana_u_5 this will follow 0 logic
             's_3_khana_u_5'=>[
-                's_3_child_health_decesion_1',
                 's_3_your_health_decesion_1',
-                's_3_until_2019'],
+                's_3_until_2019'
+            ],
+            
             's_3_child_health_decesion_1'=>['s_3_child_health_decesion_2'],
             's_3_child_health_decesion_2'=>['s_3_child_health_decesion_3'],
             's_3_child_health_decesion_3'=>[
@@ -253,7 +265,8 @@ trait Sequence {
 
             's_3_until_2019'=>[
                 1=>['s_3_until_2019_a','s_3_add_death','cdeath[name][0]','s_4_mother_a_or_d'],
-                3=>['s_4_mother_a_or_d',3]
+                3=>['s_4_mother_a_or_d',4],
+                88=>['s_4_mother_a_or_d',4]
             ],
 
             's_4_mother_a_or_d'=>[
@@ -303,10 +316,12 @@ trait Sequence {
 
             's_5_sibiling_alive'=>['s_5_sibiling_dead_in_alive'],
 
-            's_5_sibiling_dead_in_alive'=>['s_5_sibiling_dead_2019_a'],
+            
 
             
-            's_5_sibiling_dead_2019_a'=>['s_5_sibiling_dead_add','sibiling[g_of_death][0]'],
+            's_5_sibiling_dead_2019_a'=>[
+                0=>['s_6_vac_possible_1',6],
+            ],
 
 
             's_6_vac_possible'=>['s_6_vac_taken'],
@@ -353,6 +368,15 @@ trait Sequence {
                 3=>['s_1_cc','s_1_mc'],
                 88=>['s_1_uz','s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_ccuzmc_o_e','s_1_name'],
                 99=>['s_1_uz','s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_ccuzmc_o_e','s_1_name']
+            ],
+            's_3_khana_u_5'=>[
+                0=>[
+                    's_3_child_health_decesion_1',
+                    's_3_child_health_decesion_2',
+                    's_3_child_health_decesion_3',
+                    's_3_child_health_decesion_4'
+                ],
+
             ],             
     
             's_3_until_2019'=>[
@@ -361,15 +385,20 @@ trait Sequence {
             ],
 
             's_4_mother_a_or_d'=>[
-                1=>['s_4_mother_d_age','s_4_mother_db_location','s_4_mother_d_year','m_death_covid_death_where','m_death_covid_death_where_e'],                
+                1=>['s_4_mother_d_age','s_4_mother_db_location','s_4_mother_d_year','mother_death_covid_death_where','mother_death_covid_death_where_e'],                
                 3=>['s_4_mother_age','s_4_mother_location'],
                 88=>['s_4_mother_age','s_4_mother_location']
             ],
 
             's_4_father_a_or_d'=>[
-                1=>['s_4_father_d_age','s_4_father_db_location','s_4_father_d_year','f_death_covid_death_where','f_death_covid_death_where_e'],                
+
+                1=>['s_4_father_d_age','s_4_father_db_location','s_4_father_d_year','father_death_covid_death_where','father_death_covid_death_where_e'],                
                 3=>['s_4_father_age','s_4_father_location'],
                 88=>['s_4_father_age','s_4_father_location']
+            ],
+
+            's_5_sibiling_dead_in_alive'=>[
+                0=>['s_5_sibiling_dead_2019_a']
             ],
             's_5_sibiling_dead_2019_a'=>[
                 0=>['s_5_sibiling_dead_add','sibiling']
@@ -455,14 +484,35 @@ trait Sequence {
                 [
                     'sibiling[db_location_death]'=>[2,3,4]
                 ],
-                ['sibiling[death_detect_by]']
+                ['sibiling[death_detect_by]'],
+                //offare
+                [2019],
+                [
+                    'sibiling[death_detect_by]',
+                    'sibiling[death_covid_symptoms]',
+                    'sibiling[death_covid_hospital]',
+                    'sibiling[death_covid_hospital_a]',
+                    'sibiling[death_covid_death_where]',
+                    'sibiling[death_covid_grave]',
+                ],
             ],
             'sibiling[db_location_death]'=>[
                 [2,3,4],
                 [
                     'sibiling[year_of_death]'=>[2020,2021]
                 ],
-                ['sibiling[death_detect_by]']
+                ['sibiling[death_detect_by]'],
+                //offare
+                [1],
+                [
+                    'sibiling[death_detect_by]',
+                    'sibiling[death_covid_symptoms]',
+                    'sibiling[death_covid_hospital]',
+                    'sibiling[death_covid_hospital_a]',
+                    'sibiling[death_covid_death_where]',
+                    'sibiling[death_covid_grave]',
+
+                ],
             ]
             
         ];

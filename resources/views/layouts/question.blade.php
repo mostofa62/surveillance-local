@@ -84,7 +84,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="fix-header">
+<body class="fix-header" onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
 
 <!-- ============================================================== -->
 <!-- Preloader -->
@@ -235,6 +235,12 @@
 
 --}}
 <script>
+
+    window.history.forward();
+    function noBack() {
+        window.history.forward();
+    }
+
 
     // For select 2
     $(document).ready(function () {

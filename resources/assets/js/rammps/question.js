@@ -176,14 +176,15 @@ function complete_load_after(){
     //window.location.reload(true);
 
     id = $("[name='rammps_id']").val();
+    data = JSON.parse(getLocalItem(id));
 
     
-    if(previous_data != null && Object.keys(previous_data).length > 0){
+    if(previous_data != null && data == null  && Object.keys(previous_data).length > 0){
         saveOnLocalAndloadFromLocal(id,JSON.stringify(previous_data));
     }
     
     
-    data = JSON.parse(getLocalItem(id));
+    
 
     //console.log('data'+data);
 
@@ -191,11 +192,15 @@ function complete_load_after(){
     tabuler_indexining();
     cdeath_indexing_label();
     sibiling_indexing_label();
-    
+
+
+    initiateGeoInformation();
 
     if(data !== null){
 
+        
          $.each(data, function(i,v){
+            
 
             //console.log('from storage'+i);
 
@@ -211,7 +216,8 @@ function complete_load_after(){
                 }catch(err){
 
                 }
-            }                    
+            }
+                             
          });
 
          last_index = 0;
@@ -226,6 +232,7 @@ function complete_load_after(){
             last_input = data.last_input;
          }
          //console.log('last_input'+last_input)
+                          
 
          if(last_input != null){
 
@@ -241,6 +248,9 @@ function complete_load_after(){
 
          child_or_sibling_enabled();
          mother_father_answer_prefilled();
+         
+        
+         
     }
 
 
@@ -626,16 +636,11 @@ function checkChange(){
             reverseCheckSequence($(this));
             father_or_mother_death_issues($(this));
             replace_text($(this));
-            schedule_block_on_propertime($(this));
-            data_submit();
-            //name = marialstatusWiseSkipLogic($(this));
-            //console.log($(this));
-            //if(name == ""){ 
-                //console.log("name:"+name);           
-                checkSkipLogicMVersion($(this));
-                //31-8-2020
-                //checkAgeJarLimit($(this));
-            //}
+            schedule_block_on_propertime($(this));            
+            zero_value_logic($(this));
+            data_submit();                      
+            checkSkipLogicMVersion($(this));
+
 
 
     });
@@ -649,15 +654,10 @@ function checkChange(){
         schedule_block_on_propertime($(this));
         replace_text($(this));
         f_18_up($(this));
+        zero_value_logic($(this));
         data_submit();            
-        //name = marialstatusWiseSkipLogic($(this));
-
-        //name = checkAgeJarLimit($(this));
-            
-        //if(name == ""){   
-            //console.log("name:"+name);          
-            checkSkipLogicMVersion($(this),1);
-        //}
+        checkSkipLogicMVersion($(this),1);
+        
     });
 
     
@@ -671,13 +671,9 @@ function checkChange(){
             schedule_block_on_propertime($(this));
             replace_text($(this));
             f_18_up($(this));
-            data_submit();            
-            //name = marialstatusWiseSkipLogic($(this));
-            //name = checkAgeJarLimit($(this));
-            //if(name == ""){   
-                //console.log("name:"+name);          
-                checkSkipLogicMVersion($(this),1);
-            //}
+            zero_value_logic($(this));
+            data_submit();                               
+            checkSkipLogicMVersion($(this),1);            
 
     });
 
@@ -689,14 +685,9 @@ function checkChange(){
             father_or_mother_death_issues($(this));
             checkSkipLogicMVersion($(this));
             replace_text($(this));
+            zero_value_logic($(this));
             data_submit();
-            //name = marialstatusWiseSkipLogic($(this));
-            //name = checkAgeJarLimit($(this));
-            
-            //if(name == ""){ 
-                //console.log("name:"+name);           
-                
-            //}
+           
     });
 
     $('#consent_no_submit').click(function(){
@@ -746,6 +737,10 @@ function checkChange(){
         if( index > 0 ){
             $('.table-position').show();
         }
+
+        /*if( index == 4 ){
+            mother_father_answer_prefilled();
+        }*/        
 
 
         id = $("[name='rammps_id']").val();
@@ -838,27 +833,122 @@ function mother_father_answer_prefilled(){
         dyear = parseInt($("[name^='cdeath\[dyear\]\["+i+"\]'\]").val());
         dmonth = parseInt($("[name^='cdeath\[dmonth\]\["+i+"\]'\]").val());
 
+        death_year = $("[name^='cdeath\[death_year\]\["+i+"\]'\]").filter(':checked').val();
+        death_location = $("[name^='cdeath\[death_location\]\["+i+"\]'\]").val();
+        
+        death_detect_by = $("[name^='cdeath\[death_detect_by\]\["+i+"\]'\]").filter(':checked').val();
 
+        death_covid_symptoms = $("[name^='cdeath\[death_covid_symptoms\]\["+i+"\]'\]").val();
 
-        //father
-        if($(this).val() == 7){
-            
-            $("[name='s_4_mother_name']").val(name);
-            $("[name='s_4_mother_location']").val([1]);
-            
-            
-            if(dyear > 0 || dmonth > 0 || dday > 0){
-                $("[name='s_4_mother_a_or_d']").val([3]);
-            }
-            
-        }
+        death_covid_hospital = $("[name^='cdeath\[death_covid_hospital\]\["+i+"\]'\]").filter(':checked').val();
+
+        death_covid_hospital_a = $("[name^='cdeath\[death_covid_hospital_a\]\["+i+"\]'\]").filter(':checked').val();
+
+        death_covid_grave = $("[name^='cdeath\[death_covid_grave\]\["+i+"\]'\]").val();
+
         //mother
         if($(this).val() == 8){
-            $("[name='s_4_father_name']").val(name);
-            $("[name='s_4_father_location']").val([1]);
             
-            if(dyear > 0 || dmonth > 0 || dday > 0){
-                $("[name='s_4_father_a_or_d']").val([3]);
+            $("[name='s_4_mother_a_or_d']").val([3]);
+            removeBlockAndFollow('s_4_mother_a_or_d');
+            $("[name='s_4_mother_name']").val(name);
+            removeBlockAndFollow('s_4_mother_name');                    
+            $("[name='s_4_mother_db_location']").val([1]);            
+            removeBlockAndFollow('s_4_mother_db_location');
+            if(dyear > 0 ){
+                $("[name='s_4_mother_d_age']").val(dyear).trigger('change');
+                removeBlockAndFollow('s_4_mother_d_age');
+            }
+            if(death_year){                            
+                $("[name='s_4_mother_d_year']").val(death_year);
+                removeBlockAndFollow('s_4_mother_d_year');   
+            }
+
+            if(death_location != null){
+                $("[name='mother_death_covid_death_where']").val(death_location).trigger('change');
+                removeBlockAndFollow('mother_death_covid_death_where');
+            }
+            if(death_detect_by != null){
+                $("[name='mother_death_detect_by']").val([death_detect_by]);
+                removeBlockAndFollow('mother_death_detect_by');
+            }
+
+            if(death_covid_symptoms != null){
+                $("[name='mother_death_covid_symptoms']").val(death_covid_symptoms);
+                removeBlockAndFollow('mother_death_covid_symptoms');
+            }
+
+            if(death_covid_hospital != null){
+                $("[name='mother_death_covid_hospital']").val([death_covid_hospital]);
+                removeBlockAndFollow('mother_death_covid_hospital');
+
+            }
+
+            if(death_covid_hospital_a != null){
+                $("[name='mother_death_covid_hospital_a']").val([death_covid_hospital_a]);
+                removeBlockAndFollow('mother_death_covid_hospital_a');
+
+            }
+
+            if(death_covid_grave !=null){
+                $("[name='mother_death_covid_grave']").val(death_covid_grave);
+                removeBlockAndFollow('mother_death_covid_grave');
+            }
+
+            
+            
+        }
+        //father
+        if($(this).val() == 7){
+            $("[name='s_4_father_a_or_d']").val([3]);
+            removeBlockAndFollow('s_4_father_a_or_d');
+            $("[name='s_4_father_name']").val(name);
+            removeBlockAndFollow('s_4_father_name');
+            $("[name='s_4_father_db_location']").val([1]);
+            removeBlockAndFollow('s_4_father_db_location');
+            
+            if(dyear > 0){
+                $("[name='s_4_father_d_age']").val(dyear).trigger('change');
+                removeBlockAndFollow('s_4_father_d_age');
+            }
+
+            if(death_year){
+                $("[name='s_4_father_d_year']").val(death_year);
+                removeBlockAndFollow('s_4_father_d_year');
+            }
+
+            if(death_location !=null){
+                $("[name='father_death_covid_death_where']").val(death_location).trigger('change');
+                removeBlockAndFollow('father_death_covid_death_where');
+
+            }
+
+            if(death_detect_by != null){
+                $("[name='father_death_detect_by']").val([death_detect_by]);
+                removeBlockAndFollow('father_death_detect_by');
+            }
+
+            if(death_covid_symptoms != null){
+                $("[name='father_death_covid_symptoms']").val(death_covid_symptoms);
+                removeBlockAndFollow('father_death_covid_symptoms');
+            }
+
+
+            if(death_covid_hospital != null){
+                $("[name='father_death_covid_hospital']").val([death_covid_hospital]);
+                removeBlockAndFollow('father_death_covid_hospital');
+
+            }
+
+            if(death_covid_hospital_a != null){
+                $("[name='father_death_covid_hospital_a']").val([death_covid_hospital_a]);
+                removeBlockAndFollow('father_death_covid_hospital_a');
+
+            }
+
+            if(death_covid_grave !=null){
+                $("[name='father_death_covid_grave']").val(death_covid_grave);
+                removeBlockAndFollow('father_death_covid_grave');
             }
 
         }
@@ -884,6 +974,30 @@ function father_or_mother_death_issues(el){
     }
     
 
+}
+
+function zero_value_logic(e){
+    if(e.attr('name') == 's_3_khana_u_5' && e.val() > 0 ){
+        removeBlockAndFollow('s_3_child_health_decesion_1');
+    }
+
+    if(e.attr('name') == 's_5_sibiling_dead_in_alive' && e.val() > 0 ){
+        removeBlockAndFollow('s_5_sibiling_dead_2019_a');
+    }
+
+    if(e.attr('name') == 's_5_sibiling_dead_2019_a' && e.val() > 0 ){
+        removeBlockAndFollow('s_5_sibiling_dead_add');
+        removeBlockAndFollow('sibiling[g_of_death][0]');
+    }
+}
+
+
+function skip_wizard(){
+    s_3_until_2019 =  $("[name='s_3_until_2019']").filter(':checked').val();
+
+    if(s_3_until_2019 == 3 || s_3_until_2019 == 88 ){
+        removeBlockAndFollowChangeStep('s_4_mother_a_or_d',4);
+    }
 }
 
 
@@ -947,6 +1061,19 @@ function data_submit(submitted=0,call_status=null){
             data['time'] = p_data.time;
         }
 
+        /*if(p_data.hasOwnProperty('s_1_uz')){
+            data['s_1_uz'] = p_data.s_1_uz;
+        }
+
+        if(p_data.hasOwnProperty('s_1_mc')){
+            data['s_1_mc'] = p_data.s_1_mc;
+
+        }
+
+        if(p_data.hasOwnProperty('s_1_cc')){
+            data['s_1_cc'] = p_data.s_1_cc;
+        }*/
+
 
 
 
@@ -956,7 +1083,7 @@ function data_submit(submitted=0,call_status=null){
         data['call_status'] = call_status;
     }
 
-    console.log(data);
+    //console.log(data);
 
     saveOnLocalAndloadFromLocal(data['rammps_id'],JSON.stringify(data));
     data = JSON.parse(getLocalItem(data['rammps_id']));
@@ -1068,11 +1195,14 @@ function wizardIndexWiseChange(index, type){
     }else if(index == 3){       
         removeBlockAndFollow('cdeath[name][0]');
         focusOnElement('cdeath[name][0]');
+        skip_wizard();
     }
 
     else if(index == 4){       
         removeBlockAndFollow('s_4_mother_a_or_d');
         focusOnElement('s_4_mother_a_or_d');
+
+        mother_father_answer_prefilled();
     }
     else if(index == 5){
         //console.log('you are here');
@@ -1127,28 +1257,54 @@ function initiateGeoInformation(){
 
 function initCityAndUpazila(val){
 
+    id = $("[name='rammps_id']").val();
+    p_data = JSON.parse(getLocalItem(id));
+
+    s_1_mc = null;
+    s_1_uz = null;    
+
+    if(p_data!= null){        
+
+        if(p_data.hasOwnProperty('s_1_uz')){
+            s_1_uz = p_data.s_1_uz;
+        }
+        if(p_data.hasOwnProperty('s_1_mc')){
+            s_1_mc = p_data.s_1_mc;
+
+        }
+        
+
+    }
+
+
+    //console.log('s_1_uz'+s_1_uz);
+
     
     filted_mc = getFilterData(municipaldata,val );           
     mc = setDataForGeo(filted_mc);            
     //$("#gi_1_3_cc").select2('destroy').empty().select2({ data: cc });
-    $('#s_1_mc').val(null).trigger('change');
+    
     $("#s_1_mc").empty();
     $("#s_1_mc").append('<option value="">--Municipal--</option>');    
     
     for(var i=0;i<mc.length;i++){
         $("#s_1_mc").append('<option value="'+mc[i].id+'">'+mc[i].text+'</option>');
     }
+    $('#s_1_mc').val(s_1_mc).trigger('change');
+
 
     filted_uz = getFilterData(upaziladata,val );        
     uz = setDataForGeo(filted_uz);
-    //console.log(uz);
-    //$("#gi_1_3_uz").select2('destroy').empty().select2({ data: uz });
-    $('#s_1_uz').val(null).trigger('change');
+        
     $("#s_1_uz").empty();
     $("#s_1_uz").append('<option value="">--Upazila--</option>');   
     for(var i=0;i<uz.length;i++){
         $("#s_1_uz").append('<option value="'+uz[i].id+'">'+uz[i].text+'</option>');
     }
+    $('#s_1_uz').val(s_1_uz).trigger('change');
+
+
+    
 }
 
 
@@ -1159,10 +1315,7 @@ function disabledEnabledLogicOther(){
         initCityAndUpazila($(this).val());                
     });
 
-    if( $("[name='s_1_dd']").val() != null ){
-        //console.log($("[name='s_1_dd']").val());
-        initCityAndUpazila( $("[name='s_1_dd']").val() );
-    }
+    
     $("[name='s_1_v_or_c']").click(function () {
         initCityAndUpazila($("[name='s_1_dd']").val());                
     });

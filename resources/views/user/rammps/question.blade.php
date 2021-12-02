@@ -104,7 +104,7 @@
         <span>Hide</span>
     </div>
     
-    @if($rammps->no_of_call <= 1)
+    @if($rammps->no_of_call <= 2)
     <div class="form-group" style="margin-top: 15px">
         
         <div class="col-md-12">
@@ -509,7 +509,7 @@
 <div class="form-group">
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_3_khana_u_5']}}</label>
     <div class="col-xs-4">
-    {!! Form::number('s_3_khana_u_5', Input::old('s_3_khana_u_5',isset($question->s_3_khana_u_5)?$question->s_3_khana_u_5:''),array('id'=>'s_3_khana_u_5','class' => 'form-control','placeholder'=>@App\Models\Rammps::questionText()['s_3_khana_u_5'])) !!}
+    {!! Form::number('s_3_khana_u_5', Input::old('s_3_khana_u_5',isset($question->s_3_khana_u_5)?$question->s_3_khana_u_5:''),array('id'=>'s_3_khana_u_5','class' => 'form-control','min'=>0)) !!}
 
     </div>
     <div class="col-md-4">
@@ -521,9 +521,11 @@
 
 
 <div class="form-group">
-    <label class="col-xs-12 text-left control-label">
+    <div class="col-md-12">
+    <label class="control-label">
       {!! @App\Models\Rammps::questionText()['s_3_child_health_decesion']!!}  
     </label>
+    </div>
 </div>
 
 <div class="row">
@@ -607,10 +609,12 @@
 </div>
 
 <div class="form-group">
-    <label class="col-xs-12 text-left control-label">
+    <div class="col-md-12">
+    <label class="control-label">
       {!! @App\Models\Rammps::questionText()['s_3_your_health_decesion']!!}  
     
     </label>
+    </div>
 </div>
 
 <div class="row">
@@ -1878,12 +1882,9 @@
                     <span class="sibiling_index"></span>
                     {{ @App\Models\Rammps::placeHolderText()['sibiling_death_year']}}
                     <br/>
+                    
 
-                    {!! Form::text('sibiling[year_of_death][]',null,array(
-                    'class' => 'form-control',
-                    'data-name-format'=>"sibiling[year_of_death][%d]"                    
-
-                    )) !!}                  
+                    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYearOfDeath(), 'sibiling[year_of_death][]',0,null, false,'data-name-format="sibiling[year_of_death][%d]"') !!}                  
                     
                     </div>
 
@@ -2088,7 +2089,7 @@
 <div class="form-group">
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_6_vac_number']}}</label>
     <div class="col-xs-4">
-    {!! Form::text('s_6_vac_number', Input::old('s_6_vac_number',isset($question->s_6_vac_number)?$question->s_6_vac_number:''),array('id'=>'s_6_vac_number','class' => 'form-control','placeholder'=>@App\Models\Rammps::questionText()['s_6_vac_number'])) !!}
+    {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getDose(), 's_6_vac_number',0,$question->s_6_vac_number, true) !!}
 
     </div>
     <div class="col-md-4">
@@ -2177,7 +2178,7 @@
 <div class="form-group">
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_7_qnty_of_sim']}}</label>
     <div class="col-xs-4">
-    {!! Form::number('s_7_qnty_of_sim', Input::old('s_7_qnty_of_sim',isset($question->s_7_qnty_of_sim)?$question->s_7_qnty_of_sim:''),array('id'=>'s_7_qnty_of_sim','class' => 'form-control','placeholder'=>@App\Models\Rammps::questionText()['s_7_qnty_of_sim'],'min'=>0)) !!}
+    {!! Form::select('s_7_qnty_of_sim',[''=>'---select an options---']+\App\Models\Rammps::getPersonAge(100,0),Input::old('s_7_qnty_of_sim',isset($question->s_7_qnty_of_sim)?$question->s_7_qnty_of_sim:''), array('id' => 's_7_qnty_of_sim', 'class' => 'form-control select2')) !!}
 
     </div>
     <div class="col-md-4">

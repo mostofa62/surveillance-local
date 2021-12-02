@@ -115,6 +115,27 @@ class RammpsQuestion extends Model
 
 
     }
+
+    if(isset($data['sibiling'])){
+
+      $sibiling = $data['sibiling'];
+      $sibiling_array = array();
+
+      foreach ($sibiling as $k => $v) {
+
+        foreach ($v as $x => $y) {
+          $index = "sibiling[".$k."][".$x."]";
+          $sibiling_array[$index] = $y;
+        }
+        
+      }
+
+      unset($data['sibiling']);
+
+      $data = array_merge($data, $sibiling_array);
+
+
+    }
     //var_dump($data);die();
 
     return $data;
