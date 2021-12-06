@@ -26,6 +26,12 @@
                     <span class="hide-menu">Dashboard</span>
                 </a>
             </li>
+            <li>
+                <a href="{{URL::to(session('access').'rammps/missing')}}">
+                    <i class="fa fa-list"></i> 
+                    <span class="hide-menu">Missing Schedules</span>
+                </a>
+            </li>
 
             <li>
                 <a href="{{URL::to(session('access').'rammps/callInitiate')}}">

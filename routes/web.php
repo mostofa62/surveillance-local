@@ -150,7 +150,7 @@ Route::group(['middleware' =>['admin:user']], function () {
 
     Route::any('user/rammps/pick/{id}/drop/{did?}', 'RammpsController@pick')->name('pickrammps');
 
-    //Route::any('user/rammps/missing', 'RammpsController@missingScheduleOrAppointment');
+    Route::any('user/rammps/missing', 'RammpsController@missingScheduleOrAppointment');
 
     //JE
     Route::any('user/encephalitis/callInitiate', 'EncephalitisController@callInitiate');

@@ -1578,7 +1578,7 @@
         {!! Form::select('mother_death_covid_symptoms',
         [''=>'---Select an option---']+\App\Models\Rammps::death_reason(),
         null, array(
-        'class' => 'form-control select2'                   
+        'class' => 'form-control'                   
 
         )) !!}
 
@@ -1626,7 +1626,7 @@
     {!! Form::select('mother_death_covid_grave',
     [''=>'---Select an option---']+\App\Models\Rammps::get_grave_where(),
     null, array(
-    'class' => 'form-control select2'                  
+    'class' => 'form-control'                  
 
     )) !!}
 
@@ -1674,7 +1674,7 @@
         {!! Form::select('father_death_covid_symptoms',
         [''=>'---Select an option---']+\App\Models\Rammps::death_reason(),
         null, array(
-        'class' => 'form-control select2'                   
+        'class' => 'form-control'                   
 
         )) !!}
 
@@ -1720,7 +1720,7 @@
     {!! Form::select('father_death_covid_grave',
     [''=>'---Select an option---']+\App\Models\Rammps::get_grave_where(),
     null, array(
-    'class' => 'form-control select2'                  
+    'class' => 'form-control'                  
 
     )) !!}
 

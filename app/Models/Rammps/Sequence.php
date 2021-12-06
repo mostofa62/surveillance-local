@@ -126,6 +126,18 @@ trait Sequence {
                 ]
             ],
 
+            'cdeath[death_year]'=>[
+                2019=>[                    
+                    'cdeath[death_detect_by]',
+                    'cdeath[death_covid_hospital]',
+                    'cdeath[death_covid_symptoms]',
+                    'cdeath[death_covid_symptoms_e]',
+                    'cdeath[death_covid_hospital_a]',
+                    'cdeath[death_covid_grave]',
+                    'cdeath[death_covid_grave_e]'
+                ]
+            ],
+
 
         ];
 
@@ -135,6 +147,8 @@ trait Sequence {
     public static function decesion_based_forward(){
 
         return[
+
+            
 
             'cdeath[death_married]'=>[
                 1=>[
@@ -169,7 +183,7 @@ trait Sequence {
             ],
 
 
-
+            
 
             'cdeath[death_violance]'=>[
 
@@ -477,6 +491,22 @@ trait Sequence {
                 ], //dependent souls
                 ['father_death_detect_by'] //what will loose
             ],
+            //cdeath
+            'cdeath[g_of_covid]'=>[
+                [3],
+                [
+                    'cdeath[death_married]'=>[1]
+                ],
+                ['cdeath[death_married]'],
+                //offare
+                [1,5,7],
+                [
+                    'cdeath[death_pregnant]',
+                    'cdeath[death_on_birth]',
+                    'cdeath[death_2m_birth]'
+                ],
+            ],
+                   
 
             //siblings
             'sibiling[year_of_death]'=>[

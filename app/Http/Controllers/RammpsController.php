@@ -17,7 +17,7 @@ use Response;
 
 class RammpsController extends Controller{
 
-
+    use \App\Http\Controllers\Traits\Paginator;
 	public function index(){
 
 		view()->share('pageTitle', "Rammps Form");
@@ -36,7 +36,7 @@ class RammpsController extends Controller{
             $rammps = Rammps::select(DB::raw('rammps.*'))
             ->join('rammps_questions',function($q){
                 $q->on('rammps.id', 'rammps_questions.rammps_id');
-                //$q->where('ivr_questions.deleted_at', null);
+                //$q->where('rammps_questions.deleted_at', null);
             })
             ->where('status',-1)
             ->where('interview_id',$user_id)
@@ -67,7 +67,7 @@ class RammpsController extends Controller{
             $rammps->no_of_call = $no_of_call;
 
         	//\DB::transaction(function () {
-		      //$rammps = IvrIncomplete::where('status',0)->lockForUpdate()->first();
+		      //$rammps = RammpsIncomplete::where('status',0)->lockForUpdate()->first();
 		    $rammps->interview_id=\Auth::User()->id;
 		    $rammps->session_started=Carbon::now();		      
 		    if($rammps->status!=-2 || $rammps->status==0){
@@ -100,6 +100,39 @@ rammps_schedules.id as schedule_id, rammps.schedule_date from `rammps` inner joi
 
 
 	}
+
+    public function missingScheduleOrAppointment(Request $request){
+            
+            $date = date("Y-m-d");
+            $time = date("H:i").":00";
+            
+            $extra_query="";            
+            
+            
+            if ($request->s_id_no) {
+                $extra_query.="and rammps.id=".$request->s_id_no;
+            }
+
+            if ($request->s_mobile_no) {
+                $extra_query.="and rammps.mobile_no='".$request->s_mobile_no."'";
+            }
+
+            $raw_query = "SELECT rammps.id,rammps.mobile_no,rammps.status,rammps.interview_id, users.username,
+rammps_schedules.id as schedule_id, rammps_schedules.schedule_date,rammps_schedules.schedule_date sch from `rammps` join `rammps_schedules` on `rammps`.`id` = `rammps_schedules`.`rammps_id` and `rammps`.`schedule_date` = `rammps_schedules`.`schedule_date` left join `users` on `users`.`id` = `rammps`.`interview_id` where (date(`rammps`.`schedule_date`) = '$date' and time(`rammps`.`schedule_date`)<='$time' $extra_query ) order by `rammps`.`schedule_date` desc";
+
+            $scheduleList = DB::select($raw_query);
+            $scheduleList = $this->arrayPaginator($scheduleList, $request);
+            
+            
+
+            $user_id = \Auth::User()->id;
+
+            view()->share('pageTitle', "Rammps Missing Schedule / Appointment");
+            view()->share('breadcamps', array('Home' => url(session('access').'dashboard'), 'Rammps Contact' => url(session('access').'rammps')));
+            view()->share('reproductives', $scheduleList);
+            view()->share('userid', $user_id);
+            return view(session('access').'rammps/missing');
+    }
 
 
 	public function question($id,Request $request){

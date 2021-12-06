@@ -1244,6 +1244,8 @@ function initiateGeoInformation(){
         });
     });
 
+    //console.log(upaziladata);
+
     /*$.getJSON( jar_url, function( data ) {
         //upaziladata = JSON.parse(data);
         $.each( data, function( key, val ) {
@@ -1260,8 +1262,8 @@ function initCityAndUpazila(val){
     id = $("[name='rammps_id']").val();
     p_data = JSON.parse(getLocalItem(id));
 
-    s_1_mc = null;
-    s_1_uz = null;    
+    var s_1_mc = null;
+    var s_1_uz = null;    
 
     if(p_data!= null){        
 
@@ -1277,11 +1279,12 @@ function initCityAndUpazila(val){
     }
 
 
-    //console.log('s_1_uz'+s_1_uz);
+    
 
     
-    filted_mc = getFilterData(municipaldata,val );           
-    mc = setDataForGeo(filted_mc);            
+    var filted_mc = getFilterData(municipaldata,val );
+    //console.log(filted_mc);           
+    var mc = setDataForGeo(filted_mc);            
     //$("#gi_1_3_cc").select2('destroy').empty().select2({ data: cc });
     
     $("#s_1_mc").empty();
@@ -1293,8 +1296,10 @@ function initCityAndUpazila(val){
     $('#s_1_mc').val(s_1_mc).trigger('change');
 
 
-    filted_uz = getFilterData(upaziladata,val );        
-    uz = setDataForGeo(filted_uz);
+    var filted_uz = getFilterData(upaziladata,val );        
+    var uz = setDataForGeo(filted_uz);
+
+
         
     $("#s_1_uz").empty();
     $("#s_1_uz").append('<option value="">--Upazila--</option>');   
