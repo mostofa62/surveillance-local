@@ -113,7 +113,7 @@ trait QuestionText {
 
 
 			'sibiling_death_gender'=>'যিনি মারা গেছেন তিনি কি পূরুষ না মহিলা?',
-			'sibiling_death_age'=>'যিনি মারা গেছেন তার বয়স কত ছিল?',
+			'sibiling_death_time'=>'যিনি মারা গেছেন তার বয়স কত ছিল?',
 			'sibiling_death_year'=>'তিনি কোন বছরে মারা গেছেন?',
 			'sibiling_death_db_location'=>'মৃত্যুর আগে তিনি কি আপনার খানায় ছিলেন, নাকি একই জেলার একই গ্রামে/শহরে, অথবা অন্য জেলায় বাস করতেন?',
 
@@ -121,8 +121,8 @@ trait QuestionText {
 			'm_death_detect_by'=>"মৃত (<span class='m_place'>নাম</span>)-কে কোন স্বাস্থ্য কর্মী কোভিড ১৯ রোগী হিসাবে শনাক্ত করেছিলেন কি?",			
 			'm_death_covid_symptoms'=>"মৃত্যুর আগে (<span class='m_place'>নাম</span>) কি কি অসুবিধায় বা উপসর্গে ভুগছিলেন?<br/>
 তিনি কি ঠান্ডা জনিত বা ইন্ফ্লুয়েঞ্জার মত অথবা শ্বসনতন্ত্র  সংশ্লিষ্ট কোন অসুবিধা বা উপসর্গে ভুগছিলেন?",
-			'm_death_covid_hospital'=>"মৃত্যুর দুই সপ্তাহের মধে (<span class='m_place'>নাম</span>) কি কোন হাসপাতালে গিয়েছিলেন?",
-			'm_death_covid_hospital_a'=>"মৃত্যুর দুই সপ্তাহের মধ্যে (<span class='m_place'>নাম</span>) কি কোন হাসপাতালে ভর্তি হয়েছিলেন?",
+			'm_death_covid_hospital'=>"মৃত্যুর আগে দুই সপ্তাহের মধে (<span class='m_place'>নাম</span>) কি কোন হাসপাতালে গিয়েছিলেন?",
+			'm_death_covid_hospital_a'=>"মৃত্যুর আগে দুই সপ্তাহের মধ্যে (<span class='m_place'>নাম</span>) কি কোন হাসপাতালে ভর্তি হয়েছিলেন?",
 			'm_death_covid_death_where'=>"(<span class='m_place'>নাম</span>) তিনি কোথায় মারা গেছেন?",
 			'm_death_covid_grave'=>"(<span class='m_place'>নাম</span>) -কে কোথায় কবর দেয়া হয়েছে?",
 			
@@ -131,8 +131,8 @@ trait QuestionText {
 			'f_death_detect_by'=>"মৃত (<span class='f_place'>নাম</span>)-কে কোন স্বাস্থ্য কর্মী কোভিড ১৯ রোগী হিসাবে শনাক্ত করেছিলেন কি?",			
 			'f_death_covid_symptoms'=>"মৃত্যুর আগে (<span class='f_place'>নাম</span>) কি কি অসুবিধায় বা উপসর্গে ভুগছিলেন ?<br/>
 তিনি কি ঠান্ডা জনিত বা ইন্ফ্লুয়েঞ্জার মত অথবা শ্বসনতন্ত্র  সংশ্লিষ্ট কোন অসুবিধা বা উপসর্গে ভুগছিলেন ?",
-			'f_death_covid_hospital'=>"মৃত্যুর দুই সপ্তাহের মধে (<span class='f_place'>নাম</span>) কি কোন হাসপাতালে গিয়েছিলেন?",
-			'f_death_covid_hospital_a'=>"মৃত্যুর দুই সপ্তাহের মধ্যে (<span class='f_place'>নাম</span>) কি কোন হাসপাতালে ভর্তি হয়েছিলেন?",
+			'f_death_covid_hospital'=>"মৃত্যুর আগে দুই সপ্তাহের মধে (<span class='f_place'>নাম</span>) কি কোন হাসপাতালে গিয়েছিলেন?",
+			'f_death_covid_hospital_a'=>"মৃত্যুর আগে দুই সপ্তাহের মধ্যে (<span class='f_place'>নাম</span>) কি কোন হাসপাতালে ভর্তি হয়েছিলেন?",
 			'f_death_covid_death_where'=>"(<span class='f_place'>নাম</span>) তিনি কোথায় মারা গেছেন?",
 			'f_death_covid_grave'=>"(<span class='f_place'>নাম</span>) -কে কোথায় কবর দেয়া হয়েছে?",
 
@@ -141,8 +141,8 @@ trait QuestionText {
 			's_death_detect_by'=>"মৃত -কে কোন স্বাস্থ্য কর্মী কোভিড ১৯ রোগী হিসাবে শনাক্ত করেছিলেন কি?",			
 			's_death_covid_symptoms'=>"মৃত্যুর আগে  কি কি অসুবিধায় বা উপসর্গে ভুগছিলেন ?<br/>
 তিনি কি ঠান্ডা জনিত বা ইন্ফ্লুয়েঞ্জার মত অথবা শ্বসনতন্ত্র  সংশ্লিষ্ট কোন অসুবিধা বা উপসর্গে ভুগছিলেন ?",
-			's_death_covid_hospital'=>"মৃত্যুর দুই সপ্তাহের মধে কি কোন হাসপাতালে গিয়েছিলেন?",
-			's_death_covid_hospital_a'=>"মৃত্যুর দুই সপ্তাহের মধ্যে কি কোন হাসপাতালে ভর্তি হয়েছিলেন?",
+			's_death_covid_hospital'=>"মৃত্যুর আগে দুই সপ্তাহের মধে কি কোন হাসপাতালে গিয়েছিলেন?",
+			's_death_covid_hospital_a'=>"মৃত্যুর আগে দুই সপ্তাহের মধ্যে কি কোন হাসপাতালে ভর্তি হয়েছিলেন?",
 			's_death_covid_death_where'=>"তিনি কোথায় মারা গেছেন?",
 			's_death_covid_grave'=>"মৃত -কে কোথায় কবর দেয়া হয়েছে?",
 			

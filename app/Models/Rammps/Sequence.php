@@ -79,10 +79,22 @@ trait Sequence {
             'cdeath[death_covid_hospital_a]'=>['cdeath[death_covid_grave]'],
 
 
+            'sibiling[name]'=>['sibiling[g_of_death]'],
+            'sibiling[g_of_death]'=>[
+                'sibiling[dyear]',
+                'sibiling[dmonth]',
+                'sibiling[dday]'
+            ],            
+            
+            'sibiling[dyear]'=>['sibiling[dmonth]','sibiling[dday]','sibiling[year_of_death]'],
+            'sibiling[dmonth]'=>['sibiling[dday]'],
 
-            'sibiling[g_of_death]'=>['sibiling[age_of_death]'],
-            'sibiling[age_of_death]'=>['sibiling[year_of_death]'],
+            'sibiling[dmonth]'=>['sibiling[year_of_death]'],
+            'sibiling[dday]'=>['sibiling[year_of_death]'],
+
             'sibiling[year_of_death]'=>['sibiling[db_location_death]'],
+
+            'sibiling[db_location_death]'=>['sibiling[death_covid_death_where]'],
 
 
             'sibiling[death_detect_by]'=>['sibiling[death_covid_symptoms]'],
@@ -90,9 +102,9 @@ trait Sequence {
 
             'sibiling[death_covid_hospital]'=>['sibiling[death_covid_hospital_a]'],
 
-            'sibiling[death_covid_hospital_a]'=>['sibiling[death_covid_death_where]'],
+            'sibiling[death_covid_hospital_a]'=>['sibiling[death_covid_grave]'],
 
-            'sibiling[death_covid_death_where]'=>['sibiling[death_covid_grave]']
+            
 
 
 
@@ -251,10 +263,10 @@ trait Sequence {
             
 
         	's_1_name'=>['s_2_education'],
-            's_2_education'=>['s_2_marial_status'],
-            's_2_marial_status'=>['s_2_occupation'],
+            's_2_education'=>['s_2_occupation'],
+            's_2_occupation'=>['s_2_marial_status'],
         		
-            's_2_occupation'=>['s_3_khana_m','s_3_khana_f'],
+            's_2_marial_status'=>['s_3_khana_m','s_3_khana_f'],
             's_3_khana_m'=>['s_3_khana_f','s_3_relation_w_main'],
             's_3_khana_f'=>['s_3_relation_w_main'],
             's_3_relation_w_main'=>['s_3_khana_u_5'],
@@ -440,7 +452,7 @@ trait Sequence {
                 [3,88], // which value
                 [
                     's_4_mother_db_location'=>[2,3,4],
-                    's_4_mother_d_year'=>[2020,2021]
+                    's_4_mother_d_year'=>[2020,2021,2022]
                 ], //dependent souls
                 ['mother_death_detect_by'] //what will loose
             ],
@@ -449,18 +461,24 @@ trait Sequence {
                 [2,3,4], // which value
                 [
                     's_4_mother_a_or_d'=>[3,88],
-                    's_4_mother_d_year'=>[2020,2021]
+                    's_4_mother_d_year'=>[2020,2021,2022]
                 ], //dependent souls
                 ['mother_death_detect_by'] //what will loose
             ],
 
             's_4_mother_d_year'=>[
-                [2020,2021], // which value
+                [2020,2021,2022], // which value
                 [
                     's_4_mother_a_or_d'=>[3,88],
                     's_4_mother_db_location'=>[2,3,4]
                 ], //dependent souls
-                ['mother_death_detect_by'] //what will loose
+                ['mother_death_detect_by'], //what will loose
+                [1001],
+                [
+                    'mother_death_detect_by',
+                    'mother_death_covid_symptoms'
+
+                ]
             ],
 
 
@@ -469,7 +487,7 @@ trait Sequence {
                 [3,88], // which value
                 [
                     's_4_father_db_location'=>[2,3,4],
-                    's_4_father_d_year'=>[2020,2021]
+                    's_4_father_d_year'=>[2020,2021,2022]
                 ], //dependent souls
                 ['father_death_detect_by'] //what will loose
             ],
@@ -478,18 +496,24 @@ trait Sequence {
                 [2,3,4], // which value
                 [
                     's_4_father_a_or_d'=>[3,88],
-                    's_4_father_d_year'=>[2020,2021]
+                    's_4_father_d_year'=>[2020,2021,2022]
                 ], //dependent souls
                 ['father_death_detect_by'] //what will loose
             ],
 
             's_4_father_d_year'=>[
-                [2020,2021], // which value
+                [2020,2021,2022], // which value
                 [
                     's_4_father_a_or_d'=>[3,88],
                     's_4_father_db_location'=>[2,3,4]
                 ], //dependent souls
-                ['father_death_detect_by'] //what will loose
+                ['father_death_detect_by'], //what will loose
+                [1001],
+                [
+                    'father_death_detect_by',
+                    'father_death_covid_symptoms'
+
+                ]
             ],
             //cdeath
             'cdeath[g_of_covid]'=>[
@@ -510,7 +534,7 @@ trait Sequence {
 
             //siblings
             'sibiling[year_of_death]'=>[
-                [2020,2021],
+                [2020,2021,2022],
                 [
                     'sibiling[db_location_death]'=>[2,3,4]
                 ],
@@ -522,24 +546,22 @@ trait Sequence {
                     'sibiling[death_covid_symptoms]',
                     'sibiling[death_covid_hospital]',
                     'sibiling[death_covid_hospital_a]',
-                    'sibiling[death_covid_death_where]',
                     'sibiling[death_covid_grave]',
                 ],
             ],
             'sibiling[db_location_death]'=>[
                 [2,3,4],
                 [
-                    'sibiling[year_of_death]'=>[2020,2021]
+                    'sibiling[year_of_death]'=>[2020,2021,2022]
                 ],
                 ['sibiling[death_detect_by]'],
                 //offare
-                [1],
+                [1,88,99],
                 [
                     'sibiling[death_detect_by]',
                     'sibiling[death_covid_symptoms]',
                     'sibiling[death_covid_hospital]',
                     'sibiling[death_covid_hospital_a]',
-                    'sibiling[death_covid_death_where]',
                     'sibiling[death_covid_grave]',
 
                 ],

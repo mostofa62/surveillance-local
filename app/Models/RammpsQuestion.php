@@ -63,9 +63,9 @@ class RammpsQuestion extends Model
       unset($data['_token']);
     }
 
-    if( isset($data['call_status']) ){
+    /*if( isset($data['call_status']) ){
       unset($data['call_status']);
-    }
+    }*/
 
     if( isset($data['date']) ){
       unset($data['date']);

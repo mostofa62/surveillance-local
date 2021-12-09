@@ -17,25 +17,27 @@
 }
 .table-position-show{
     position: relative;
-    left: -28%;
+    left: -35%;
     /* top: 0%; */
     color: #fff;
-    background-color: #000;
+    background-color: #0fa015;
     font-size: 15px;
-    width: 60px;
+    width: 80px;
     text-align: center;
+    padding: 11px;
 }
 
 .table-position-hide{
     position: relative;
     display: none;
-    left: -28%;
+    left: -35%;
     /* top: 0%; */
     color: #fff;
     background-color: #FF0000;
     font-size: 15px;
-    width: 60px;
+    width: 80px;
     text-align: center;
+    padding: 11px;
 
 }
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {padding: 4px 6px;}
@@ -418,6 +420,26 @@
     </div>
 </div>
 
+<div class="form-group">
+    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_2_occupation']}}</label>
+    <div class="col-xs-4">
+    
+    {!! Form::select('s_2_occupation',[''=>'---Select an options---']+\App\Models\Rammps::getOccupation(),Input::old('s_2_occupation',isset($question->s_2_occupation)?$question->s_2_occupation:''), array('id' => 's_2_occupation', 'class' => 'form-control select2')) !!}
+
+
+
+    {!! Form::text('s_2_occupation_e', Input::old('s_2_occupation_e',isset($question->s_2_occupation_e)?$question->s_2_occupation_e:''),array('id'=>'s_2_occupation_e','class' => 'form-control','placeholder'=>@App\Models\Rammps::placeHolderText()['any_others'])) !!}
+    
+    </div>
+    <div class="col-md-4">
+
+
+    
+
+
+    </div>
+</div>
+
 
 <div class="form-group">
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_2_marial_status']}}</label>
@@ -438,25 +460,7 @@
 </div>
 
 
-<div class="form-group">
-    <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_2_occupation']}}</label>
-    <div class="col-xs-4">
-    
-    {!! Form::select('s_2_occupation',[''=>'---Select an options---']+\App\Models\Rammps::getOccupation(),Input::old('s_2_occupation',isset($question->s_2_occupation)?$question->s_2_occupation:''), array('id' => 's_2_occupation', 'class' => 'form-control select2')) !!}
 
-
-
-    {!! Form::text('s_2_occupation_e', Input::old('s_2_occupation_e',isset($question->s_2_occupation_e)?$question->s_2_occupation_e:''),array('id'=>'s_2_occupation_e','class' => 'form-control','placeholder'=>@App\Models\Rammps::placeHolderText()['any_others'])) !!}
-    
-    </div>
-    <div class="col-md-4">
-
-
-    
-
-
-    </div>
-</div>
 
 
 
@@ -1152,7 +1156,7 @@
                     <br/>        
 
                     {!! Form::select('cdeath[death_covid_symptoms][]',
-                    [''=>'---Select an option---']+\App\Models\Rammps::death_reason(),
+                    [''=>'---Select an option---']+\App\Models\Rammps::covid_symptoms(),
                     null, array(
                     'class' => 'form-control select2',
                     'data-name-format'=>"cdeath[death_covid_symptoms][%d]"                    
@@ -1269,7 +1273,9 @@
     {{ @App\Models\Rammps::initialText()['s_4'] }}
 </strong>
 </p>
-{{ @App\Models\Rammps::initialText()['covid_19_mother'] }}
+<span style="font-size:20px;font-style: bold;">
+    {{ @App\Models\Rammps::initialText()['covid_19_mother'] }}
+</span>
 <hr/>
 
 <div class="form-group">
@@ -1364,7 +1370,12 @@
 <div class="form-group">
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_mother_d_year']}}</label>
     <div class="col-xs-4">
-    {!! Form::text('s_4_mother_d_year', Input::old('s_4_mother_d_year',isset($question->s_4_mother_d_year)?$question->s_4_mother_d_year:''),array('id'=>'s_4_mother_d_year','class' => 'form-control','placeholder'=>@App\Models\Rammps::questionText()['s_4_mother_d_year'])) !!}
+    {!! Form::select('s_4_mother_d_year',
+    [''=>'---Select an option---']+\App\Models\Rammps::death_yearfm(),
+    null, array(
+    'class' => 'form-control select2'                   
+
+    )) !!}
 
     </div>
     <div class="col-md-4">
@@ -1403,8 +1414,9 @@
 </div>
 
 
-
+<span style="font-size:20px;font-style: bold;">
 {{ @App\Models\Rammps::initialText()['covid_19_father'] }}
+</span>
 <hr/>
 
 
@@ -1500,7 +1512,12 @@
 <div class="form-group">
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_4_father_d_year']}}</label>
     <div class="col-xs-4">
-    {!! Form::text('s_4_father_d_year', Input::old('s_4_father_d_year',isset($question->s_4_father_d_year)?$question->s_4_father_d_year:''),array('id'=>'s_4_father_d_year','class' => 'form-control','placeholder'=>@App\Models\Rammps::questionText()['s_4_father_d_year'])) !!}
+    {!! Form::select('s_4_father_d_year',
+    [''=>'---Select an option---']+\App\Models\Rammps::death_yearfm(),
+    null, array(
+    'class' => 'form-control select2'                   
+
+    )) !!}
 
     </div>
     <div class="col-md-4">
@@ -1565,7 +1582,7 @@
         
         <br/>
 
-        {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'mother_death_detect_by',0,null, false) !!}
+        {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'mother_death_detect_by',0,null, false) !!}
 
 
     </div>
@@ -1576,7 +1593,7 @@
         <br/>        
 
         {!! Form::select('mother_death_covid_symptoms',
-        [''=>'---Select an option---']+\App\Models\Rammps::death_reason(),
+        [''=>'---Select an option---']+\App\Models\Rammps::covid_symptoms(),
         null, array(
         'class' => 'form-control'                   
 
@@ -1661,7 +1678,7 @@
         {!! @App\Models\Rammps::placeHolderText()['f_death_detect_by'] !!}
         <br/>
 
-        {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYesNo(), 'father_death_detect_by',0,null, false) !!}
+        {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getYNDN(), 'father_death_detect_by',0,null, false) !!}
 
 
     </div>
@@ -1672,7 +1689,7 @@
         <br/>        
 
         {!! Form::select('father_death_covid_symptoms',
-        [''=>'---Select an option---']+\App\Models\Rammps::death_reason(),
+        [''=>'---Select an option---']+\App\Models\Rammps::covid_symptoms(),
         null, array(
         'class' => 'form-control'                   
 
@@ -1746,7 +1763,7 @@
 <!--section 5-->
 <div class="wizard-pane" role="tabpanel">
 
-<p>
+<p >
 <br>
 <strong> 
     {{ @App\Models\Rammps::initialText()['s_5'] }}
@@ -1846,10 +1863,21 @@
                         <p class="death_sibiling_index"></p>
                     </div>
                 </div>
-                
 
                 <div class="row spacer">
-                    <div class="col-md-3">
+                    <div class="col-md-6" >
+                        <span class="sibiling_index"></span>
+                        {!! @App\Models\Rammps::placeHolderText()['death_name']!!}
+                        <br/>
+                        {!! Form::text('sibiling[name][]',null,array(
+                        'class' => 'form-control',
+                        'data-name-format'=>"sibiling[name][%d]"
+                       
+
+                        )) !!}
+                    </div>
+
+                    <div class="col-md-6">
                     <span class="sibiling_index"></span>
                     {{ @App\Models\Rammps::placeHolderText()['sibiling_death_gender']}}
                     <br/>
@@ -1858,27 +1886,60 @@
                     
                     </div>
 
+                </div>
+
+
+                <div class="row spacer">
                     <div class="col-md-3">
                         <span class="sibiling_index"></span>
-                        {{ @App\Models\Rammps::placeHolderText()['sibiling_death_age']}}
-                        <br/>
-                        
+                {!! @App\Models\Rammps::placeHolderText()['sibiling_death_time']!!}
+                    </div>
+                    <div class="col-md-3">
 
-                        {!! Form::select('sibiling[age_of_death][]',
-                                        [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(120,1),
-                                        null, array(
-                                        'class' => 'form-control select2',
-                                        'data-name-format'=>"sibiling[age_of_death][%d]"
-                                        
+                        {!! Form::number('sibiling[dyear][]',null,array(
+                        'class' => 'form-control',
+                        'data-name-format'=>"sibiling[dyear][%d]"
+                        ,'placeholder'=>@App\Models\Rammps::placeHolderText()['dyear'],
+                        'min'=>0
 
-                                        )) !!}                 
+                        )) !!}
 
                     </div>
 
+                    <div class="col-md-3">
 
-                    
+                        {!! Form::number('sibiling[dmonth][]',null,array(
+                        'class' => 'form-control',
+                        'data-name-format'=>"sibiling[dmonth][%d]"
+                        ,'placeholder'=>@App\Models\Rammps::placeHolderText()['dmonth'],
+                        'min'=>0
+
+                        )) !!}
+
+                    </div>
 
                     <div class="col-md-3">
+
+                        {!! Form::number('sibiling[dday][]',null,array(
+                        'class' => 'form-control',
+                        'data-name-format'=>"sibiling[dday][%d]"
+                        ,'placeholder'=>@App\Models\Rammps::placeHolderText()['dday'],
+                        'min'=>0
+
+                        )) !!}
+
+                    </div>
+
+                </div>
+
+
+
+                
+
+                <div class="row spacer">                    
+                   
+
+                    <div class="col-md-4">
                     <span class="sibiling_index"></span>
                     {{ @App\Models\Rammps::placeHolderText()['sibiling_death_year']}}
                     <br/>
@@ -1888,13 +1949,36 @@
                     
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <span class="sibiling_index"></span>
                         {{ @App\Models\Rammps::placeHolderText()['sibiling_death_db_location']}}
                         <br/>
                         
 
                        {!! @App\Common::radioButtonGenerate(\App\Models\Rammps::getWhereMorDLived(), 'sibiling[db_location_death][]',0,null, false,'data-name-format="sibiling[db_location_death][%d]"') !!}              
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <span class="sibiling_index"></span>
+                        {!! @App\Models\Rammps::placeHolderText()['s_death_covid_death_where']!!}
+                        <br/>        
+
+                        {!! Form::select('sibiling[death_covid_death_where][]',
+                        [''=>'---Select an option---']+\App\Models\Rammps::death_where(),
+                        null, array(
+                        'class' => 'form-control select2',
+                        'data-name-format'=>"sibiling[death_covid_death_where][%d]"                    
+
+                        )) !!}
+
+                        {!! Form::text('sibiling[death_covid_death_where_e][]',null,array(
+                        'class' => 'form-control',
+                        'data-name-format'=>"sibiling[death_covid_death_where_e][%d]"
+                        ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
+
+                        )) !!}
+
 
                     </div>
 
@@ -1927,7 +2011,7 @@
                     <br/>        
 
                     {!! Form::select('sibiling[death_covid_symptoms][]',
-                    [''=>'---Select an option---']+\App\Models\Rammps::death_reason(),
+                    [''=>'---Select an option---']+\App\Models\Rammps::covid_symptoms(),
                     null, array(
                     'class' => 'form-control select2',
                     'data-name-format'=>"sibiling[death_covid_symptoms][%d]"                    
@@ -1968,28 +2052,7 @@
             <div class="row spacer">
     
 
-                <div class="col-md-6">
-                    <span class="sibiling_index"></span>
-                    {!! @App\Models\Rammps::placeHolderText()['s_death_covid_death_where']!!}
-                    <br/>        
-
-                    {!! Form::select('sibiling[death_covid_death_where][]',
-                    [''=>'---Select an option---']+\App\Models\Rammps::death_where(),
-                    null, array(
-                    'class' => 'form-control select2',
-                    'data-name-format'=>"sibiling[death_covid_death_where][%d]"                    
-
-                    )) !!}
-
-                    {!! Form::text('sibiling[death_covid_death_where_e][]',null,array(
-                    'class' => 'form-control',
-                    'data-name-format'=>"sibiling[death_covid_death_where_e][%d]"
-                    ,'placeholder'=>@App\Models\Rammps::placeHolderText()['any_others']
-
-                    )) !!}
-
-
-                </div>
+                
 
 
                 <div class="col-md-6">
@@ -2178,7 +2241,7 @@
 <div class="form-group">
     <label class="col-xs-4 control-label">{{ @App\Models\Rammps::questionText()['s_7_qnty_of_sim']}}</label>
     <div class="col-xs-4">
-    {!! Form::select('s_7_qnty_of_sim',[''=>'---select an options---']+\App\Models\Rammps::getPersonAge(100,0),Input::old('s_7_qnty_of_sim',isset($question->s_7_qnty_of_sim)?$question->s_7_qnty_of_sim:''), array('id' => 's_7_qnty_of_sim', 'class' => 'form-control select2')) !!}
+    {!! Form::select('s_7_qnty_of_sim',[''=>'---select an options---']+\App\Models\Rammps::getPersonAge(20,0),Input::old('s_7_qnty_of_sim',isset($question->s_7_qnty_of_sim)?$question->s_7_qnty_of_sim:''), array('id' => 's_7_qnty_of_sim', 'class' => 'form-control select2')) !!}
 
     </div>
     <div class="col-md-4">

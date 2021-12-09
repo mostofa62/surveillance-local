@@ -132,7 +132,7 @@ function checkSkipLogicForTabuler(el, type){
 
                 depend_logic = cblogic[1];
                 open_issue = cblogic[2];
-                //console.log("flogic"+JSON.stringify(depend_logic));
+                console.log("flogic"+JSON.stringify(depend_logic));
                 //console.log("blogic"+JSON.stringify(open_issue));
 
                 $.each( depend_logic, function( key, val ) {
@@ -182,14 +182,20 @@ function checkSkipLogicForTabuler(el, type){
 
                 console.log('Bypassed'+JSON.stringify(cblogic[3]));
 
-                if(typeof cblogic[3] != 'undefined' &&
-                    $.inArray(value, cblogic[3]) > -1
-                    ){
+                if(typeof cblogic[3] != 'undefined'){
+                    console.log(cblogic[3]);
 
-                    //console.log('Bypassed'+JSON.stringify(cblogic[3]));
+                    var open =false;
+                    if($.inArray(value, cblogic[3]) > -1){
+                        open = true;
+                    }else if($.inArray(1001, cblogic[3]) > -1){
+                        open = true;
+                    }
+
+                    console.log('Bypassed'+JSON.stringify(cblogic[3]));
 
 
-                    if(typeof cblogic[4] != 'undefined'){
+                    if(typeof cblogic[4] != 'undefined' && open){
                         close_issue = cblogic[4];
                         
 

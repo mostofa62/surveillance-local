@@ -2,6 +2,9 @@ $(document).ready(function(){
     complete_load_after();
 });
 
+
+
+
 (function () {
     
 
@@ -194,7 +197,7 @@ function complete_load_after(){
     sibiling_indexing_label();
 
 
-    initiateGeoInformation();
+    //initiateGeoInformation();
 
     if(data !== null){
 
@@ -248,6 +251,9 @@ function complete_load_after(){
 
          child_or_sibling_enabled();
          mother_father_answer_prefilled();
+         //initCityAndUpazila($("[name='s_1_dd']").val());
+
+
          
         
          
@@ -987,7 +993,7 @@ function zero_value_logic(e){
 
     if(e.attr('name') == 's_5_sibiling_dead_2019_a' && e.val() > 0 ){
         removeBlockAndFollow('s_5_sibiling_dead_add');
-        removeBlockAndFollow('sibiling[g_of_death][0]');
+        removeBlockAndFollow('sibiling[name][0]');
     }
 }
 
@@ -1278,12 +1284,8 @@ function initCityAndUpazila(val){
 
     }
 
-
     
-
-    
-    var filted_mc = getFilterData(municipaldata,val );
-    //console.log(filted_mc);           
+    var filted_mc = getFilterData(municipaldata,val );              
     var mc = setDataForGeo(filted_mc);            
     //$("#gi_1_3_cc").select2('destroy').empty().select2({ data: cc });
     
