@@ -101,14 +101,14 @@
                              ?></td>
                                 <td class="noPrint">
                                     <div class="btn-group">
-                                        @if(session('user')->project_id==7 &&in_array(5,session('accesslist_id')))
+                                        
                                         
 
                                            <a href="{{url(session('access').'rammps/pick/'.@$reproductive->id.'/drop/')}}" 
                                class="btn btn-primary" style="color: #fff;">PICK
                                     </a>
                                         
-                                        @endif
+                                        
                                         
                                     </div>
                                 </td>

@@ -12,6 +12,8 @@ class RammpsQuestion extends Model
 
   protected $fillable = [
       "last_input",
+      "s_1_location",
+      "s_1_location_e",
       "s_1_consent",
       "s_1_consent_n",
       "s_1_consent_n_e",
@@ -24,6 +26,7 @@ class RammpsQuestion extends Model
       "s_1_mc",
       "s_1_ccuzmc_o",
       "s_1_ccuzmc_o_e",
+      "s_1_d_name",
       "s_1_name"
   ];
 
@@ -86,7 +89,7 @@ class RammpsQuestion extends Model
 
   public function call_complete_question_status(){
     return [
-      41,42,43,44,51
+      31,41,42,43,44,45,51,52,53,54
     ];
 
   }

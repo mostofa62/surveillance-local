@@ -164,7 +164,11 @@ function stepWizardInit(){
     //initiate form validation
     $('#validation').formValidation({
         //framework: 'bootstrap',
-        fields:{}
+        fields:{
+
+            
+
+        }
     });
 
 }
@@ -308,7 +312,7 @@ function sibiling_indexing_label(){
         var ix=i+1; 
         $(this).find(".sibiling_index").each(function(x,y){
             var ixx= x+1;
-            $(this).text("6."+ixx+"."+ix+" | ");
+            $(this).text("6.4."+ix+"."+ixx+" | ");
         });
 
     });
@@ -324,7 +328,7 @@ function enabled_cdeath_or_sibiling(el,val){
     }
 
     if(el == 's_5_sibiling_dead_in_alive' && val!=''){
-        removeBlockAndFollow('sibiling[g_of_death][0]',1);
+        removeBlockAndFollow('sibiling[name][0]',1);
         removeBlockAndFollow('death_sibiling_add');
     }
 
@@ -342,7 +346,7 @@ function child_or_sibling_enabled(){
         $(cdeath).removeAttr('disabled','disabled');
     }
 
-    sibling = "[name='sibiling[g_of_death][0]']";
+    sibling = "[name='sibiling[name][0]']";
     if($(sibling).is(':checked')){
         sibiling = "[name^='sibiling\[g_of_death]']";
         $(sibiling).removeAttr('disabled','disabled');
@@ -484,7 +488,7 @@ function tabularInput(){
                 data['sibiling_len']= $('#death_sibiling .death_sibiling_var').size();
                 saveOnLocalAndloadFromLocal(id,JSON.stringify(data));
             }
-            $("[name^='sibiling\[g_of_death']").each(function (i, el) {
+            $("[name^='sibiling\[name']").each(function (i, el) {
                 //console.log(el);
                 $(this).removeAttr('disabled');
             });
@@ -642,6 +646,7 @@ function checkChange(){
             reverseCheckSequence($(this));
             father_or_mother_death_issues($(this));
             replace_text($(this));
+            f_18_up($(this));
             schedule_block_on_propertime($(this));            
             zero_value_logic($(this));
             data_submit();                      
@@ -691,6 +696,7 @@ function checkChange(){
             father_or_mother_death_issues($(this));
             checkSkipLogicMVersion($(this));
             replace_text($(this));
+            f_18_up($(this));
             zero_value_logic($(this));
             data_submit();
            
@@ -705,6 +711,12 @@ function checkChange(){
     $('#age_below_18_submit').click(function(){
 
         data_submit(1,42);
+        
+    });
+
+    $('#out_of_family').click(function(){
+
+        data_submit(1,52);
         
     });
 
@@ -826,6 +838,76 @@ function f_18_up(e){
 
     }
 
+    if(e.attr('name')=='s_1_location'){
+        
+        if(e.val() > 1){
+            $('#out_of_family').show();
+            disableReverseSection($("[name='s_1_age']"),0);
+            disableReverseSection($("[name='s_1_gender']"),0);
+            disableReverseSection($("[name='s_1_dd']"),0);
+            disableReverseSection($("[name='s_1_v_or_c']"),0);        
+            disableReverseSection($("[name='s_1_cc']"),0);
+            disableReverseSection($("[name='s_1_mc']"),0);
+            disableReverseSection($("[name='s_1_uz']"),0);
+            disableReverseSection($("[name='s_1_ccuzmc_o']"),0);
+            disableReverseSection($("[name='s_1_ccuzmc_o_e']"),0);
+            $('.wizard-next').addClass('disabled');
+            
+        }
+        else{
+            $('#out_of_family').hide();
+            removeBlockAndFollow('s_1_gender');
+            $('.wizard-next').removeClass('disabled');
+            
+        }
+
+        
+
+    }
+
+    d_year = [2020,2021,2022];
+    if(e.attr('name')=='s_4_mother_d_year'){
+        if($.inArray(e.val(), d_year) < 0){
+            disableReverseSection($("[name='mother_death_detect_by']"));
+            disableReverseSection($("[name='mother_death_covid_symptoms_1']"));
+            disableReverseSection($("[name='mother_death_covid_symptoms_2']"));
+            disableReverseSection($("[name='mother_death_covid_symptoms_3']"));
+            disableReverseSection($("[name='mother_death_covid_symptoms_4']"));
+            disableReverseSection($("[name='mother_death_covid_hospital']"));
+            disableReverseSection($("[name='mother_death_covid_hospital_a']"));
+            disableReverseSection($("[name='mother_death_covid_grave']"));
+        }
+    }
+
+
+    if(e.attr('name')=='s_4_father_d_year'){
+        if($.inArray(e.val(), d_year) < 0){
+            disableReverseSection($("[name='father_death_detect_by']"));
+            disableReverseSection($("[name='father_death_covid_symptoms_1']"));
+            disableReverseSection($("[name='father_death_covid_symptoms_2']"));
+            disableReverseSection($("[name='father_death_covid_symptoms_3']"));
+            disableReverseSection($("[name='father_death_covid_symptoms_4']"));
+            disableReverseSection($("[name='father_death_covid_hospital']"));
+            disableReverseSection($("[name='father_death_covid_hospital_a']"));
+            disableReverseSection($("[name='father_death_covid_grave']"));
+        }
+    }
+
+    if(e.attr('name')=='s_4_mother_location'){
+        md = $("[name='s_4_mother_a_or_d']").filter(':checked').val();
+        if(md < 2){
+           disableReverseSection($("[name='s_4_mother_name']")); 
+        }
+    }
+
+    if(e.attr('name')=='s_4_father_location'){
+        md = $("[name='s_4_father_a_or_d']").filter(':checked').val();
+        if(md < 2){
+           disableReverseSection($("[name='s_4_father_name']")); 
+        }
+    }
+
+
 }
 
 
@@ -844,7 +926,10 @@ function mother_father_answer_prefilled(){
         
         death_detect_by = $("[name^='cdeath\[death_detect_by\]\["+i+"\]'\]").filter(':checked').val();
 
-        death_covid_symptoms = $("[name^='cdeath\[death_covid_symptoms\]\["+i+"\]'\]").val();
+        death_covid_symptoms_1 = $("[name^='cdeath\[death_covid_symptoms_1\]\["+i+"\]'\]").val();
+        death_covid_symptoms_2 = $("[name^='cdeath\[death_covid_symptoms_2\]\["+i+"\]'\]").val();
+        death_covid_symptoms_3 = $("[name^='cdeath\[death_covid_symptoms_3\]\["+i+"\]'\]").val();
+        death_covid_symptoms_4 = $("[name^='cdeath\[death_covid_symptoms_4\]\["+i+"\]'\]").val();
 
         death_covid_hospital = $("[name^='cdeath\[death_covid_hospital\]\["+i+"\]'\]").filter(':checked').val();
 
@@ -878,10 +963,25 @@ function mother_father_answer_prefilled(){
                 $("[name='mother_death_detect_by']").val([death_detect_by]);
                 removeBlockAndFollow('mother_death_detect_by');
             }
+            //DEATH_SYMPTOMS
+            if(death_covid_symptoms_1 != null){
+                $("[name='mother_death_covid_symptoms_1']").val(death_covid_symptoms_1);
+                removeBlockAndFollow('mother_death_covid_symptoms_1');
+            }
 
-            if(death_covid_symptoms != null){
-                $("[name='mother_death_covid_symptoms']").val(death_covid_symptoms);
-                removeBlockAndFollow('mother_death_covid_symptoms');
+            if(death_covid_symptoms_2 != null){
+                $("[name='mother_death_covid_symptoms_2']").val(death_covid_symptoms_2);
+                removeBlockAndFollow('mother_death_covid_symptoms_2');
+            }
+
+            if(death_covid_symptoms_3 != null){
+                $("[name='mother_death_covid_symptoms_3']").val(death_covid_symptoms_3);
+                removeBlockAndFollow('mother_death_covid_symptoms_3');
+            }
+
+            if(death_covid_symptoms_4 != null){
+                $("[name='mother_death_covid_symptoms_4']").val(death_covid_symptoms_4);
+                removeBlockAndFollow('mother_death_covid_symptoms_4');
             }
 
             if(death_covid_hospital != null){
@@ -933,10 +1033,25 @@ function mother_father_answer_prefilled(){
                 $("[name='father_death_detect_by']").val([death_detect_by]);
                 removeBlockAndFollow('father_death_detect_by');
             }
+            //death covid symptoms
+            if(death_covid_symptoms_1 != null){
+                $("[name='father_death_covid_symptoms_1']").val(death_covid_symptoms_1);
+                removeBlockAndFollow('father_death_covid_symptoms_1');
+            }
 
-            if(death_covid_symptoms != null){
-                $("[name='father_death_covid_symptoms']").val(death_covid_symptoms);
-                removeBlockAndFollow('father_death_covid_symptoms');
+            if(death_covid_symptoms_2 != null){
+                $("[name='father_death_covid_symptoms_2']").val(death_covid_symptoms_2);
+                removeBlockAndFollow('father_death_covid_symptoms_2');
+            }
+
+            if(death_covid_symptoms_3 != null){
+                $("[name='father_death_covid_symptoms_3']").val(death_covid_symptoms_3);
+                removeBlockAndFollow('father_death_covid_symptoms_3');
+            }
+
+            if(death_covid_symptoms_4 != null){
+                $("[name='father_death_covid_symptoms_4']").val(death_covid_symptoms_4);
+                removeBlockAndFollow('father_death_covid_symptoms_4');
             }
 
 
@@ -991,15 +1106,38 @@ function zero_value_logic(e){
         removeBlockAndFollow('s_5_sibiling_dead_2019_a');
     }
 
+
+
     if(e.attr('name') == 's_5_sibiling_dead_2019_a' && e.val() > 0 ){
-        removeBlockAndFollow('s_5_sibiling_dead_add');
+        if(e.val() > 1){
+            removeBlockAndFollow('s_5_sibiling_dead_add');
+        }else{
+            $("[name='s_5_sibiling_dead_add']").attr('disabled','disabled');
+        }
         removeBlockAndFollow('sibiling[name][0]');
+    }
+
+    if(e.attr('name') == 's_3_khana' && e.val() > 0 ){
+        removeBlockAndFollow('s_3_khana_m');
+        removeBlockAndFollow('s_3_khana_f');
     }
 }
 
 
 function skip_wizard(){
     s_3_until_2019 =  $("[name='s_3_until_2019']").filter(':checked').val();
+
+    s_3_until_2019_a = $("[name='s_3_until_2019_a']").val();
+    if(s_3_until_2019_a > 0 ){
+        if(s_3_until_2019_a > 1){
+            removeBlockAndFollow('s_3_add_death');
+        }else{
+            $("[name='s_3_add_death']").attr('disabled','disabled');
+        }
+        removeBlockAndFollow('cdeath[name][0]');
+    }else{
+        removeBlockAndFollowChangeStep('s_4_mother_a_or_d',4);
+    }
 
     if(s_3_until_2019 == 3 || s_3_until_2019 == 88 ){
         removeBlockAndFollowChangeStep('s_4_mother_a_or_d',4);
@@ -1193,10 +1331,9 @@ function wizardIndexWiseChange(index, type){
         removeBlockAndFollow('s_2_name');
         focusOnElement('s_2_name');
     }else if(index == 2){
-        removeBlockAndFollow('s_3_khana_m');
-        focusOnElement('s_3_khana_m');
-        removeBlockAndFollow('s_3_khana_f');
-        focusOnElement('s_3_khana_f');
+        removeBlockAndFollow('s_3_khana');
+        focusOnElement('s_3_khana');
+        
 
     }else if(index == 3){       
         removeBlockAndFollow('cdeath[name][0]');

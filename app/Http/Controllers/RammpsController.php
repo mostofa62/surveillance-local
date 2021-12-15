@@ -184,8 +184,9 @@ rammps_schedules.id as schedule_id, rammps_schedules.schedule_date,rammps_schedu
                 $finishTime = Carbon::parse($schedule->end_time);
                 $totalDuration = $finishTime->diffInSeconds($startTime);
                 //rammps last track
-                $rammps->last_status = $schedule->call_state;
+                $rammps->last_status = $question->call_status;
                 $rammps->last_schedule_id = $schedule->id;
+                $schedule->call_state = $question->call_status;
                 //end last track
                 $schedule->save();
                 $schedule->delete();                

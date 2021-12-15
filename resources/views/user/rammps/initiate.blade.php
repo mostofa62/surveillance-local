@@ -26,7 +26,7 @@
         <span style="color: #ff7676"><i class="fa fa-circle"></i> Appointment</span>
         
         <span style="color: #2cabe3"><i class="fa fa-circle"></i> New</span>
-        <span style="color: #2cab4a"><i class="fa fa-circle"></i> Question Running</span>
+        
         
     </div>
     
@@ -104,15 +104,7 @@ $running_question = 1;
                     @endif
                  @endif</td>
             </tr>
-            @if($info->question)
-            <tr  style="border: 1px solid;">
-                <td colspan="2" class="text-center">
-                    <a target="_blank" href="{{url(session('access').'rammps/'.@$info->id)}}" 
-               class="btn btn-default" style="color:#000;">SHOW PREVIOUS DETAILS
-                    </a>
-                </td>
-            </tr>    
-            @endif
+            
             
             </tbody>
         </table>

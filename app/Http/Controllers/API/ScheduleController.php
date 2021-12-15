@@ -10,6 +10,8 @@ use App\Models\IvrIncomplete;
 use App\Models\IvrRefus;
 use App\Models\IvrNoncontact;
 
+use App\Models\RammpsSchedule;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -31,7 +33,9 @@ class ScheduleController extends Controller
             if(isset(explode(" ",$headers['Authorization'])[1]) && explode(" ",$headers['Authorization'])[1]!=null) {
                 $user = User::where('mobile_token', explode(" ", $headers['Authorization'])[1])->first();
                 if ($user) {
-                    $schedules = null;
+                    //$schedules = null;
+
+                    /*
                     if($user->project_id==7){
                         $schedules = \App\Models\IvrSchedule::where('user_id', $user->id)
                         ->where('mobile_no', '<>', null)
@@ -62,7 +66,7 @@ class ScheduleController extends Controller
                         }
 
                         
-                    }/*
+                    }*//*
                     else{
                     $schedules = Schedule::where('user_id', $user->id)
                         ->where('mobile_no', '<>', null)
@@ -71,6 +75,11 @@ class ScheduleController extends Controller
                             $schedules=$schedules->where('call_state', 0); //added by mostofa
 
                     }*/
+
+                    $schedules = Rammps::
+                        whereRaw('status=-1 or status=-2')->
+                        where('interview_id',$user->id)
+                        ->first();                     
                         
                     
                     if ($schedules) {

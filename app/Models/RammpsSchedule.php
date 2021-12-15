@@ -24,7 +24,7 @@ class RammpsSchedule extends Model
 
     public function call_complete_initial_status(){
     return [
-      31,32,33,34,35,36,37
+      31,32,33,34,35,36,37,43,45
     ];
   }
 

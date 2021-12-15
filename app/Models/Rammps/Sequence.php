@@ -32,8 +32,10 @@ trait Sequence {
             
 
             'cdeath[death_on_birth]'=>[
-                'cdeath[death_2m_birth]',
-                'cdeath[death_symptoms_1]'
+                1=>[
+                'cdeath[death_symptoms_1]'],
+                3=>['cdeath[death_2m_birth]','cdeath[death_symptoms_1]'],
+                88=>['cdeath[death_2m_birth]','cdeath[death_symptoms_1]'],
             ],
             'cdeath[death_2m_birth]'=>['cdeath[death_symptoms_1]'],
 
@@ -70,9 +72,11 @@ trait Sequence {
             'cdeath[death_reason_1]'=>['cdeath[death_violance]'],
 
 
-            'cdeath[death_detect_by]'=>['cdeath[death_covid_symptoms]'],
+            'cdeath[death_detect_by]'=>['cdeath[death_covid_symptoms_1]'],
 
-            'cdeath[death_covid_symptoms]'=>['cdeath[death_covid_hospital]'],
+            'cdeath[death_covid_symptoms_1]'=>['cdeath[death_covid_hospital]','cdeath[death_covid_symptoms_2]'],
+            'cdeath[death_covid_symptoms_2]'=>['cdeath[death_covid_symptoms_3]'],
+            'cdeath[death_covid_symptoms_3]'=>['cdeath[death_covid_symptoms_4]'],
             'cdeath[death_covid_hospital]'=>['cdeath[death_covid_hospital_a]'],
             
 
@@ -97,8 +101,12 @@ trait Sequence {
             'sibiling[db_location_death]'=>['sibiling[death_covid_death_where]'],
 
 
-            'sibiling[death_detect_by]'=>['sibiling[death_covid_symptoms]'],
-            'sibiling[death_covid_symptoms]'=>['sibiling[death_covid_hospital]'],
+            'sibiling[death_detect_by]'=>['sibiling[death_covid_symptoms_1]'],
+            'sibiling[death_covid_symptoms_1]'=>[
+                'sibiling[death_covid_symptoms_2]',
+                'sibiling[death_covid_symptoms_3]',
+                'sibiling[death_covid_symptoms_4]',
+                'sibiling[death_covid_hospital]'],
 
             'sibiling[death_covid_hospital]'=>['sibiling[death_covid_hospital_a]'],
 
@@ -124,7 +132,32 @@ trait Sequence {
             ],
 
             'cdeath[death_married]'=>[
-                3=>[
+                1=>[
+                    'cdeath[death_pregnant]',
+                    'cdeath[death_on_birth]',
+                    'cdeath[death_2m_birth]'
+                ],
+                5=>[
+                    'cdeath[death_pregnant]',
+                    'cdeath[death_on_birth]',
+                    'cdeath[death_2m_birth]'
+                ],
+                7=>[
+                    'cdeath[death_pregnant]',
+                    'cdeath[death_on_birth]',
+                    'cdeath[death_2m_birth]'
+                ],
+                9=>[
+                    'cdeath[death_pregnant]',
+                    'cdeath[death_on_birth]',
+                    'cdeath[death_2m_birth]'
+                ],
+                11=>[
+                    'cdeath[death_pregnant]',
+                    'cdeath[death_on_birth]',
+                    'cdeath[death_2m_birth]'
+                ],
+                13=>[
                     'cdeath[death_pregnant]',
                     'cdeath[death_on_birth]',
                     'cdeath[death_2m_birth]'
@@ -135,7 +168,19 @@ trait Sequence {
                 3=>[                    
                     'cdeath[death_on_birth]',
                     'cdeath[death_2m_birth]'
-                ]
+                ],
+                88=>[                    
+                    'cdeath[death_on_birth]',
+                    'cdeath[death_2m_birth]'
+                ],
+
+            ],
+
+            'cdeath[death_on_birth]'=>[
+                1=>[                                        
+                    'cdeath[death_2m_birth]'
+                ],                
+
             ],
 
             'cdeath[death_year]'=>[
@@ -163,7 +208,7 @@ trait Sequence {
             
 
             'cdeath[death_married]'=>[
-                1=>[
+                3=>[
                     [
                         'cdeath[g_of_covid]'=>[
                             3=>['cdeath[death_pregnant]'],
@@ -178,7 +223,78 @@ trait Sequence {
                     ],
                     
                 ],
-                3=>[
+                1=>[
+                    [
+                        'cdeath[g_of_covid]'=>[
+                            1001=>[
+                                'cdeath[death_symptoms_1]',
+                                'cdeath[death_symptoms_2]',
+                                'cdeath[death_symptoms_3]',
+                                'cdeath[death_symptoms_4]'
+                            ]
+                        ]
+
+                    ],
+                    
+                ],
+                5=>[
+                    [
+                        'cdeath[g_of_covid]'=>[
+                            1001=>[
+                                'cdeath[death_symptoms_1]',
+                                'cdeath[death_symptoms_2]',
+                                'cdeath[death_symptoms_3]',
+                                'cdeath[death_symptoms_4]'
+                            ]
+                        ]
+
+                    ],
+                    
+                ],
+                7=>[
+                    [
+                        'cdeath[g_of_covid]'=>[
+                            1001=>[
+                                'cdeath[death_symptoms_1]',
+                                'cdeath[death_symptoms_2]',
+                                'cdeath[death_symptoms_3]',
+                                'cdeath[death_symptoms_4]'
+                            ]
+                        ]
+
+                    ],
+                    
+                ],
+
+                9=>[
+                    [
+                        'cdeath[g_of_covid]'=>[
+                            1001=>[
+                                'cdeath[death_symptoms_1]',
+                                'cdeath[death_symptoms_2]',
+                                'cdeath[death_symptoms_3]',
+                                'cdeath[death_symptoms_4]'
+                            ]
+                        ]
+
+                    ],
+                    
+                ],
+                11=>[
+                    [
+                        'cdeath[g_of_covid]'=>[
+                            1001=>[
+                                'cdeath[death_symptoms_1]',
+                                'cdeath[death_symptoms_2]',
+                                'cdeath[death_symptoms_3]',
+                                'cdeath[death_symptoms_4]'
+                            ]
+                        ]
+
+                    ],
+                    
+                ],
+                13=>[
                     [
                         'cdeath[g_of_covid]'=>[
                             1001=>[
@@ -227,8 +343,9 @@ trait Sequence {
         [
         	's_1_consent'=>[
 
-        		1=>['s_1_gender'],
+        		1=>['s_1_location'],
                 5=>[
+                    's_1_location',
                     's_1_gender',
                     's_1_age',
                     's_1_dd',
@@ -245,6 +362,12 @@ trait Sequence {
                 3=>['s_1_consent_n']
         	],
 
+            's_1_location'=>[
+                1=>['s_1_gender'],
+            ],
+
+
+
             's_1_consent_n'=>[
                 1001=>['end_point',7]
             ],
@@ -253,20 +376,25 @@ trait Sequence {
                         
             's_1_dd'=>['s_1_v_or_c'],
             's_1_v_or_c'=>[
-                1=>['s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_name'],
-                3=>['s_1_uz','s_1_ccuzmc_o','s_1_name'],
+                1=>['s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_d_name'],
+                3=>['s_1_uz','s_1_ccuzmc_o','s_1_d_name'],
                 88=>['s_1_ccuzmc_o'],
                 99=>['s_1_ccuzmc_o']
             ],
 
-            's_1_ccuzmc_o'=>['s_1_name'],
+            's_1_ccuzmc_o'=>['s_1_d_name'],
+
+            's_1_d_name'=>[
+                1=>['s_1_name','s_2_education'],
+                99=>['s_2_education']
+            ],
             
 
         	's_1_name'=>['s_2_education'],
             's_2_education'=>['s_2_occupation'],
             's_2_occupation'=>['s_2_marial_status'],
         		
-            's_2_marial_status'=>['s_3_khana_m','s_3_khana_f'],
+            's_2_marial_status'=>['s_3_khana'],
             's_3_khana_m'=>['s_3_khana_f','s_3_relation_w_main'],
             's_3_khana_f'=>['s_3_relation_w_main'],
             's_3_relation_w_main'=>['s_3_khana_u_5'],
@@ -288,9 +416,11 @@ trait Sequence {
             's_3_your_health_decesion_3'=>[
                 's_3_your_health_decesion_4'
             ],
+            's_3_khana'=>['s_3_relation_w_main'],
 
             's_3_until_2019'=>[
-                1=>['s_3_until_2019_a','s_3_add_death','cdeath[name][0]','s_4_mother_a_or_d'],
+                //1=>['s_3_until_2019_a','s_3_add_death','cdeath[name][0]','s_4_mother_a_or_d'],
+                1=>['s_3_until_2019_a'],
                 3=>['s_4_mother_a_or_d',4],
                 88=>['s_4_mother_a_or_d',4]
             ],
@@ -301,8 +431,8 @@ trait Sequence {
                 88=>['s_4_mother_name']
             ],
             's_4_mother_age'=>['s_4_mother_location'],
-            's_4_mother_location'=>['s_4_mother_name'],
-            's_4_mother_name'=>['s_4_father_a_or_d'],
+            's_4_mother_location'=>['s_4_mother_name','s_4_father_a_or_d'],
+            //'s_4_mother_name'=>['s_4_father_a_or_d'],
             's_4_mother_d_age'=>['s_4_mother_db_location'],
             's_4_mother_db_location'=>['s_4_mother_d_year'],
 
@@ -325,15 +455,21 @@ trait Sequence {
 
 
             //mother father covid
-            'mother_death_detect_by'=>['mother_death_covid_symptoms'],
-            'mother_death_covid_symptoms'=>['mother_death_covid_hospital'],
+            'mother_death_detect_by'=>['mother_death_covid_symptoms_1'],
+            'mother_death_covid_symptoms_1'=>['mother_death_covid_symptoms_2','mother_death_covid_symptoms_3',
+            'mother_death_covid_symptoms_4',
+            'mother_death_covid_hospital'],
             'mother_death_covid_hospital'=>['mother_death_covid_hospital_a'],
             'mother_death_covid_hospital_a'=>['mother_death_covid_grave'],            
 
 
             //father covid
-            'father_death_detect_by'=>['father_death_covid_symptoms'],
-            'father_death_covid_symptoms'=>['father_death_covid_hospital'],
+            'father_death_detect_by'=>['father_death_covid_symptoms_1'],
+            'father_death_covid_symptoms_1'=>[
+                'father_death_covid_symptoms_2',
+                'father_death_covid_symptoms_3',
+                'father_death_covid_symptoms_4',
+                'father_death_covid_hospital'],
             'father_death_covid_hospital'=>['father_death_covid_hospital_a'],
             'father_death_covid_hospital_a'=>['father_death_covid_grave'],            
 
@@ -363,7 +499,18 @@ trait Sequence {
 
             's_7_owner_phone'=>[
                 1=>['s_7_qnty_of_sim'],
-                1001=>['s_7_recharge_permission']
+                2=>['s_7_qnty_of_sim'],
+                3=>['s_7_qnty_of_sim'],
+                4=>['s_7_qnty_of_sim'],                
+                5=>['s_7_own_phone'],
+                6=>['s_7_own_phone'],
+                7=>['s_7_own_phone'],
+                99=>['s_7_own_phone']
+            ],
+            's_7_own_phone'=>[
+                1=>['s_7_qnty_of_sim','s_7_recharge_permission'],
+                3=>['s_7_random_access'],
+                99=>['s_7_random_access'],
             ],
             's_7_qnty_of_sim'=>['s_7_recharge_permission'],
             's_7_recharge_permission'=>['s_7_random_access'],
@@ -386,14 +533,24 @@ trait Sequence {
             's_1_consent'=>[
                 1=>['s_1_consent_n'],
                 5=>['s_1_consent_n'],
-                3=>['s_1_gender','s_1_18up','s_1_age','s_1_dd','s_1_v_or_c','s_1_uz','s_1_mc','s_1_cc','s_1_name'],                
+                3=>['s_1_location','s_1_location_e','s_1_gender','s_1_18up','s_1_age','s_1_dd','s_1_v_or_c','s_1_uz','s_1_mc','s_1_cc','s_1_d_name','s_1_name'],                
 
             ], 
             's_1_v_or_c'=>[
                 1=>['s_1_uz'],
                 3=>['s_1_cc','s_1_mc'],
-                88=>['s_1_uz','s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_ccuzmc_o_e','s_1_name'],
-                99=>['s_1_uz','s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_ccuzmc_o_e','s_1_name']
+                88=>['s_1_uz','s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_ccuzmc_o_e','s_1_name','s_1_d_name'],
+                99=>['s_1_uz','s_1_cc','s_1_mc','s_1_ccuzmc_o','s_1_ccuzmc_o_e','s_1_name','s_1_d_name']
+            ],
+
+            's_1_d_name'=>[
+                99=>['s_1_name']
+            ],
+            's_3_khana'=>[
+                0=>[
+                    's_3_khana_m',
+                    's_3_khana_f'
+                ]
             ],
             's_3_khana_u_5'=>[
                 0=>[
@@ -411,14 +568,14 @@ trait Sequence {
             ],
 
             's_4_mother_a_or_d'=>[
-                1=>['s_4_mother_d_age','s_4_mother_db_location','s_4_mother_d_year','mother_death_covid_death_where','mother_death_covid_death_where_e'],                
+                1=>['s_4_mother_name','s_4_mother_d_age','s_4_mother_db_location','s_4_mother_d_year','mother_death_covid_death_where','mother_death_covid_death_where_e'],                
                 3=>['s_4_mother_age','s_4_mother_location'],
                 88=>['s_4_mother_age','s_4_mother_location']
             ],
 
             's_4_father_a_or_d'=>[
 
-                1=>['s_4_father_d_age','s_4_father_db_location','s_4_father_d_year','father_death_covid_death_where','father_death_covid_death_where_e'],                
+                1=>['s_4_father_name','s_4_father_d_age','s_4_father_db_location','s_4_father_d_year','father_death_covid_death_where','father_death_covid_death_where_e'],                
                 3=>['s_4_father_age','s_4_father_location'],
                 88=>['s_4_father_age','s_4_father_location']
             ],
@@ -438,7 +595,14 @@ trait Sequence {
             ],
 
             's_7_owner_phone'=>[
-                1001=>['s_7_qnty_of_sim'],                
+                1=>['s_7_own_phone'],
+                2=>['s_7_own_phone'],
+                3=>['s_7_own_phone'],
+                4=>['s_7_own_phone']               
+            ],
+            's_7_own_phone'=>[               
+                3=>['s_7_qnty_of_sim','s_7_recharge_permission'],
+                99=>['s_7_qnty_of_sim','s_7_recharge_permission'],
             ],
 
         ];
@@ -454,7 +618,7 @@ trait Sequence {
                     's_4_mother_db_location'=>[2,3,4],
                     's_4_mother_d_year'=>[2020,2021,2022]
                 ], //dependent souls
-                ['mother_death_detect_by'] //what will loose
+                ['mother_death_detect_by'], //what will loose                
             ],
 
             's_4_mother_db_location'=>[
@@ -519,9 +683,9 @@ trait Sequence {
             'cdeath[g_of_covid]'=>[
                 [3],
                 [
-                    'cdeath[death_married]'=>[1]
+                    'cdeath[death_married]'=>[3]
                 ],
-                ['cdeath[death_married]'],
+                ['cdeath[death_pregnant]'],
                 //offare
                 [1,5,7],
                 [

@@ -63,10 +63,10 @@ class LoginController extends Controller
                             getenv('HTTP_FORWARDED_FOR')?:
                                 getenv('HTTP_FORWARDED')?:
                                     getenv('REMOTE_ADDR');
-                $logs= new Log();
+                /*$logs= new Log();
                 $logs->user_id=$flag['id'];
                 $logs->ip=$ip;
-                $logs->save();
+                $logs->save();*/
 
                 Session::flash('message', 'Success');
                 Session::flash('alert-class', 'alert-success');

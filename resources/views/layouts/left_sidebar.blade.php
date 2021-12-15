@@ -26,6 +26,28 @@
                     <span class="hide-menu">Dashboard</span>
                 </a>
             </li>
+
+            @if(in_array(1,$access) || in_array(2,$access))
+
+
+            <li>
+                <a href="{{URL::to(session('access').'employee')}}" class="waves-effect"><i
+                        class="mdi mdi-account fa-fw" data-icon="v"></i> <span class="hide-menu"> Employee <span
+                            class="fa arrow"></span> </span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{URL::to(session('access').'employee/create')}}"><i class="fa fa-plus-circle"></i>
+                            <span class="hide-menu">Add Employee</span></a>
+                    </li>
+                    <li>
+                        <a href="{{URL::to(session('access').'employee')}}"><i class="fa fa-list-ul"></i> <span
+                                class="hide-menu"> List Employee</span></a>
+                    </li>
+                </ul>
+            </li>
+            @else
+
+            
             <li>
                 <a href="{{URL::to(session('access').'rammps/missing')}}">
                     <i class="fa fa-list"></i> 
@@ -39,6 +61,8 @@
                     <span class="hide-menu">Call Initiate</span>
                 </a>
             </li>
+
+            @endif
             
             
             
