@@ -118,7 +118,7 @@ rammps_schedules.id as schedule_id, rammps.schedule_date from `rammps` inner joi
             }
 
             $raw_query = "SELECT rammps.id,rammps.mobile_no,rammps.status,rammps.interview_id, users.username,
-rammps_schedules.id as schedule_id, rammps_schedules.schedule_date,rammps_schedules.schedule_date sch from `rammps` join `rammps_schedules` on `rammps`.`id` = `rammps_schedules`.`rammps_id` and `rammps`.`schedule_date` = `rammps_schedules`.`schedule_date` left join `users` on `users`.`id` = `rammps`.`interview_id` where (date(`rammps`.`schedule_date`) = '$date' and time(`rammps`.`schedule_date`)<='$time' $extra_query ) order by `rammps`.`schedule_date` desc";
+rammps_schedules.id as schedule_id, rammps_schedules.schedule_date,rammps_schedules.schedule_date sch from `rammps` join `rammps_schedules` on `rammps`.`id` = `rammps_schedules`.`rammps_id` and `rammps`.`schedule_date` = `rammps_schedules`.`schedule_date` left join `users` on `users`.`id` = `rammps`.`interview_id` where (date(`rammps`.`schedule_date`) = '$date' and time(`rammps`.`schedule_date`)<='$time' and `rammps`.`status`<>-2 $extra_query ) order by `rammps`.`schedule_date` desc";
 
             $scheduleList = DB::select($raw_query);
             $scheduleList = $this->arrayPaginator($scheduleList, $request);
