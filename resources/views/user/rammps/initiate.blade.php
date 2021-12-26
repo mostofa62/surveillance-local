@@ -34,6 +34,24 @@
 </div>
 
 
+<div class="row">
+    <div class="col-md-3">
+        <button onclick="attend(1)" class="in btn btn-success">
+            IN
+        </button>
+    </div>
+
+    <div class="col-md-3">
+        <button onclick="attend(2)" class="out btn btn-danger">
+            OUT
+        </button>
+        
+    </div>
+    
+</div>
+</div>
+
+
 @php
 $color = "#2cabe3";
 $running_question=0;
@@ -227,6 +245,26 @@ $running_question = 1;
 </div>
 </div>
 
+<script type="text/javascript">
+
+    function attend(type){
+        $.ajax({
+                type: 'POST',
+                url: "{{url(session('access').'rammps/attendance')}}",
+                data: {                        
+                    "_token": "{{ csrf_token() }}",
+                    'type': type                       
+                },
+                success: function (response) {
+
+                    console.log(response);
+                                            
+                }
+            });
+    }
+
+</script>
+
 @if($info)
     <script type="text/javascript">
 
@@ -263,6 +301,8 @@ $running_question = 1;
 
             });
         });
+
+        
     </script>
 @endif
 

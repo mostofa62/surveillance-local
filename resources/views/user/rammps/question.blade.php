@@ -114,7 +114,7 @@
         <span>Hide</span>
     </div>
     
-    @if($rammps->no_of_call <= 2)
+    @if($rammps->no_of_call < 2)
     <div class="form-group" style="margin-top: 15px">
         
         <div class="col-md-12">
@@ -153,6 +153,11 @@
 </div>
 
 <!-- end Rescheduled -->
+
+<button style="position: absolute;top:15px;right: 20px;" class="btn btn-primary" onclick="clear_data()">
+    Clear And Reload
+</button>
+   
 
 
 <div id="exampleValidator" class="wizard">
@@ -2677,6 +2682,12 @@
       var previous_data = @php  
         echo json_encode($previous_question)
       @endphp;
+
+      function clear_data(){
+        //window.localStorage.clear();
+        location.reload(true);
+        //$(window).trigger('resize');
+      }
 
 
 

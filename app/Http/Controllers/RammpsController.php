@@ -12,6 +12,8 @@ use App\Models\RammpsQuestion as Question;
 use App\Models\RammpsSchedule as Schedule;
 use App\Models\RammpsScheduleHistory as PickHistory;
 
+use App\Models\RammpsAttendance;
+
 use App\User;
 use Response;
 
@@ -118,7 +120,7 @@ rammps_schedules.id as schedule_id, rammps.schedule_date from `rammps` inner joi
             }
 
             $raw_query = "SELECT rammps.id,rammps.mobile_no,rammps.status,rammps.interview_id, users.username,
-rammps_schedules.id as schedule_id, rammps_schedules.schedule_date,rammps_schedules.schedule_date sch from `rammps` join `rammps_schedules` on `rammps`.`id` = `rammps_schedules`.`rammps_id` and `rammps`.`schedule_date` = `rammps_schedules`.`schedule_date` left join `users` on `users`.`id` = `rammps`.`interview_id` where (date(`rammps`.`schedule_date`) = '$date' and time(`rammps`.`schedule_date`)<='$time' and `rammps`.`status`<>-2 $extra_query ) order by `rammps`.`schedule_date` desc";
+rammps_schedules.id as schedule_id, rammps_schedules.schedule_date,rammps_schedules.schedule_date sch from `rammps` join `rammps_schedules` on `rammps`.`id` = `rammps_schedules`.`rammps_id` and `rammps`.`schedule_date` = `rammps_schedules`.`schedule_date` left join `users` on `users`.`id` = `rammps`.`interview_id` where (date(`rammps`.`schedule_date`) = '$date' and time(`rammps`.`schedule_date`)<='$time' and `rammps`.`status` NOT IN( -2,1 ) $extra_query ) order by `rammps`.`schedule_date` desc";
 
             $scheduleList = DB::select($raw_query);
             $scheduleList = $this->arrayPaginator($scheduleList, $request);
@@ -451,6 +453,54 @@ rammps_schedules.id as schedule_id, rammps_schedules.schedule_date,rammps_schedu
 
 
         return redirect(session('access').'rammps/callInitiate');
+
+    }
+
+    public function attendance(Request $request){
+        $user_id = \Auth::User()->id;
+        $type = $request->type;
+        $date = date('Y-m-d');
+        $time = date('H:i');
+        $rammps_attendance = RammpsAttendance::where([
+            'user_id'=>$user_id,
+            'attend_date'=>$date
+        ])->first();
+
+        if(!isset($rammps_attendance)){
+            $rammps_attendance = new RammpsAttendance();
+        }
+
+
+
+        $rammps_attendance->user_id = $user_id;        
+
+        $rammps_attendance->attend_date = $date;
+
+        $attendance_data = [
+            [
+            'type'=>$type,
+            'time'=>$time
+            ]
+        ];
+
+        if(!isset($rammps_attendance->attend_times)){
+            $rammps_attendance->attend_times = $attendance_data;
+        }else{
+
+            $rammps_attendance->attend_times = array_merge($rammps_attendance->attend_times,
+                $attendance_data
+            );
+        }
+
+        //var_dump($rammps_attendance->attend_times);
+
+                
+
+        $rammps_attendance->save();
+
+        return[
+            'rammps_attendance->'=>$rammps_attendance
+        ];
 
     }
 

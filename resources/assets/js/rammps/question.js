@@ -12,14 +12,14 @@ $(document).ready(function(){
 
      onInit: stepWizardInit(),
      validator: function () {
-        /*var fv = $('#validation').data('formValidation');
+        var fv = $('#validation').data('formValidation');
         var $this = $(this);
         // Validate the container
         fv.validateContainer($this);
         var isValidStep = fv.isValidContainer($this);
         if (isValidStep === false || isValidStep === null) {
             return false;
-        }*/
+        }
         return true;
      },
      onFinish: function () {
@@ -165,7 +165,7 @@ function stepWizardInit(){
     $('#validation').formValidation({
         //framework: 'bootstrap',
         fields:{
-
+            
             
 
         }

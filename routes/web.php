@@ -152,6 +152,13 @@ Route::group(['middleware' =>['admin:user']], function () {
 
     Route::any('user/rammps/missing', 'RammpsController@missingScheduleOrAppointment');
 
+    Route::any('user/rammps/attendance', 'RammpsController@attendance');
+
+
+    Route::any('user/rammps/report', 'RammpsReportController@index');
+
+    Route::any('user/rammps/attendance_report', 'RammpsReportController@attendance_report');
+
     //JE
     Route::any('user/encephalitis/callInitiate', 'EncephalitisController@callInitiate');
     Route::any('user/encephalitis/callschedule', 'EncephalitisController@callSchedule');

@@ -57,7 +57,7 @@ trait Status{
 
     public static function getForcedfinished(){
         return [
-            51=>'আংশিক সম্পূর্ণ করুন'
+            51=>'অসম্পূর্ণ ( এপয়ন্মেন্ট সুযোগ নেই )'
         ];
     }
 

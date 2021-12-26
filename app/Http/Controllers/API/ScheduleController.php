@@ -10,7 +10,7 @@ use App\Models\IvrIncomplete;
 use App\Models\IvrRefus;
 use App\Models\IvrNoncontact;
 
-use App\Models\RammpsSchedule;
+use App\Models\Rammps;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -31,7 +31,9 @@ class ScheduleController extends Controller
         $headers = apache_request_headers();
         try {
             if(isset(explode(" ",$headers['Authorization'])[1]) && explode(" ",$headers['Authorization'])[1]!=null) {
-                $user = User::where('mobile_token', explode(" ", $headers['Authorization'])[1])->first();
+                //$user = User::where('mobile_token', explode(" ", $headers['Authorization'])[1])->first();
+                $id = intval(explode(" ", $headers['Authorization'])[1]);
+                $user = User::find($id);
                 if ($user) {
                     //$schedules = null;
 
@@ -77,9 +79,17 @@ class ScheduleController extends Controller
                     }*/
 
                     $schedules = Rammps::
-                        whereRaw('status=-1 or status=-2')->
+                        whereRaw('status=-2')->
                         where('interview_id',$user->id)
-                        ->first();                     
+                        ->first();
+
+
+                    if(!isset($schedules)){
+                        $schedules = Rammps::
+                        whereRaw('status=-1')->
+                        where('interview_id',$user->id)
+                        ->first();
+                    }                        
                         
                     
                     if ($schedules) {
