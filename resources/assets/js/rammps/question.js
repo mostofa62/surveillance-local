@@ -69,7 +69,7 @@ function showScheduleBlock(){
 
         val = $(this).val();
 
-        if((val == 10) && val !=""){
+        if((val == 10) && val !="" || (val == 54) && val !=""){
            
             date.removeAttr('disabled');
             date.parents('.form-group').removeAttr('style');
@@ -652,6 +652,10 @@ function checkChange(){
             data_submit();                      
             checkSkipLogicMVersion($(this));
 
+            //snowball
+
+            checkBoundary();
+
 
 
     });
@@ -668,6 +672,10 @@ function checkChange(){
         zero_value_logic($(this));
         data_submit();            
         checkSkipLogicMVersion($(this),1);
+
+        //snowball
+
+        checkBoundary();
         
     });
 
@@ -684,7 +692,12 @@ function checkChange(){
             f_18_up($(this));
             zero_value_logic($(this));
             data_submit();                               
-            checkSkipLogicMVersion($(this),1);            
+            checkSkipLogicMVersion($(this),1);
+
+
+            //snowball
+
+            checkBoundary();            
 
     });
 
@@ -699,6 +712,10 @@ function checkChange(){
             f_18_up($(this));
             zero_value_logic($(this));
             data_submit();
+
+            //snowball
+
+            checkBoundary();
            
     });
 
@@ -717,6 +734,24 @@ function checkChange(){
     $('#out_of_family').click(function(){
 
         data_submit(1,52);
+        
+    });
+
+    $('#snow_ball').click(function(){
+
+        //data_submit(1,52);
+        $('.table-position').css('right',0);
+        $('.table-position-hide').show();
+        $('.table-position-show').hide();
+
+        $("#call_status").append('<option value="54" selected="selected">স্নোবল সময় নির্ধারণ করুন</option>');
+        
+        $("[name='date']").removeAttr("disabled");
+        $("[name='time']").removeAttr("disabled");
+        
+        $(".wizard-next ").attr("disabled", "disabled");
+        $(".wizard-finish ").attr("disabled", "disabled");
+    
         
     });
 
@@ -782,6 +817,58 @@ function checkChange(){
         wizardIndexWiseChange(index,'back');
     });
     
+
+}
+
+function checkBoundary(){
+
+    var gender = $("[name='s_1_gender']").filter(':checked').val();
+    var age = $("[name='s_1_age']").val();
+    var cc = $("[name='s_1_cc']").val();
+    var v_or_c = $("[name='s_1_v_or_c']").filter(':checked').val();
+    var age_key = null;
+    var vc_key = null;
+
+    var d_a = null;
+
+    var cc_array = [6586,6587,6590];
+
+    //console.log('snowball age:'+age);
+    for (var key in age_group) {
+        low = age_group[key][0];
+        high = age_group[key][1];          
+        if( age >= low &&  age <= high){
+            age_key = key;
+        }
+    }
+
+    if(age_key != null){
+        if(gender < 5 && v_or_c < 5){            
+            if(cc != '' && $.inArray(parseInt(cc), cc_array) != -1 ){
+                vc_key = 'c';
+            }else{
+                vc_key = v_or_c > 1 ?'v':'t';
+            }
+        }
+    }
+    if(gender != null && vc_key !=null && age_key!=null){
+        d_a = age_boundary[gender][vc_key][age_key];
+    }
+
+    if(d_a != null){
+        if(d_a[0] >= d_a[1]){
+            $("#snow_ball").show();
+            $('.wizard-next').addClass('disabled');
+        }else{
+            $("#snow_ball").hide();
+            $('.wizard-next').removeClass('disabled');
+        }
+    }
+
+    //console.log(vc_key);
+
+    //console.log('data ab:'+age_boundary[gender][vc_key][age_key]);
+
 
 }
 

@@ -32,6 +32,7 @@ class RammpsQuestion extends Model
 
   protected $casts = [
         'section_answers' => 'array',
+        'snowball_answers' => 'array'
   ];
 
 

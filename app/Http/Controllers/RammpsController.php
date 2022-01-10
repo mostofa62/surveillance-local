@@ -90,7 +90,7 @@ class RammpsController extends Controller{
         $distanceMin = date("Y-m-d H:i",strtotime("-30 minutes"));
 
 
-        $scheduleListApp = DB::select("select rammps.id,rammps.mobile_no,rammps.status,rammps.interview_id, users.username,
+        $scheduleListApp = DB::select("select rammps.id,rammps.mobile_no,rammps.status,rammps.interview_id,rammps.is_snowball, users.username,
 rammps_schedules.id as schedule_id, rammps.schedule_date from `rammps` inner join `rammps_schedules` on `rammps`.`id` = `rammps_schedules`.`rammps_id` and `rammps`.`schedule_date` = rammps_schedules.schedule_date left join `users` on `users`.`id` = `rammps`.`interview_id` where (`rammps`.`status` = 2 and rammps.schedule_date > '$distanceMin' and rammps.schedule_date < '$distanceMax') order by rammps.schedule_date desc limit 5");
 
         view()->share('info', $rammps);
@@ -119,7 +119,7 @@ rammps_schedules.id as schedule_id, rammps.schedule_date from `rammps` inner joi
                 $extra_query.="and rammps.mobile_no='".$request->s_mobile_no."'";
             }
 
-            $raw_query = "SELECT rammps.id,rammps.mobile_no,rammps.status,rammps.interview_id, users.username,
+            $raw_query = "SELECT rammps.id,rammps.mobile_no,rammps.status,rammps.interview_id,rammps.is_snowball, users.username,
 rammps_schedules.id as schedule_id, rammps_schedules.schedule_date,rammps_schedules.schedule_date sch from `rammps` join `rammps_schedules` on `rammps`.`id` = `rammps_schedules`.`rammps_id` and `rammps`.`schedule_date` = `rammps_schedules`.`schedule_date` left join `users` on `users`.`id` = `rammps`.`interview_id` where (date(`rammps`.`schedule_date`) = '$date' and time(`rammps`.`schedule_date`)<='$time' and `rammps`.`status` NOT IN( -2,1 ) $extra_query ) order by `rammps`.`schedule_date` desc";
 
             $scheduleList = DB::select($raw_query);
@@ -240,7 +240,55 @@ rammps_schedules.id as schedule_id, rammps_schedules.schedule_date,rammps_schedu
                 }
 
 
-                }else if(in_array($status, $question->call_complete_question_status())){
+                }
+                //snowball
+                else if($request->get('call_status') == 54){
+
+                    $schedule = Schedule::where('rammps_id',$id)->where('schedule_date',null)->where('call_state',0)->where('mobile_no', $rammps->mobile_no)->first();
+
+                    if (isset($schedule)) {
+
+                        if(isset($_POST['date']) && isset($_POST['time'])){
+
+
+                            $schedule->schedule_date = date('Y-m-d', strtotime($request->get('date'))) . " " . date("H:i:s", strtotime($request->get('time')));
+
+                            $rammps->schedule_date = date('Y-m-d', strtotime($request->get('date')))." ".date('H:i:s', strtotime($request->get('time')));
+
+                            $schedule->user_id = $question->user_id;
+                            $schedule->call_state = 54; // 0 changed $_POST['call_status'];
+                            $question->call_status = 54;
+                             //timer
+                            //snowball answers
+
+                            $question->snowball_answers = $question->section_answers;
+                            $question->section_answers = null;                            
+
+
+                            //end snowball answers
+                            $schedule->start_time = isset( $schedule->start_time)?$schedule->start_time:Carbon::now();
+
+                            $schedule->end_time = isset( $schedule->end_time)?$schedule->end_time:Carbon::now();
+                            $startTime = Carbon::parse($schedule->start_time);
+                            $finishTime = Carbon::parse($schedule->end_time);
+                            $totalDuration = $finishTime->diffInSeconds($startTime);
+                            $schedule->save();
+                            //rammps last track
+                            $rammps->last_status = $schedule->call_state;
+                            $rammps->last_schedule_id = $schedule->id;
+                            //end rammps last track
+                            $rammps->duration += $totalDuration;
+                            $rammps->status=2;
+                            $rammps->is_snowball=1;
+
+                        }
+
+
+                    }
+
+                }
+                //end snowball
+                else if(in_array($status, $question->call_complete_question_status())){
                 //here 9 status for age group limit reached
 
                 /*Schedule::where('rammps_id',$id)->where('schedule_date', '=', null)->orWhere('schedule_date', '<>', null)->delete();*/

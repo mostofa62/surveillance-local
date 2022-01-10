@@ -146,6 +146,12 @@ $running_question = 1;
                {{ date('d/m/Y g:i A',strtotime(@$schedule->schedule_date)) }}
                </span>
                (<strong>{{ @$schedule->username }}</strong>)
+
+               @if(@$schedule->is_snowball > 0)
+
+               <span style="background-color: #f5f510;color: #076bb6;font-weight: bold;padding: 2px; ">SNOWBALL CALL</span>
+
+               @endif
                     
                    
                

@@ -83,7 +83,7 @@
     padding: 2px;
 }
 
-#consent_no_submit, #age_below_18_submit, #out_of_family{
+#consent_no_submit, #age_below_18_submit, #out_of_family, #snow_ball{
     display: none;
 }
 .cdeath_index, .sibiling_index, .index_label{
@@ -114,7 +114,7 @@
         <span>Hide</span>
     </div>
     
-    @if($rammps->no_of_call < 2)
+    @if($rammps->no_of_call <= 2)
     <div class="form-group" style="margin-top: 15px">
         
         <div class="col-md-12">
@@ -307,7 +307,7 @@
     <div class="col-xs-4">
     
     {!! Form::select('s_1_age',
-            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(120,5),
+            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(150,5),
             null, array(
             'class' => 'form-control select2'            
 
@@ -442,7 +442,12 @@
     </div>
 </div>
 
-
+<div class="row">
+ <div class="col-xs-12 text-center">
+     <a id="snow_ball" class="btn btn-success btn-lg">       কোটা পূর্ণ হয়ে গেছে ( স্নোবল সময় নির্ধারণ  করুন   )
+     </a>
+ </div>
+</div>
 
 
 
@@ -1418,7 +1423,7 @@
     <div class="col-xs-4">
     
     {!! Form::select('s_4_mother_age',
-            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(120,18),
+            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(150,18),
             null, array(
             'class' => 'form-control select2'            
 
@@ -1462,7 +1467,7 @@
     <div class="col-xs-4">
     
     {!! Form::select('s_4_mother_d_age',
-            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(120,18),
+            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(150,18),
             null, array(
             'class' => 'form-control select2'            
 
@@ -1560,7 +1565,7 @@
     <div class="col-xs-4">
     
     {!! Form::select('s_4_father_age',
-            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(120,18),
+            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(150,18),
             null, array(
             'class' => 'form-control select2'            
 
@@ -1604,7 +1609,7 @@
     <div class="col-xs-4">
     
     {!! Form::select('s_4_father_d_age',
-            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(120,18),
+            [''=>'---Select an option---']+\App\Models\Rammps::getPersonAge(150,18),
             null, array(
             'class' => 'form-control select2'            
 
@@ -2681,6 +2686,14 @@
 
       var previous_data = @php  
         echo json_encode($previous_question)
+      @endphp;
+
+      var age_group = @php
+        echo json_encode(\App\Models\Rammps::age_group())
+      @endphp;
+
+      var age_boundary = @php
+        echo json_encode(\App\Models\Rammps::age_boundary())
       @endphp;
 
       function clear_data(){

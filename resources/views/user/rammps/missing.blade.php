@@ -98,7 +98,15 @@
                                 }
                                 $display.="</label>";
                                 echo  $display;
-                             ?></td>
+                             ?>
+                                 
+                            @if(@$reproductive->is_snowball > 0)
+
+                               <span style="background-color: #f5f510;color: #076bb6;font-weight: bold;padding: 2px; ">SNOWBALL CALL</span>
+
+                            @endif
+
+                             </td>
                                 <td class="noPrint">
                                     <div class="btn-group">
                                         
