@@ -163,6 +163,8 @@ rammps_schedules.id as schedule_id, rammps_schedules.schedule_date,rammps_schedu
             $question->user_id = \Auth::User()->id;
             $question->call_status=$input['call_status'];
             $status = $question->call_status;
+
+            $rammps->is_snowball = isset($input['snow_ball'])?$input['snow_ball']:0;
                 
             //complete call
             if(isset($input['submitted_at'])){
@@ -287,6 +289,56 @@ rammps_schedules.id as schedule_id, rammps_schedules.schedule_date,rammps_schedu
                     }
 
                 }
+                //snowball now
+                else if($request->get('call_status') == 9){
+                    $question->call_status =$status;
+                    $question->snowball_answers = $question->section_answers;
+                    $question->section_answers = null;
+                    $rammps->is_snowball=3;
+                    $question->save();
+                    $rammps->interview_id = $question->user_id;
+                    $rammps->save();  
+                    //return redirect(session('access').'rammps/question/'.$question->rammps_id);
+                     return array(
+                        'success'=>false,
+                        //'message'=>'সফলভাবে সংরক্ষিত',
+                        //'section_answers'=>$section_answers                              
+                    );
+
+                }
+                //end snowball now
+                //refuse snowball
+                else if(in_array($status, $question->snow_ball_refusual_status())){
+
+                    $schedule = Schedule::where([
+                        'rammps_id'=>$id,
+                        'deleted_at'=>null
+                    ])->first();
+
+                    $schedule->call_state = $status;
+
+                    $schedule->start_time = isset( $schedule->start_time)?$schedule->start_time:Carbon::now();
+
+                    $schedule->end_time = isset( $schedule->end_time)?$schedule->end_time:Carbon::now();
+
+                    $startTime = Carbon::parse($schedule->start_time);
+                    $finishTime = Carbon::parse($schedule->end_time);
+                    $totalDuration = $finishTime->diffInSeconds($startTime);
+                    //rammps last track
+                    $rammps->last_status = $schedule->call_state;
+                    $rammps->last_schedule_id = $schedule->id;
+                    //end rammps last track
+                    $schedule->save();
+                    $schedule->delete();
+                    $rammps->duration += $totalDuration;
+                    $rammps->is_snowball=2;
+
+                    $question->call_status =$status;
+                    $rammps->status=1;
+                    $rammps->session_end=Carbon::now();
+
+
+                }//refuse snowball
                 //end snowball
                 else if(in_array($status, $question->call_complete_question_status())){
                 //here 9 status for age group limit reached
@@ -505,6 +557,7 @@ rammps_schedules.id as schedule_id, rammps_schedules.schedule_date,rammps_schedu
     }
 
     public function attendance(Request $request){
+        
         $user_id = \Auth::User()->id;
         $type = $request->type;
         $date = date('Y-m-d');

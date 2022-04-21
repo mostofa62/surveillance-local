@@ -90,9 +90,15 @@ class RammpsQuestion extends Model
 
   public function call_complete_question_status(){
     return [
-      31,41,42,43,44,45,51,52,53,54
+      31,33,41,42,43,44,45,51,52,53,54
     ];
 
+  }
+
+  public function snow_ball_refusual_status(){
+    return [
+      55,56
+    ];
   }
 
   public static function getAnswersJson($data){

@@ -213,6 +213,7 @@
 <!--section 1-->
 <div class="wizard-pane active" role="tabpanel">
 <input type="hidden" name="rammps_id" value="{{ $rammps->id }}">
+<input type="hidden" name="snow_ball" value="0">
 
 <p>
 	<br/>

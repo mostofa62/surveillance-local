@@ -64,6 +64,10 @@ Route::get('covid-positive/edit/{id}', 'CovidPositiveController@edit');
 
 Route::any('datagenerator', 'ReproductiveController@datagenerator');
 
+Route::any('user/rammps/boundary', 'RammpsReportController@boundary');
+
+
+
 Route::group(['namespace' => 'Admin', 'middleware' => ['admin:admin']], function () {
 
     ///dashboard
@@ -157,7 +161,9 @@ Route::group(['middleware' =>['admin:user']], function () {
 
     Route::any('user/rammps/report', 'RammpsReportController@index');
 
-    Route::any('user/rammps/attendance_report', 'RammpsReportController@attendance_report');
+    Route::any('user/rammps/attendance_report', 'RammpsReportController@report');
+
+    //Route::any('user/rammps/report', 'RammpsReportController@report');
 
     //JE
     Route::any('user/encephalitis/callInitiate', 'EncephalitisController@callInitiate');

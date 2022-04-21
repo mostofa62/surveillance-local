@@ -642,6 +642,10 @@ function checkChange(){
 
     $('#validation  input').on('click', function(){ // on change of state
             
+            //snowball
+
+            checkBoundary();
+
             otherOptionOpen($(this));
             reverseCheckSequence($(this));
             father_or_mother_death_issues($(this));
@@ -652,9 +656,7 @@ function checkChange(){
             data_submit();                      
             checkSkipLogicMVersion($(this));
 
-            //snowball
-
-            checkBoundary();
+            
 
 
 
@@ -663,6 +665,11 @@ function checkChange(){
 
     $('#validation .select2').on('select2:open', function (e) {
         
+        
+        //snowball
+
+        checkBoundary();
+
         otherOptionOpen($(this));
         reverseCheckSequence($(this),1);        
         //enabledAndDisabledAgain($(this));
@@ -673,9 +680,7 @@ function checkChange(){
         data_submit();            
         checkSkipLogicMVersion($(this),1);
 
-        //snowball
-
-        checkBoundary();
+        
         
     });
 
@@ -683,6 +688,11 @@ function checkChange(){
 
 
     $('#validation  select').on('change', function(){
+            
+            //snowball
+
+            checkBoundary(); 
+
             otherOptionOpen($(this));
             //disableMultipleDropdown($(this));            
             reverseCheckSequence($(this),1);
@@ -695,15 +705,18 @@ function checkChange(){
             checkSkipLogicMVersion($(this),1);
 
 
-            //snowball
-
-            checkBoundary();            
+                       
 
     });
 
     
 
     $('#validation  input').on('change', function(){ // on change of state
+            
+            //snowball
+
+            checkBoundary();
+
             otherOptionOpen($(this));
             reverseCheckSequence($(this));
             father_or_mother_death_issues($(this));
@@ -713,9 +726,7 @@ function checkChange(){
             zero_value_logic($(this));
             data_submit();
 
-            //snowball
-
-            checkBoundary();
+            
            
     });
 
@@ -738,14 +749,19 @@ function checkChange(){
     });
 
     $('#snow_ball').click(function(){
+        ///alert('fool');
 
         //data_submit(1,52);
         $('.table-position').css('right',0);
         $('.table-position-hide').show();
         $('.table-position-show').hide();
+        $('.table-position').show();
 
-        $("#call_status").append('<option value="54" selected="selected">স্নোবল সময় নির্ধারণ করুন</option>');
+        //$("#call_status").append('<option value="54" selected="selected">স্নোবল সময় নির্ধারণ করুন</option>');
         
+        //$("#call_status").append('<option value="55">স্নোবল সময় - অস্বীকৃতি</option>');
+        $("#call_status").val(54).attr("selected", "selected");
+        $("[name='snow_ball']").val(1);
         $("[name='date']").removeAttr("disabled");
         $("[name='time']").removeAttr("disabled");
         
@@ -759,6 +775,7 @@ function checkChange(){
 
             id = $("[name='rammps_id']").val();
             data = JSON.parse(getLocalItem(id));
+            //alert($('#call_status').val());
             data['call_status'] = $('#call_status').val();
             if($("[name='date']").val()!="")
                 data['date'] = $("[name='date']").val();
@@ -858,9 +875,11 @@ function checkBoundary(){
     if(d_a != null){
         if(d_a[0] >= d_a[1]){
             $("#snow_ball").show();
+            $("[name='snow_ball']").val(1);
             $('.wizard-next').addClass('disabled');
         }else{
             $("#snow_ball").hide();
+            $("[name='snow_ball']").val(0);
             $('.wizard-next').removeClass('disabled');
         }
     }
@@ -1236,24 +1255,35 @@ function skip_wizard(){
 function data_submit(submitted=0,call_status=null){
     var form = $('#validation').serializeArray();
     var data = {};
-
-
+    var error_fields = {};
+     
 
     $.each(form, function(i, field){ 
         //obj = {};
 
+        if( 
+        $("[name='"+field.name+"']").prop('disabled') == false 
+        && !field.name.match('^cdeath') && 
+        !field.name.match('^sibiling') &&
+        field.name != "rammps_id" &&
+        field.name != "snow_ball" &&
+        field.name != "submitted_at"          
+        ){        
+            console.log($("[name='"+field.name+"']").val());
+            if(field.value == "" || $("[name='"+field.name+"']").is(":checked")  ==false ){              
+                error_fields[field.name]=field.name;
+            }
+        }
         if(field.value != ""){
-            //console.log(field.name);
             data[field.name]=field.value;
         }
+        
         //data.push(obj);
         //last_input = data[field.name];        
         if( field.name!== "end_point" 
             && !field.name.match('^cdeath') && 
             !field.name.match('^sibiling') &&
-            field.value != ""
-
-        
+            field.value != ""        
            
             ){
             //console.log(field.name);
@@ -1318,27 +1348,60 @@ function data_submit(submitted=0,call_status=null){
 
     saveOnLocalAndloadFromLocal(data['rammps_id'],JSON.stringify(data));
     data = JSON.parse(getLocalItem(data['rammps_id']));
-    //console.log(data);
-
-    if(submitted > 0){
     
-        $.ajax({
-            cache: false,
-            method: "POST",
-            url: url,
-            data: data,
-        }).done(function( msg ) {
-            //console.log(msg);
-            window.localStorage.clear();
 
-            if(submitted){
+    
 
-                if(msg.success==true)
-                window.location.href =  redirect;
 
-            }
-        });
+    
+    if(submitted > 0){
+        if( Object.keys(error_fields).length > 0 ){
+            console.log(error_fields);
+            $.each( error_fields, function( key, val ) {
+                    $("[name='"+key+"']").parent().css({"color": "red", "border": "2px solid red"});
+            });
+            alert("check red marked inputs");  
+        }else{
+            $.each( error_fields, function( key, val ) {
+                    $("[name='"+key+"']").parent().css({"color": "none", "border": "0px"});
+            });
+            //alert("check red marked inputs");
+           console.log('goint to submit');   
+        }
+                 
+        /*
+            $.ajax({
+                cache: false,
+                method: "POST",
+                url: url,
+                data: data,
+            }).done(function( msg ) {
+                //console.log(msg);
+                window.localStorage.clear();
+
+                if(submitted){
+
+                    if(msg.success==true)
+                        window.location.href =  redirect;
+
+                    if(msg.success==false)
+                        window.location.href =  url;
+
+                }
+            });
+        */
+
     }
+    /*
+    else{
+
+        $.each( error_fields, function( key, val ) {
+                    $("[name='"+key+"']").parent().css({"color": "red", "border": "2px solid red"});
+            });
+
+            alert("check red marked inputs");  
+
+    }*/
 }
 
 //setInterval(postDataOnTime, 5000);
@@ -1408,6 +1471,8 @@ function initAllDomDisabled(last_input=null){
 
 
      e = $("[name='rammps_id']");
+     e.removeAttr('disabled');
+     e = $("[name='snow_ball']");
      e.removeAttr('disabled');
 
 }
